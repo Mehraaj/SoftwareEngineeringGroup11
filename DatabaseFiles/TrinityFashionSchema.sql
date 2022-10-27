@@ -8,6 +8,8 @@ primary key(VID)
 
 create table Member(
 VID int, 
+username varchar (50),
+password varchar(50),
 Name varchar(50),
 Address varchar(50),
 State varchar(50),
@@ -81,8 +83,8 @@ Insert into Visitor (VID) values
     (004), 
     (005);
     
-Insert into Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV, CreditCardExpiry) values
-	(001, "John Doe", "123 Summer St,", "NJ", 00000, "732-555-5555", 123456789, 123, "10/26");
+Insert into Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV, CreditCardExpiry, username, password) values
+	(001, "John Doe", "123 Summer St,", "NJ", 00000, "732-555-5555", 123456789, 123, "10/26", "username", "password");
     
 Insert into ProductCatalog (PID, Category, Name, Price, SubCategory, Color) values
 	(101, "Shirts", "Yellow T-Shirt", 13.99, "T-Shirt", "Yellow"),
