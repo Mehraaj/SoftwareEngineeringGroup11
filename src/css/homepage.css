@@ -7,7 +7,7 @@
   background-color: rgba(128,128,128, 1);
 }
 
-.logo{
+.homeLink, .logo{
   background-color: #F5F5DC;
   width: 200px;
   height: auto;
@@ -329,3 +329,4 @@ h2, h3, h4{
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .menuList:hover .dropbtn {background-color: #3e8e41;}
+

@@ -12,17 +12,3 @@ function myFunction() {
     header.classList.remove("sticky");
   }
 }
-
-let ATC = document.getElementsByName("ATC");
-let Counter = document.getElementById("ATCcounter")
-
-var CartCounter = 0
-for(let i =0; i<ATC.length;i++){
-  ATC[i].onclick = function(){
-
-  CartCounter++;
-  Counter.style.transition = "all 0.3s ease 0s";
-  Counter.style.backgroundColor = "red";
-  Counter.textContent = CartCounter.toString();
-}
-}

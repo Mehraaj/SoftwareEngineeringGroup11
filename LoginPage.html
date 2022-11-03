@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trinity Fashion | Login</title>
+    <link rel="stylesheet" href="./src/css/mainMenu.css">
+    <link rel="stylesheet" href="./src/css/LoginPage.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <header id="mainmenu">
+    <a href="homepage.html" class="homeLink"><img class = "logo"    src="./src/resources/homepage/logo.png" alt="Logo" href="./homepage.html"></a>
+      <nav>
+          <ul class = "nav_links">
+            <li class = "menuList"><a href = "./productListPage.html">Shoes</a>
+              <div class="dropdown-content">
+                <a href="./productListPage.html">Mens</a>
+                <a href="./productListPage.html">Womens</a>
+                <a href="./productListPage.html">View All</a>
+              </div>
+            </li>
+            <li class = "menuList"><a href = "./productListPage.html">Shirts </a>
+              <div class="dropdown-content">
+                <a href="./productListPage.html">Mens</a>
+                <a href="./productListPage.html">Womens</a>
+                <a href="./productListPage.html">View All</a>
+              </div></li>
+            <li class = "menuList"><a href = "./productListPage.html">Pants </a>
+              <div class="dropdown-content">
+                <a href="./productListPage.html">Mens</a>
+                <a href="./productListPage.html">Womens</a>
+                <a href="./productListPage.html">View All</a>
+              </div></li>
+          </ul>
+          
+      </nav>
+      <nav>
+        <ul class ="cta">
+          <li class ="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
+          <li class = "menuList"><a href="./productListPage.html" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
+          <li class = "menuList"><a href="./cartPage.html"><button><img class = "cartIMG" src="./src/resources/homepage/cart.png"><span class = "ATCcounter" id="ATCcounter">0</span></button></a></li>
+          <li class = "menuList"><a href="./LoginPage.html"><img  class = "pfpIMG"src="./src/resources/homepage/profile.png"></a>
+            <div class="dropdown-content">
+              <a>Login To View Exclusive Content</a>
+            </div></li>
+        </ul>
+        
+      </nav>
+    
+  </header>
+  <div class = "LoginCard">
+    
+    <ul class = "LoginCredentials">
+        <li class = "textAboveInput">Username:</li>
+        <li><input placeholder="Username"></li>
+        <li class ="textAboveInput">Password:</li>
+        <li><input placeholder="Password"></li>
+        <li><button>Submit</button></li>
+    </ul>
+  </div>
+  <body>
+    <main>
+        <h1>LoginPage</h1>  
+    </main>
+	<script src="./src/javascript/LoginPage/main.js"></script>
+  </body>
+</html>

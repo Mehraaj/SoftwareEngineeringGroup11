@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+*{
+    background-color: rgba(245, 245, 220, 1);
+}
+.LoginCard{
+    
+    background-color: rgba(245, 245, 220, 1);
+}
+.LoginCredentials{
+    list-style: none;
+    display: block;
+    
+    align-items: center;
+    text-align: center;
+    padding: 15%;
+    border-radius: 2px;
+    border-color: black;
+}
+.textAboveInput{
+    padding: 20px;
+    text-align: 
+}
