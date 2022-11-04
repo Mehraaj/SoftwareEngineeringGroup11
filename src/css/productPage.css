@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+.wrapper {
+    background-color: rgba(245, 245, 220, 1);
+    font-family: "Montserrat", sans-serif;
+    font-family: 500;
+    font-size: 16px;
+    color:black;
+    background-color: rgba(245, 245, 220, 1);
+    text-decoration: none;
+    border: 100px;
+    border-radius: 4px;
+}
+
+.qnd {
+    width: 100%;
+    background-color: rgba(245, 245, 220, 1);
+    list-style: none;
+}
+.qnd li{
+    display: inline-block;
+    align-items: center;
+    background-color: rgba(245, 245, 220, 1);
+    list-style: none;
+}
+ .quick_Nav {
+    padding: 20px 5%;
+    border-bottom: 5px solid rgb(155, 149, 149);
+    border-top: 5px solid rgb(155, 149, 149);
+    background-color: rgba(245, 245, 220, 1);
+}
+.quick_Nav li{
+    background-color: rgba(245, 245, 220, 1);
+    padding: 0px 1%;
+}
+.Curr_item {
+    background-color: rgba(245, 245, 220, 1);
+    padding: 20px 5%;
+}
+.Curr_item li{
+    padding: 0px 1%;
+} 
+
+.clickable {
+    cursor: pointer;
+}
+.ATC:hover{
+    transition: all 0.3s ease 0s;
+    background-color:rgba(128,128,128, .8);
+}
+
+.clickable a:hover {
+    transition: all 0.3s ease 0s;
+    border: 100px;
+    border-radius: 4px;
+    background-color: rgba(128,128,128, 1);
+}
+.bg {
+    background-color: rgba(245, 245, 220, 1);
+    font-family: "Montserrat", sans-serif;
+    font-family: 500;
+    font-size: 16px;
+    color:black;
+    background-color: rgba(245, 245, 220, 1);
+    text-decoration: none;
+    border: 100px;
+    border-radius: 4px;}
+.item {
+    display: flexbox;
+    float: left;
+    margin-left: 5%;
+    width: 760px;
+    height: 1005px;
+    background-color: rgba(245, 245, 220, 1);
+    border-left: 5px solid rgb(155, 149, 149);
+}
+
+.iteminfo {
+    display: inline-block;
+    margin-right: 5%;
+    width: 536px;
+    height: 1005px;
+    text-align: center;   
+    background-color: rgba(245, 245, 220, 1);
+    border-left: 5px solid rgb(155, 149, 149);
+    border-right: 5px solid rgb(155, 149, 149);
+
+}
+
+.itemname2 {
+  margin-top: 10%;
+  background-color: rgba(245, 245, 220, 1);
+}
+
+.itemsubandprice {
+  margin-top: 3%;
+  background-color: rgba(245, 245, 220, 1);
+}
+
+.price {
+  margin-top: 3%;
+}
+.iteminfo li{
+  list-style: none;
+  background-color: rgba(245, 245, 220, 1);
+}
+
+.sizes {
+  display: flexbox;
+  margin: 5%;
+  background-color: rgba(245, 245, 220, 1);
+}
+
+.sizes input[type="radio"] {
+  display: none;
+}
+
+.sizes label {
+  display: inline-block;
+  background-color: aliceblue;
+  padding: 15px;
+  width: 50px;
+  height: 50px;
+  text-align: 15px;
+  margin-left: 1%;
+  margin-top: 30%;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 4px;
+}
+
+.sizes label:hover {
+  transition: all 0.3s ease 0s;
+  background-color: rgba(128,128,128, 1);
+  cursor: pointer;
+}
+
+.sizes input[type="radio"]:checked+label {
+  background-color: black;
+  color:aliceblue;
+}
+
+.add_to_cart {
+font-family: "Montserrat", sans-serif;
+    font-family: 500;
+    font-size: 16px;
+    color:black;
+    background-color: rgba(245, 245, 220, 1);
+    text-decoration: none;
+    border: 100px;
+    border-radius: 4px;
+  display: inline-block;
+  padding: 13px;
+  border: 3px solid rgb(0, 0, 0);
+  margin-top: 50%;
+  width: 75%;
+  height: 50px;
+  background-color: rgba(245, 245, 220, 1);
+}
+
+.add_to_cart:hover{
+  transition: all 0.3s ease 0s;
+  background-color: rgba(128,128,128, 1);
+  cursor: pointer;
+}
