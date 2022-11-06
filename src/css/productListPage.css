@@ -1,0 +1,117 @@
+.productsContainer{
+  background-color: rgba(245, 245, 220, 1);
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.productCard{
+  background-color: rgba(245, 245, 220, 1);
+  padding: 25px;
+  display: block;
+  
+}
+
+.innerProductCard{
+  list-style: none;
+  background-color: rgba(245, 245, 220, 1);
+  border: 2px solid #000;
+  border-radius: 1px;
+  padding:5px;
+}
+
+.productCardImage{
+  background-color: #F5F5DC;
+  height: 250px;
+  width: 275px;
+  border-radius: 15px;
+}
+
+.ProductName{
+  background-color: rgba(245, 245, 220, 1);
+  text-align: center;
+  font-size: x-large;
+}
+
+.productList{
+  background-color: rgba(245, 245, 220, 1);
+  text-align: center;
+}
+.ATC:hover{
+  background-color: rgb(0, 0, 0);
+}
+.innerProductCard:hover .productCardImage, .innerProductCard:hover .productList {
+  transition: all 0.3s ease 0s;
+  background-color: rgba(128,128,128, .8);
+  
+}
+.innerProductCard:hover .ProductName{
+  background-color:rgba(245, 245, 220, 0)
+}
+
+.ATC:hover{
+  transition: all 0.3s ease 0s;
+  background-color:rgba(128,128,128, .8);
+}
+
+.ATC{
+  font-size: small;
+  border: 2px solid #000;
+  padding: 2px;
+}
+
+h2, h3, h4{
+  font-family: "Montserrat", sans-serif;
+  background-color: rgba(245, 245, 220, .8);
+  text-align: center;
+  font-size: xx-large;
+  padding: 5px;
+}
+h1{
+  font-family: "Montserrat", sans-serif;
+  background-color: rgba(245, 245, 220, .8);
+  text-align: center;
+  font-size: 75px;
+  padding: 5px;
+}
+.shoetag{
+  color: #000;
+  background-color: rgba(0,0,0, 0);
+  text-decoration: none;
+  
+}
+
+.shoetag:hover{
+  transition: all 0.3s ease 0s;
+  background-color:  rgba(128,128,128, 1);
+  
+  border-radius: 10px;
+}
+.small-container{
+ 
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+
+}
+
+#dropdown {
+  font-family: "Montserrat", sans-serif;
+  width: 250px;
+  text-align: center;
+  font-size: x-large;
+  
+}
+.drop{
+  text-align: right;
+  padding: 25px;
+}
+#filterPrice{
+  font-family: "Montserrat", sans-serif;
+  width: 250px;
+  text-align: center;
+  font-size: x-large;
+}

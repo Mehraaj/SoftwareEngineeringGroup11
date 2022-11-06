@@ -49,6 +49,5 @@
 }
 
 .submitButton:hover{
-    transition: all 0.3s ease 0s;
     background-color: rgba(128,128,128, 1);
 }

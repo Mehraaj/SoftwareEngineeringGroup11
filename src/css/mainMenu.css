@@ -4,8 +4,7 @@
     box-sizing: border-box;
     margin:0;
     padding: 0;
-    background-color: rgba(128,128,128, 1);
-}
+    background-color: rgba(245, 245, 220, 1);}
 
 .homeLink, .logo{
     background-color: #F5F5DC;
@@ -163,7 +162,7 @@
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    min-width: 160px;
+    min-width: 120px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 2;
   }
@@ -171,9 +170,10 @@
   /* Links inside the dropdown */
   .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 12px 18px;
     text-decoration: none;
     display: block;
+    
   }
   .ATCcounter{
     font-size: x-small;

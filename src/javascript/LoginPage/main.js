@@ -1,3 +1,4 @@
+
 window.onscroll = function() {myFunction()};
 var header = document.getElementById("mainmenu");
 
@@ -11,4 +12,34 @@ function myFunction() {
   } else {
     header.classList.remove("sticky");
   }
+}
+
+let submit = document.getElementById("submitButton")
+
+submit.onclick =function() {Submit()};
+let USER = CreateUser();
+function Submit(){
+  let x = document.getElementsByClassName("Inputs");
+  USER.Username = x[0].value;
+  USER.Password = x[1].value;
+  if(USER.Username != "" && USER.Password != ""){
+    
+    let check =document.getElementById("check");
+    check.href = "./AccountPage.html";
+    
+  }
+  
+}
+
+function CreateUser(){
+    let user = {
+    Username:"",
+    Password:"",
+    Cart:"",
+    CCNum:"",
+    CVV:"",
+    Exp:"",
+    address:""
+  }
+  return user
 }
