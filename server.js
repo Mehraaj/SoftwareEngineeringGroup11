@@ -11,7 +11,7 @@ const port = (process.env.PORT || 8000);
 const dBCon = mysql.createConnection({ // MySQL database
   host: "localhost",
   user: "root",
-  password: "password"
+  password: "root"
 });
 
 
@@ -21,12 +21,12 @@ dBCon.connect(function(err) { if (err) throw err; console.log("Connected!");});
    //--->  URI relates to "employees" collection:
 const regExpCatalog = new RegExp('^\/productcatalog\/.*', 'i');
    //--->  URI relates to "products" collection:
-const regExpCart = new RegExp('^\/cart\/.*', 'i');
+const regExpCart = new RegExp('^\/cart.*', 'i');
 
-dBCon.query('select * from trinityfashion.hats', (err, res)=>{
-  return console.log(res);
-})
-//let body = "";
+/* dBCon.query('select * from trinityfashion.hats', (err, res)=>{
+  return console.log(res); 
+}) */ 
+
 function applicationServer(request, response) {
     let done = false, resMsg = {}; 
     // parse the URL in the request
@@ -37,10 +37,23 @@ function applicationServer(request, response) {
         urlParts.push(segments[i]);
       }
     }
+
+    /*query = request.url.split('?');
+    let filters = querystring.parse(query[1]);
+    x = JSON.parse(JSON.stringify(filters));
+    console.log(x); 
+ */
     //console.log(request);
-    
+    if (!resMsg.headers || resMsg.headers === null) {
+      resMsg.headers = {};
+    }
+    if (!resMsg.headers["Content-Type"]) {
+      resMsg.headers["Content-Type"] = "application/json";
+    }
+
     try {
         if (done === false && regExpCatalog.test(request.url)) {
+            console.log("in catalog if statement")
             resMsg = catalog(request,response,urlParts);
             done = true;
         }
@@ -59,7 +72,15 @@ function applicationServer(request, response) {
     
     catch(ex) {} 
 
-}
+    
+    // send the response message
+   /* if(resMsg.code){
+    console.log("final destination: " + resMsg.code);
+    response.writeHead(resMsg.code, resMsg.headers);
+    response.end(resMsg.body);
+    } */
+  }
+
 
 function catalog(request, response, urlParts) {
   let resMsg = {}, body = ""; 
@@ -93,16 +114,24 @@ function catalog(request, response, urlParts) {
     //console.log(request.body);
     //console.log(request.method);
     switch (request.method) {
-      case 'POST':
-        request.on('data', function(part) {  // assemble request message body
-          //console.log(part);
-          body += part;
-          //console.log(body);
-        }).on("end", function() { 
-          resMsg = addToCart(request, response, body);
-        //console.log(body);
-         });;
+      case 'GET': 
+      request.on('data', function(part) {  // assemble request message body
+        body += part;
+      }).on("end", function() { 
+        console.log("Going into addcart");
+        resMsg = viewCart(request, response, body);
+       });
 
+      break;
+
+      case 'POST':
+        console.log("In Post");
+        request.on('data', function(part) {  // assemble request message body
+          body += part;
+        }).on("end", function() { 
+          console.log("Going into addcart");
+          resMsg = addToCart(request, response, body);
+         });
 
         break;
       }
@@ -110,32 +139,114 @@ function catalog(request, response, urlParts) {
     }
     function addToCart(request, response, body) {
       let resMsg = {};
+    
+      console.log("test " + resMsg) ; 
       console.log("oejfkihu: "+ body);
-     /*
-      request.on("end", function() {     // process the request message body
+     
+           // process the request message body
         try {
-          console.log(body);
-          //body += decoder.end();
+      
           
           newItem = JSON.parse(body);
-          console.log(newItem);
-          //sqlStatement = "INSERT INTO trinityfashion.cart VALUES (" + newEmployee.name + "," + newEmployee.role + ", " + newEmployee.salary + ");";
+          console.log(newItem.pid);
+          console.log(newItem.vid); 
+          sqlStatement = "INSERT INTO trinityfashion.Cart VALUES (" + newItem.vid + "," + newItem.pid + ");";
           dBCon.query(sqlStatement, function (err, result) {
             if (err) {
               resMsg.code = 503;
               resMsg.message = "Service Unavailable";
               resMsg.body = "MySQL server error: CODE = " + err.code +
-     " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+             " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+              resMsg.headers = {};
+              resMsg.headers["Content-Type"] = "text/html";
+              response.writeHead(resMsg.code, resMsg.headers);
+              response.end(resMsg.body);
             }
-        });
-       } catch (ex) {
+            else { 
+              resMsg.code = 202;
+              resMsg.message = "Successfully Added";
+              resMsg.headers = {};
+              resMsg.headers["Content-Type"] = "text/html";
+              response.writeHead(resMsg.code, resMsg.headers);
+              response.end(resMsg.message);
+
+              }
+              
+            } );
+           }
+
+          catch (ex) {
+          resMsg.code = 500;
+          resMsg.message = "Server Error";
+          resMsg.headers = {};
+          resMsg.headers["Content-Type"] = "text/html";
+          response.writeHead(resMsg.code, resMsg.headers);
+          response.end(resMsg.message);
+
+        }
+      
+  }
+
+
+  function viewCart(request, response, body) {
+    let resMsg = {};
+    let total = null; 
+    query = request.url.split('?');
+    let filters = querystring.parse(query[1]);
+    x = JSON.parse(JSON.stringify(filters));
+    console.log(x); 
+
+    try { 
+              sqlpricecalc = "select temp.vid, sum(temp.price) Total from (Select c.vid, pc.pid, pc.price"
+                +" from trinityfashion.Cart c inner join trinityfashion.ProductCatalog pc on pc.pid = c.pid) as temp where temp.vid = " + x.vid + ";";
+              
+              dBCon.query(sqlpricecalc, function (err, res){
+                if (err) {
+                  resMsg.code = 503;
+                  resMsg.message = "Service Unavailable";
+                  resMsg.body = "MySQL server error: CODE = " + err.code +
+                  " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+                  console.log(resMsg.body);
+                  resMsg.headers = {};
+                  resMsg.headers["Content-Type"] = "text/html";
+                  response.writeHead(resMsg.code, resMsg.headers);
+                  response.end(resMsg.body);
+                        }
+                 else {
+                  total = JSON.parse(JSON.stringify(res))[0];
+                  console.log(total ); 
+              }});
+
+              sqlStatement = "Select * from trinityfashion.Cart where vid = " + x.vid + ";";
+              dBCon.query(sqlStatement, function (err, result) {
+               if (err) {
+                  resMsg.code = 503;
+                  resMsg.message = "Service Unavailable";
+                  resMsg.body = "MySQL server error: CODE = " + err.code +
+                  " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+                  resMsg.headers["Content-Type"] = "text/html";
+                  response.writeHead(resMsg.code, resMsg.headers);
+                  response.end(resMsg.body);
+                        }
+                 else {
+                 console.log(JSON.parse(JSON.stringify(result)));
+                 resMsg.code = 202;
+                 console.log(resMsg.code);
+                 resMsg.body = JSON.parse(JSON.stringify(result));
+                 response.writeHead(resMsg.code, resMsg.headers);
+                 final = {"data" : resMsg.body};
+                 final.data.push(total); 
+                 response.end(JSON.stringify(final)); }
+                        });
+        }
+    
+        catch (ex) {
           resMsg.code = 500;
           resMsg.message = "Server Error";
         }
-      });
-      */
-      return resMsg;
   }
+
+
   function listCatalog(request, response) {
     let resMsg = {}, filters = "", sqlStatement;
     // detect any filter on the URL line, or just retrieve the full collection

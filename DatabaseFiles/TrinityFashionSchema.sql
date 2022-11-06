@@ -1,3 +1,4 @@
+drop database if exists TrinityFashion;
 create database TrinityFashion;
 use TrinityFashion;
 
