@@ -26,7 +26,7 @@ const regExpCart = new RegExp('^\/cart\/.*', 'i');
 dBCon.query('select * from trinityfashion.hats', (err, res)=>{
   return console.log(res);
 })
-
+//let body = "";
 function applicationServer(request, response) {
     let done = false, resMsg = {}; 
     // parse the URL in the request
@@ -38,7 +38,7 @@ function applicationServer(request, response) {
       }
     }
     //console.log(request);
-
+    
     try {
         if (done === false && regExpCatalog.test(request.url)) {
             resMsg = catalog(request,response,urlParts);
@@ -63,9 +63,11 @@ function applicationServer(request, response) {
 
 function catalog(request, response, urlParts) {
   let resMsg = {}, body = ""; 
+  /*
   request.on("data", function(part) {  // assemble request message body
     body += part;
   }); 
+  */
   console.log(request.method);
   switch (request.method) {
     case 'GET':
@@ -76,25 +78,45 @@ function catalog(request, response, urlParts) {
   }
   function cart(request, response, urlParts) {
     let resMsg = {}, body = ""; 
+    //let resMsg = {};
+    /*
     request.on('data', function(part) {  // assemble request message body
-      body += decoder.write(part);
-    }); 
+      //console.log(part);
+      body += part;
+      console.log(body);
+    }).on("end", function() { 
+
+      console.log(body);
+    });
+
+    */
     //console.log(request.body);
     //console.log(request.method);
     switch (request.method) {
       case 'POST':
-        resMsg = addToCart(request, response, body);
+        request.on('data', function(part) {  // assemble request message body
+          //console.log(part);
+          body += part;
+          //console.log(body);
+        }).on("end", function() { 
+          resMsg = addToCart(request, response, body);
+        //console.log(body);
+         });;
+
+
         break;
       }
       return resMsg;
     }
     function addToCart(request, response, body) {
       let resMsg = {};
-     
+      console.log("oejfkihu: "+ body);
+     /*
       request.on("end", function() {     // process the request message body
         try {
-          body += decoder.end();
           console.log(body);
+          //body += decoder.end();
+          
           newItem = JSON.parse(body);
           console.log(newItem);
           //sqlStatement = "INSERT INTO trinityfashion.cart VALUES (" + newEmployee.name + "," + newEmployee.role + ", " + newEmployee.salary + ");";
@@ -111,7 +133,7 @@ function catalog(request, response, urlParts) {
           resMsg.message = "Server Error";
         }
       });
-      
+      */
       return resMsg;
   }
   function listCatalog(request, response) {
