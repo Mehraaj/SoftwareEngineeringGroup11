@@ -108,10 +108,11 @@ function catalog(request, response, urlParts) {
       }
       return resMsg;
     }
+
     function addToCart(request, response, body) {
       let resMsg = {};
       console.log("oejfkihu: "+ body);
-     /*
+     
       request.on("end", function() {     // process the request message body
         try {
           console.log(body);
@@ -119,23 +120,24 @@ function catalog(request, response, urlParts) {
           
           newItem = JSON.parse(body);
           console.log(newItem);
-          //sqlStatement = "INSERT INTO trinityfashion.cart VALUES (" + newEmployee.name + "," + newEmployee.role + ", " + newEmployee.salary + ");";
+          sqlStatement = "INSERT INTO trinityfashion.cart VALUES (" + newItem.PID + "," + newItem.Size + "," + newItem.Category + ", " + newItem.Name + "," + newItem.Price + "," + newItem.SubCategory + "," + newItem.Color");";
           dBCon.query(sqlStatement, function (err, result) {
             if (err) {
-              resMsg.code = 503;
+              resMsg.code = 400;
               resMsg.message = "Service Unavailable";
               resMsg.body = "MySQL server error: CODE = " + err.code +
      " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
             }
         });
        } catch (ex) {
-          resMsg.code = 500;
+          resMsg.code = 403;
           resMsg.message = "Server Error";
         }
       });
-      */
+      
       return resMsg;
   }
+
   function listCatalog(request, response) {
     let resMsg = {}, filters = "", sqlStatement;
     // detect any filter on the URL line, or just retrieve the full collection
