@@ -1,5 +1,23 @@
 {
   "dependencies": {
+    "express": "^4.18.2",
     "mysql": "^2.18.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "softwareengineeringgroup11",
+  "description": "",
+  "version": "1.0.0",
+  "main": "expressServer.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mehraaj/SoftwareEngineeringGroup11.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mehraaj/SoftwareEngineeringGroup11/issues"
+  },
+  "homepage": "https://github.com/Mehraaj/SoftwareEngineeringGroup11#readme"
 }
