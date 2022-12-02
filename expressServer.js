@@ -33,11 +33,9 @@ const regExpShirts = new RegExp('\/shirts.*', 'i');
     return console.log(res);
   }) */
 
-  app.get(regExpCatalog, (req, res) => {
-    resMsg = {};
-    console.log(req);
-    let urlParts = [];
-    let segments = req.url.split('/');
+    function parsingRequest(request) {
+      let urlParts = [];
+    let segments = request.url.split('/');
 
     for (i=0, num=segments.length; i<num; i++) {
       if (segments[i] !== "") { // because of last "/" or double //
@@ -49,11 +47,23 @@ const regExpShirts = new RegExp('\/shirts.*', 'i');
     console.log(urlParts); 
 
 
-    let parametersList = req.query;
+    let parametersList = request.query;
 
     console.log("Parameters List: ")
     console.log(parametersList);
 
+    return [urlParts, parametersList];
+
+    }
+
+  app.get(regExpCatalog, (req, res) => {   //Get request for our product catalog, will show all products available
+    resMsg = {};
+    //console.log(req);
+   
+    parsedPath = parsingRequest(req);
+
+    urlParts = parsedPath[0];
+    parametersList = parsedPath[1];
     /*parametersJson = querystring.parse(parametersList);
 
     console.log("Parameters Json: " );
@@ -79,6 +89,94 @@ const regExpShirts = new RegExp('\/shirts.*', 'i');
     });
 
     console.log("Finished message");
+  })
+
+  app.get(regExpCart, (req, res) => {    //GET request for cart. Will have a user parameter
+
+    resMsg = {};
+    //console.log(req);
+   
+    parsedPath = parsingRequest(req);
+
+    urlParts = parsedPath[0];
+    parametersList = parsedPath[1];
+
+    sqlpricecalc = "select temp.vid, sum(temp.price) Total from (Select c.vid, pc.pid, pc.price"
+                +" from trinityfashion.Cart c inner join trinityfashion.ProductCatalog pc on pc.pid = c.pid) as temp where temp.vid = " + parametersList.vid + ";";
+     dBCon.query(sqlpricecalc, function (err, response){
+       if (err) {
+        resMsg.code = 503;
+        resMsg.message = "Service Unavailable";
+        resMsg.body = "MySQL server error: CODE = " + err.code +
+        " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+        console.log(resMsg.body);
+        resMsg.headers = {};
+        resMsg.headers["Content-Type"] = "text/html";
+        res.writeHead(resMsg.code, resMsg.headers);
+        res.end(resMsg.body);
+        }
+         else {
+      total = JSON.parse(JSON.stringify(response))[0];
+      console.log(total); 
+       }});    
+       
+       sqlStatement = "Select * from trinityfashion.Cart where vid = " + parametersList.vid + ";";
+       dBCon.query(sqlStatement, function (err, response) {
+       if (err) {
+        resMsg.code = 503;
+        resMsg.message = "Service Unavailable";
+        resMsg.body = "MySQL server error: CODE = " + err.code +
+        " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+        resMsg.headers["Content-Type"] = "text/html";
+        res.writeHead(resMsg.code, resMsg.headers);
+        res.end(resMsg.body);
+              }
+        else {
+        console.log(JSON.parse(JSON.stringify(response)));
+        resMsg.code = 202;
+        console.log(resMsg.code);
+        resMsg.body = JSON.parse(JSON.stringify(response));
+        res.writeHead(resMsg.code, resMsg.headers);
+        final = {"data" : resMsg.body};
+        final.data.push(total); 
+        res.end(JSON.stringify(final)); }
+              });
+      console.log("Message Finished");
+
+  })
+
+  app.post(regExpCart, (req, res) => {   //POST request for cart. Will have a user parameter and a product parameter
+
+    resMsg = {};
+    //console.log(req);
+   
+    parsedPath = parsingRequest(req);
+
+    urlParts = parsedPath[0];
+    parametersList = parsedPath[1];
+    sqlStatement = "INSERT INTO trinityfashion.Cart VALUES (" + parametersList.vid + "," + parametersList.pid + ");";
+
+    dBCon.query(sqlStatement, function (err, result) {
+      if (err) {
+        resMsg.code = 503;
+        resMsg.message = "Service Unavailable";
+        resMsg.body = "MySQL server error: CODE = " + err.code +
+       " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+        resMsg.headers = {};
+        resMsg.headers["Content-Type"] = "text/html";
+        res.writeHead(resMsg.code, resMsg.headers);
+        res.end(resMsg.body);
+      }
+      else { 
+        resMsg.code = 202;
+        resMsg.message = "Successfully Added";
+        resMsg.headers = {};
+        resMsg.headers["Content-Type"] = "text/html";
+        res.writeHead(resMsg.code, resMsg.headers);
+        res.end(resMsg.message);
+        console.log("Successfully added to cart");
+        } 
+      });
   })
 
   app.listen(port, () => {
