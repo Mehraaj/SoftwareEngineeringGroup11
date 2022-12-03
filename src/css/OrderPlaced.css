@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+*{
+    background-color: rgba(245, 245, 220, 1);
+    font-family: "Montserrat", sans-serif;
+}
+.CheckoutSuccess img{
+    width: 200px;
+    height: auto;
+    align-items: center;
+    
+}
+.CheckoutSuccess div{
+    padding:100px;
+    display:flex;
+    justify-content:center;
+}
+.CheckoutSuccess h1, .CheckoutSuccess h2, .CheckoutSuccess h3{
+    text-align: center;
+}
+.CheckoutSuccess div button{
+    padding:5px;
+    border: 2px;
+    border-style: solid;
+}
+.CheckoutSuccess div button:hover{
+    transition: all 0.3s ease 0s;
+    background-color: rgba(128,128,128, 1);
+}

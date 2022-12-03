@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+*{
+    background-color: rgba(245, 245, 220, 1);
+    font-family: "Montserrat", sans-serif;
+}
+
+h1{
+    text-align: center;
+}
+
+.split{
+    
+    display:flex;
+    justify-content: center;
+    padding:30px;
+}
+.cart{
+    list-style: none;
+    padding:20px 60px 0px 60px;
+}
+.cart li{
+    padding:20px;
+}
+.checkoutInfo{
+    list-style: none;
+    padding:20px 60px;
+}
+.checkoutInfo li{
+    padding:10px
+}
+.submitButton{
+    
+    padding: 5px;
+    border: 2px;
+    border-style: solid;
+}
+.checkoutInfo li button:hover{
+    transition: all 0.3s ease 0s;
+    background-color:rgba(128,128,128, 1); 
+}
+.checkoutInfo li input:hover{
+    transition: all 4s ease 0s;
+    
+    background-color:rgba(128,128,128, 1); 
+}
+.textAboveInput{
+    font-size: larger;
+    font-weight: bold;
+}
+.checkoutInfo li input{
+    padding:5px;
+    
+    
+    border-top: white;
+    border-left: white ;
+    border-right: white;
+    border-color: black;
+    
+}

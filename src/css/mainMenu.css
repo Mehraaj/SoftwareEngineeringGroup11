@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+    background-color: rgba(245, 245, 220, 1);}
+
+.homeLink, .logo{
+    background-color: #F5F5DC;
+    width: 200px;
+    height: auto;
+    cursor: pointer;
+  }
+
+.logo:hover{
+    transition: all 0.3s ease 0s;
+    border: 100px;
+    border-radius: 4px;
+    background-color: rgba(128,128,128, 1);
+}
+
+.nav_links a, .cta a ,button{
+    font-family: "Montserrat", sans-serif;
+    font-family: 500;
+    font-size: 16px;
+    color:black;
+    background-color: rgba(245, 245, 220, 1);
+    text-decoration: none;
+    border: 100px;
+    border-radius: 4px;
+}
+
+.menuList{
+    font-family: "Montserrat", sans-serif;
+    font-family: 500;
+    font-size: 16px;
+    color:black;
+    background-color: rgba(245, 245, 220, 1);
+    text-decoration: none;
+    border: 100px;
+    border-radius: 4px;
+  }
+
+  header{
+    background-color: rgba(245, 245, 220, 1);
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    
+    padding: 30px 5%;
+    
+  }
+
+  .nav_links {
+    list-style: none;
+    background-color: #F5F5DC;
+    
+  }
+  
+  .nav_links li {
+    display: inline-block;
+    padding: 0px 20px;
+    
+  }
+  
+  .nav_links li a{
+    transition: all 0.3s ease 0s;
+    
+  }
+  
+  .nav_links li a:hover{
+    background-color: grey;
+  
+  }
+
+  .button{
+    padding: 9px 25px;
+    background-color: rgba(245, 245, 220, 1);
+    border: none;
+    border-radius: 50px;
+    border-color: rgba(245, 245, 220, 1);
+    cursor: pointer;
+    
+  }
+  .cta {
+    background-color: rgba(245, 245, 220, 1);
+    list-style: none;
+  }
+  .cta li{
+    display: inline-block;
+  }
+  .cartIMG{
+    background-color: #F5F5DC;
+    width: auto;
+    height:40px;
+    padding: 5px;
+    border: 100px;
+    border-radius: 4px;
+  }
+  .pfpIMG{
+    background-color: #F5F5DC;
+    width: auto;
+    height:40px;
+    padding: 5px;
+    border: 100px;
+    border-radius: 4px;
+  }
+  .cartIMG:hover, .pfpIMG:hover, .searchIcon:hover{
+    transition: all 0.3s ease 0s;
+    border: 100px;
+    border-radius: 4px;
+    background-color: rgba(128,128,128, 1);
+  }
+  ::placeholder{
+    color:black;
+  }
+  .searchIcon{
+    background-color: #F5F5DC;
+    width: auto;
+    height:43px;
+    padding: 5px;
+    border: 100px;
+    border-radius: 4px;
+    
+  }
+  
+  .searchBarMovement{
+    position: relative;
+    background-color: #F5F5DC;
+    bottom: 17px;
+    border: 100px;
+    border-radius: 20px;
+  }
+  
+  .search{
+    background-color: rgba(128,128,128, .5);
+    padding: 4px;
+    border: 4px;
+    border-color: #F5F5DC;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .search:hover{
+    background-color: rgba(128,128,128, 1);
+  }
+  
+  .sticky {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    width: 100%
+  }
+  .sticky + .content {
+    padding-top: 102px;
+  }
+  .content {
+    padding: 16px;
+  }
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 18px;
+    text-decoration: none;
+    display: block;
+    
+  }
+  .ATCcounter{
+    font-size: x-small;
+    color:#F5F5DC;
+    background-color:#F5F5DC;
+    padding: 2px 6px;
+    border-radius: 100%;
+    
+    
+  }
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  /* Show the dropdown menu on hover */
+  .menuList:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .menuList:hover .dropbtn {background-color: #3e8e41;}  
+
