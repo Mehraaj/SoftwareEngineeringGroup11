@@ -19,6 +19,8 @@ Phone varchar(50),
 CreditCardNo int,
 CreditCardCVV int,
 CreditCardExpiry varchar(50),
+APIKey varchar(50), 
+APIKeyDate varchar(100), 
 primary key(VID),
 foreign key (VID) references Visitor(VID)
 );
@@ -84,8 +86,8 @@ Insert into Visitor (VID) values
     (004), 
     (005);
     
-Insert into Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV, CreditCardExpiry, username, password) values
-	(001, "John Doe", "123 Summer St,", "NJ", 00000, "732-555-5555", 123456789, 123, "10/26", "username", "password");
+Insert into Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV, CreditCardExpiry, username, password, APIKey, APIKeyDate) values
+	(001, "John Doe", "123 Summer St,", "NJ", 00000, "732-555-5555", 123456789, 123, "10/26", "username", "password", null, null);
     
 Insert into ProductCatalog (PID, Category, Name, Price, SubCategory, Color) values
 	(101, "Shirts", "Yellow T-Shirt", 13.99, "T-Shirt", "Yellow"),
