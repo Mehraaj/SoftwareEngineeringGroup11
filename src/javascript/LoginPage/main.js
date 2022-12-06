@@ -1,4 +1,6 @@
-window.onscroll = function() {myFunction()};
+window.onscroll = function () {
+  myFunction();
+};
 
 var header = document.getElementById("mainmenu");
 
@@ -14,53 +16,68 @@ function myFunction() {
   }
 }
 
-let submit = document.getElementById("submitButton")
+let submit = document.getElementById("submitButton");
 
-submit.onclick =function() {Submit()};
-let USER = CreateUser();
+submit.onclick = async function () {
+  await Submit();
+};
 
+async function httpRequest(){
+  console.log("In httpRequest");
+  const HTTP = new XMLHttpRequest();
+  let url =
+        "http://localhost:8000/checkLogIn?username=" +
+        "username" +
+        "&password=" +
+        "password";
 
-async function Submit(){
-  console.log("In Submit function");
-  let x = document.getElementsByClassName("Inputs");
-  try{
-  let url = "http://localhost:3000/checkLogIn?username=" + x[0].value + "&password=" + x[1].value;
-  let response = await axios.get(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      'withCredentials' : true
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    }
-  });
-}
-  catch(error){
-    console.log("In Catch");
-    console.log(error);
+  HTTP.open("GET", url, false);
+  HTTP.onload = () =>{
+    console.log(HTTP.response);
+    processRequest(HTTP.response);
   }
+  HTTP.send();
   
-  console.log("After fetch");
-  res = response.json();
-  console.log(res);        //Lets assume that res has the API Key and the API Date 
-  
-  if (res.APIKey !== null){
-    
-    let check =document.getElementById("check");
+  }
+ /* axios
+  .get(url, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then((response) => {
+    resolve(response.data);
+  });
+} catch (error) {
+reject(error);
+}
+}); */
+
+async function Submit() {
+console.log("in submit");
+  httpRequest();
+ /* if (resp.APIKey !== null) {
+    let check = document.getElementById("check");
     check.href = "./AccountPage.html";
   }
-
-  
-  
+  return; */
 }
 
-function CreateUser(){
-    let user = {
-    Username:"",
-    Password:"",
-    Cart:"",
-    CCNum:"",
-    CVV:"",
-    Exp:"",
-    address:""
-  }
-  return user
+function processRequest(data){
+  console.log("in ProcessRequest");
+  console.log(data);
+  document.getElementById("check").href='./homepage.html?loggedIn=true';
+}
+
+function CreateUser() {
+  let user = {
+    Username: "",
+    Password: "",
+    Cart: "",
+    CCNum: "",
+    CVV: "",
+    Exp: "",
+    address: "",
+  };
+  return user;
 }
