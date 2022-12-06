@@ -23,7 +23,7 @@ const port = (process.env.PORT || 8000);
 const dBCon = mysql.createConnection({ // MySQL database
   host: "localhost",
   user: "root",
-  password: "root"
+  password: "password"
 });
 
 
@@ -123,28 +123,43 @@ console.log(queryResult);
   return false;
 }
 
-app.get('/productcatalog', (req, res) => {   //Get request for our product catalog, will show all products available
+app.get('/productcatalog', async (req, res) => {   //Get request for our product catalog, will show all products available
   resMsg = {};
   //console.log(req);
- 
-  parsedPath = parsingRequest(req);
+  check = verifyAPIKey(req);
+  await check;
+  result = await check.then((res) =>{ return res; })
+  console.log(result);
+  //parsedPath = parsingRequest(req);
 
-  urlParts = parsedPath[0];
-  parametersList = parsedPath[1];
+  //urlParts = parsedPath[0];
+  //parametersList = parsedPath[1];
   /*parametersJson = querystring.parse(parametersList);
 
   console.log("Parameters Json: " );
   console.log(parametersJson);
   */
   sqlStatement = "SELECT * FROM trinityfashion.productcatalog ";
-  //if (req.query.sex && req.query.name && req.query.category){sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' AND Sex = '" + req.query.sex + "' ";}
-  //else if (req.query.sex && req.query.category) {sqlStatement = sqlStatement + " WHERE Sex = '" + req.query.sex+"' AND Category = '" + req.query.category + "' ";}
-  //else if (req.query.name && req.query.sex) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Sex = '" + req.query.sex + "' ";}
-  //else if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
-  if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
+
+  if(req.query.gender || req.query.name || req.query.category || !result){sqlStatement = sqlStatement + " WHERE ";}
+  if (!result){sqlStatement = sqlStatement + " (Category = 'shirts' or Category = 'pants') ";}
+  if(req.query.gender && !result) {sqlStatement = sqlStatement + " AND "}
+  if(req.query.gender){sqlStatement = sqlStatement + " gender = '" + req.query.gender + "' ";}
+  if(req.query.category && (!result || req.query.gender)){sqlStatement = sqlStatement + " AND ";}
+  if(req.query.category){sqlStatement = sqlStatement + " Category = '" + req.query.category+ "' ";}
+  if(req.query.name && (!result || req.query.gender || req.query.category)){sqlStatement = sqlStatement + " AND ";}
+  if(req.query.name){sqlStatement = sqlStatement + " Name = '" + req.query.name+ "' ";}
+  if (req.query.price){sqlStatement = sqlStatement + "ORDER BY Price " + req.query.price;}
+/*
+  if (req.query.sex && req.query.name && req.query.category){sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' AND Sex = '" + req.query.sex + "' ";}
+  else if (req.query.sex && req.query.category) {sqlStatement = sqlStatement + " WHERE Sex = '" + req.query.sex+"' AND Category = '" + req.query.category + "' ";}
+  else if (req.query.name && req.query.sex) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Sex = '" + req.query.sex + "' ";}
+  else if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
+  //if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
   else if(req.query.name){sqlStatement = sqlStatement +" WHERE Name = '" + req.query.name + "' ";}
   else if(req.query.category){sqlStatement = sqlStatement + " WHERE Category = '" + req.query.category + "' ";}
   if (req.query.price){sqlStatement = sqlStatement + "ORDER BY Price " + req.query.price;}
+  */
   sqlStatement = sqlStatement + ";";
   console.log(sqlStatement);
 
@@ -157,7 +172,7 @@ app.get('/productcatalog', (req, res) => {   //Get request for our product catal
       //console.log(resMsg);
     } else {
       resMsg.body = JSON.parse(JSON.stringify(result));
-      console.log(result);
+      //console.log(result);
       resMsg.code = 202;
       res.writeHead(resMsg.code, resMsg.headers);
       final = { "data": resMsg.body };
