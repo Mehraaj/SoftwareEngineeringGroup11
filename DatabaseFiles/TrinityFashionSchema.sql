@@ -89,35 +89,44 @@ Insert into Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditC
     
 Insert into ProductCatalog (PID, Category, Name, Price, SubCategory, Color) values
 	(101, "Shirts", "Yellow T-Shirt", 13.99, "T-Shirt", "Yellow"),
-    (102, "Pants", "Yellow Pants", 13.99, "Jeans", "Yellow"),
+    (102, "Pants", "Yellow Pants", 17.99, "Jeans", "Yellow"),
     (103, "Shoes", "Yellow Shoes", 13.99, "Sneakers", "Yellow"),
     (104, "Hats", "Yellow Hat", 13.99, "Baseball Cap", "Yellow"),
-    (105, "Socks", "Yellow Socks", 13.99, "ankle socks", "Yellow"),
+    (105, "Socks", "Yellow Socks", 6.99, "ankle socks", "Yellow"),
     (106, "Shirts", "Orange Shirt", 13.99, "V-Neck", "Orange"),
-    (107, "Pants", "Orange Pants", 13.99, "Slacks", "Orange"),
+    (107, "Pants", "Orange Pants", 15.99, "Slacks", "Orange"),
     (108, "Shoes", "Orange Shoes", 13.99, "Boots", "Orange"),
     (109, "Hats", "Orange Hat", 13.99, "Fedora", "Orange"),
-    (110, "Socks", "Orange", 13.99, "Leggings", "Orange");
-    
+    (110, "Socks", "Orange", 7.99, "Leggings", "Orange"),
+    (111, "Shirts", "Blue T-Shirt", 17.99, "T-Shirt", "Blue"),
+    (112, "Pants", "Blue Pants", 17.99, "Jeans", "Blue"),
+    (113, "Shoes", "Blue Shoes", 13.99, "Sneakers", "Blue"),
+    (114, "Hats", "Blue Hat", 10.99, "Baseball Cap", "Blue"),
+    (115, "Socks", "Blue Socks", 8.99, "ankle socks", "Blue");
+
 Insert into Hats (PID, Size) values
 	(104, "XS"),
-    (109, "L");
-
+    (109, "L"),
+	(114, "XL");
 Insert into Shoes (PID, Size) values
 	(103, 10),
-    (108, 7);
+    (108, 7),
+    (113, 8);
 
 Insert into Pants (PID, Size) values
 	(102, "L"),
-    (107, "M");
+    (107, "M"),
+    (112, "S");
 
 Insert into Shirts (PID, Size) values
 	(101, "S"),
-    (106, "XL");
+    (106, "XL"),
+    (111, "L");
 
 Insert into Socks (PID, Size) values
 	(105, "S"),
-    (110, "M");
+    (110, "M"),
+    (115, "L");
     
 Insert into Cart (VID, PID) values
 	(001, 101),
