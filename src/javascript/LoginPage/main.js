@@ -30,6 +30,7 @@ async function httpRequest(){
         "username" +
         "&password=" +
         "password";
+  
 
   HTTP.open("GET", url, false);
   HTTP.onload = () =>{
@@ -66,7 +67,7 @@ console.log("in submit");
 function processRequest(data){
   console.log("in ProcessRequest");
   console.log(data);
-  document.getElementById("check").href='./homepage.html?loggedIn=true';
+  document.getElementById("check").href='./homepage.html'
 }
 
 function CreateUser() {
