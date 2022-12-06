@@ -1,6 +1,6 @@
 const express = require('express')  //import express
 const app = express()   //calls express
-const cors = require('cors');
+var cors = require('cors');
 app.use(cors({origin: "*",
               methods: ["GET", "POST"]
 }));
@@ -14,6 +14,7 @@ const querystring = require('querystring');
 // MySQL database driver
 const mysql = require("mysql");
 const { StringDecoder } = require("string_decoder");
+const { subtle } = require('crypto');
 
 let decoder = new StringDecoder("utf-8");
 
@@ -23,18 +24,15 @@ const port = (process.env.PORT || 8000);
 const dBCon = mysql.createConnection({ // MySQL database
   host: "localhost",
   user: "root",
-  password: "root"
+  password: "password"
 });
 
-
-dBCon.connect(function (err) { if (err) throw err; console.log("Connected!"); });
+dBCon.connect(function(err) { if (err) throw err; console.log("Connected!");});
 
 const regExpCatalog = new RegExp('\/productcatalog.*', 'i');
 const regExpCart = new RegExp('\/cart.*', 'i');
 const regExpShirts = new RegExp('\/shirts.*', 'i');
 const checkLogIn = new RegExp('\/checkLogIn.*', 'i');
-const createVisitor = new RegExp('\/createVisitor.*', 'i');
-const createMember = new RegExp('\/createMember.*', 'i')
 
 //example query 
 /*dBCon.query('select * from trinityfashion.hats', (err, res)=>{
@@ -70,57 +68,6 @@ function parsingRequest(request) {
 
   return [urlParts, parametersList, requestHeaders, bodyList];
 
-}
-
-function parseCookie(cookie){
-  if (cookie === undefined)
-    return undefined;
-  const parseCookiePipe = str =>
-  str
-  .split(';')
-  .map(v => v.split('='))
-  .reduce((acc, v) => {
-    acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-    return acc;
-  }, {});
-
-  return parseCookiePipe(cookie);
-}
-
-async function verifyAPIKey(req){
-  cookiestr = req.headers.cookie;
-  cookieDict = parseCookie(cookiestr);
-  if (cookieDict === undefined)
-    return false;
-  APIKey = cookieDict.APIKey;
-  if (APIKey === "None" | APIKey === undefined)
-  {
-    return false;
-  }
-  sqlStatement = "Select * from trinityfashion.Member where APIKey = \"" + APIKey + "\";";
-  var resMsg = {}
-  const queryResult = await new Promise((resolve, reject) => {
-    dBCon.query(sqlStatement, (err, response) => {
-      if (err) {
-        resMsg.code = 503;
-        resMsg.message = "Service Unavailable";
-        resMsg.body = "MySQL server error: CODE = " + err.code +
-          " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
-        return reject("Server Error");
-      }
-      else {
-        resolve(response);
-      }
-    });
-  }).then((response) => {return response;}).catch((err) => { return err; });
-  
-console.log(queryResult);
-  if (queryResult.length !== 0) 
-  {
-    return true;
-  }
-  else
-  return false;
 }
 
 app.get(regExpCatalog, (req, res) => {   //Get request for our product catalog, will show all products available
@@ -249,6 +196,10 @@ app.post(regExpCart, (req, res) => {   //POST request for cart. Will have a user
   });
 })
 
+app.get('/home', function(req, res) {
+  res.sendFile('./LoginPage.html', {root: __dirname })
+});
+
 app.get(checkLogIn, async (req, res) => {   //GET request to check log in information, and create API Key 
   //console.log(req);
   console.log("Got Request");
@@ -273,6 +224,20 @@ app.get(checkLogIn, async (req, res) => {   //GET request to check log in inform
   //var Normaltext = CryptoJS.AES.decrypt(endata.value, password2.value);  
   //display2.textContent = Normaltext.toString(CryptoJS.enc.Utf8);
 
+    console.log("Parameters Json: " );
+    console.log(parametersJson);
+
+    sqlStatement = "SELECT * FROM trinityfashion.productcatalog ";
+    //if (req.query.sex && req.query.name && req.query.category){sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' AND Sex = '" + req.query.sex + "' ";}
+    //else if (req.query.sex && req.query.category) {sqlStatement = sqlStatement + " WHERE Sex = '" + req.query.sex+"' AND Category = '" + req.query.category + "' ";}
+    //else if (req.query.name && req.query.sex) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Sex = '" + req.query.sex + "' ";}
+    //else if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
+    if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
+    else if(req.query.name){sqlStatement = sqlStatement +" WHERE Name = '" + req.query.name + "' ";}
+    else if(req.query.category){sqlStatement = sqlStatement + " WHERE Category = '" + req.query.category + "' ";}
+    if (req.query.price){sqlStatement = sqlStatement + "ORDER BY Price " + req.query.price;}
+    sqlStatement = sqlStatement + ";";
+    console.log(sqlStatement);
 
   sqlStatement = "SELECT * FROM trinityfashion.Member where username = '" + username + "' and password = '" + password + "';";
 
@@ -323,15 +288,11 @@ app.get(checkLogIn, async (req, res) => {   //GET request to check log in inform
         'Content-Type': 'application/json',
         'mode': 'no-cors',
         'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, GET,DELETE,PUT',
-        'Set-Cookie' : 'APIKey=' + APIKey
+        'Access-Control-Allow-Methods': 'POST, GET,DELETE,PUT'
       };
       res.header('Content-Type', 'application/json');
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', '*');
-      res.cookie('APIKey', APIKey, {
-        expires: new Date(Date.now() + 900000)});
-      res.cookie('vid' , userID);
       //************************************res.setHeader('Cookie', ['type=ninja', 'language=javascript']);
       res.status(resMsg.code).send(JSON.stringify({ "APIKey": APIKey, "APIKeyDate": APIKeyDate.toString() }));
       
@@ -340,89 +301,6 @@ app.get(checkLogIn, async (req, res) => {   //GET request to check log in inform
   });
   console.log("Message Finished");
 
-})
-
-app.post(createVisitor, (req, res) => {
-  resMsg = {};
-  parsedPath = parsingRequest(req);
-  urlParts = parsedPath[0];
-  parametersList = parsedPath[1];
-
-  randomVID = Math.floor(1000 + Math.random() * 9000);
-  sqlStatement = "INSERT INTO trinityfashion.Visitor VALUES (" + randomVID + ");";
-
-  dBCon.query(sqlStatement, function (err, result) {
-    if (err) {
-      resMsg.code = 503;
-      resMsg.message = "Service Unavailable";
-      resMsg.body = "MySQL server error: CODE = " + err.code +
-        " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
-      resMsg.headers = {};
-      resMsg.headers["Content-Type"] = "text/html";
-      res.writeHead(resMsg.code, resMsg.headers);
-      res.end(resMsg.body);
-    }
-    else {
-      resMsg.code = 202;
-      resMsg.message = "Successfully Added";
-      res.header('Content-Type', 'application/json');
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', '*');
-      res.cookie('APIKey', 'None');
-      res.cookie('vid' , randomVID);
-      //************************************res.setHeader('Cookie', ['type=ninja', 'language=javascript']);
-      res.status(resMsg.code).send(resMsg.message);
-      
-      console.log("Added random visitor");
-    }
-  });
-
-
-})
-
-app.get("/test", async (req, res) => {
-  check = verifyAPIKey(req);
-  await check;
-  result = await check.then((res) =>{ return res; })
-  console.log(result);
-  res.send(result);
-
-})
-
-app.post(createMember, async (req, res) => {
-  resMsg = {};
-  parsedPath = parsingRequest(req);
-  urlParts = parsedPath[0];
-  parametersList = parsedPath[1];
-  bodyList = parsedPath[3];
-
-  randomVID = Math.floor(1000 + Math.random() * 9000);
-  sqlStatement = "INSERT INTO trinityfashion.Visitor VALUES (" + randomVID + ");";
-
-  dBCon.query(sqlStatement, function (err, result) {
-    if (err) {
-      resMsg.code = 503;
-      resMsg.message = "Service Unavailable";
-      resMsg.body = "MySQL server error: CODE = " + err.code +
-        " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
-      resMsg.headers = {};
-      resMsg.headers["Content-Type"] = "text/html";
-      res.writeHead(resMsg.code, resMsg.headers);
-      res.end(resMsg.body);
-    }
-    else {
-      resMsg.code = 202;
-      resMsg.message = "Successfully Added";
-      res.header('Content-Type', 'application/json');
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', '*');
-      res.cookie('APIKey', 'None');
-      res.cookie('vid' , randomVID);
-      //************************************res.setHeader('Cookie', ['type=ninja', 'language=javascript']);
-      res.status(resMsg.code).send(resMsg.message);
-      
-      console.log("Added random visitor");
-}});
 })
 
 app.listen(port, () => {

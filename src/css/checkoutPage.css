@@ -58,3 +58,25 @@ h1{
     border-color: black;
     
 }
+.checkoutInfo li select{
+    padding:5px;
+    
+    
+    border-top: white;
+    border-left: white ;
+    border-right: white;
+    border-color: black;
+    
+} 
+.leftSide div{
+    font-size: x-large;
+    font-weight: 500;
+}
+.pricing li{
+    list-style: none;
+    padding: 10px;
+}
+.pricing li div{
+    display: inline;
+    padding-left: 5px;
+}

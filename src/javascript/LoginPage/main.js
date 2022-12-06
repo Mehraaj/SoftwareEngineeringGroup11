@@ -30,6 +30,7 @@ async function httpRequest(){
         "username" +
         "&password=" +
         "password";
+  
 
   HTTP.open("GET", url, false);
   HTTP.onload = () =>{
