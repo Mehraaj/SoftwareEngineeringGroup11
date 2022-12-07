@@ -4,8 +4,6 @@ const cors = require('cors');
 app.use(cors({origin: "*",
               methods: ["GET", "POST"]
 }));
-var bodyParser = require('body-parser');
-app.use(bodyParser.json());
 app.use(express.json());
 
 // const http = require("http");  // Not sure if we need this for express
@@ -25,7 +23,7 @@ const port = (process.env.PORT || 8000);
 const dBCon = mysql.createConnection({ // MySQL database
   host: "localhost",
   user: "root",
-  password: "root"
+  password: "password"
 });
 
 
@@ -588,20 +586,47 @@ app.post('/checkout', (req, res) =>{
   res.cookie('order', req.body);
   res.send("successful");
 })
-app.get('/order', (req, res) =>{
+app.post('/order', (req, res) =>{
+  state = req.body.state;
   cookiestr = req.headers.cookie;
   cookieDict = parseCookie(cookiestr);
   console.log(cookieDict);
   order = cookieDict.order;
+  vid = cookieDict.vid;
+  console.log("vid: " + vid);
   order = order.substring(2,order.length);
   console.log(order);
   orderJ = JSON.parse(order);
+  // VID, PID, color, Size, quantity, orderNumber, state
+  orderNum = Math.floor(10000 + Math.random() * 90000);
+  console.log(orderNum);
+  date = new Date();
   for (let i = 0; i < orderJ.length; i++){
-    orderJ[i].productName
-    orderJ[i].productName
+    //INSERT INTO trinityfashion.orders VALUES (2, 101, 'blue', 'M', 30, 10485, 'NJ');
+    //sqlStatement = "INSERT INTO trinityfashion.orders VALUES (" + vid + "," + orderJ[i].PID + ",'" + orderJ[i].color + "','" + orderJ[i].size + "'," + orderJ[i].quantity + "," + orderNum + ",'" + state + "');";
 
+    sqlStatement = "INSERT INTO trinityfashion.orders VALUES (" + vid + "," + orderJ[i].PID + ",'" + orderJ[i].color + "','" + orderJ[i].size + "'," + orderJ[i].quantity + "," + orderNum + ",'" + state + "','" + date + "');";
+    console.log(sqlStatement);
+          dBCon.query(sqlStatement, function (err, result) {
+            if (err) {
+              resMsg.code = 503;
+              resMsg.message = "Service Unavailable";
+              resMsg.body = "MySQL server error: CODE = " + err.code +
+             " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+              resMsg.headers = {};
+              resMsg.headers["Content-Type"] = "text/html";
+              //res.writeHead(resMsg.code, resMsg.headers);
+              //res.end(resMsg.body);
+              console.log("FAIL");
+            }
+            else {
+              //res.send(JSON.stringify(result));
+      
+              } 
+            });
+    
   }
-  console.log(orderJ[0].PID);
+  res.clearCookie('order');
   res.send("successful");
 
 })
