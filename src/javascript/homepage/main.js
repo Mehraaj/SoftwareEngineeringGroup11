@@ -106,7 +106,8 @@ function afterstart(DATA){
     name[0].innerHTML =shirts[i].Name
     price[0].innerHTML = shirts[i].Price
     image[0].src = shirts[i].image
-    PID.value = ALLITEMSOBJ[i].PID
+    PID.value = shirts[i].PID
+    
   }
   var pants = ALLITEMSOBJ.filter(item => item.Category === 'pants')
   console.log("pants");
@@ -127,7 +128,7 @@ function afterstart(DATA){
     name[0].innerHTML =pants[i].Name;
     price[0].innerHTML = pants[i].Price;
     image[0].src = pants[i].image;
-    PID.value = ALLITEMSOBJ[i].PID
+    PID.value = pants[i].PID
   }
   
   let anchors = document.getElementsByClassName("clickToViewPage");

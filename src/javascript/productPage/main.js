@@ -37,7 +37,7 @@ for(let i =0; i<ATC.length;i++){
   Counter.textContent = CartCounter.toString();
 }
 }
-var PID;
+
 const image = "http://cdn.shopify.com/s/files/1/1002/1104/files/bs_480x480.png?v=1633371444"
 async function Start(){
   let ProdOBJ = window.sessionStorage.getItem('productOBJ')
@@ -57,10 +57,12 @@ async function Start(){
 
   var item_name = document.getElementById("itemprice");
   item_name.innerHTML = ProdOBJ.price
-  PID = ProdOBJ.ProductID
+  const PID = ProdOBJ.ProductID
   window.sessionStorage.clear(); 
   requestData(PID)
+  
 }
+
 function requestData(ProdID){
   const HTTP = new XMLHttpRequest();
   const URL = 'http://localhost:8000/productcatalog/' + ProdID;
@@ -100,5 +102,5 @@ function configSizes(responseObj){
 }
 
 Start()
-console.log(PID)
+
 
