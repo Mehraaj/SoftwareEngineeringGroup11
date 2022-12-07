@@ -37,20 +37,30 @@ for(let i =0; i<ATC.length;i++){
   Counter.textContent = CartCounter.toString();
 }
 }
-
+var PID;
 const image = "http://cdn.shopify.com/s/files/1/1002/1104/files/bs_480x480.png?v=1633371444"
+async function Start(){
+  let ProdOBJ = window.sessionStorage.getItem('productOBJ')
+  ProdOBJ = JSON.parse(ProdOBJ)
+  
+  var item_name = document.getElementById("Item_Name");
+  item_name.innerHTML = ProdOBJ.name
 
-var item_name = document.getElementById("Item_Name");
-item_name.innerHTML = "Item Name"
+  var item_image = document.getElementById("Item_Image");
+  item_image.innerHTML = "<img border-left=\none\" height=\"1001px\" width=\"755px\" src="+image+">"
 
-var item_image = document.getElementById("Item_Image");
-item_image.innerHTML = "<img border-left=\none\" height=\"1001px\" width=\"755px\" src="+image+">"
+  var item_name = document.getElementById("Item_Name2");
+  item_name.innerHTML = ProdOBJ.name
 
-var item_name = document.getElementById("Item_Name2");
-item_name.innerHTML = "Item Name"
+  var item_name = document.getElementById("itemsubcategory");
+  item_name.innerHTML = "Item Subcategory"
 
-var item_name = document.getElementById("itemsubcategory");
-item_name.innerHTML = "Item Subcategory"
+  var item_name = document.getElementById("itemprice");
+  item_name.innerHTML = ProdOBJ.price
+  PID = ProdOBJ.ProductID
 
-var item_name = document.getElementById("itemprice");
-item_name.innerHTML = "Item Price"
+}
+
+Start();
+console.log(PID)
+

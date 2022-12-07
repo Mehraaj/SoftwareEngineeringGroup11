@@ -23,7 +23,7 @@ const port = (process.env.PORT || 8000);
 const dBCon = mysql.createConnection({ // MySQL database
   host: "localhost",
   user: "root",
-  password: "password"
+  password: "root"
 });
 
 
@@ -129,6 +129,7 @@ app.get('/productcatalog', async (req, res) => {   //Get request for our product
   check = verifyAPIKey(req);
   await check;
   result = await check.then((res) =>{ return res; })
+  console.log("verify API result: ");
   console.log(result);
   //parsedPath = parsingRequest(req);
 
@@ -248,30 +249,61 @@ app.post(regExpCart, (req, res) => {   //POST request for cart. Will have a user
   parsedPath = parsingRequest(req);
 
   urlParts = parsedPath[0];
-  parametersList = parsedPath[1];
-  sqlStatement = "INSERT INTO trinityfashion.Cart VALUES (" + parametersList.vid + "," + parametersList.pid + ");";
+ // parametersList = parsedPath[1];
+  bodyList = parsedPath[3];
 
-  dBCon.query(sqlStatement, function (err, result) {
-    if (err) {
-      resMsg.code = 503;
-      resMsg.message = "Service Unavailable";
-      resMsg.body = "MySQL server error: CODE = " + err.code +
-        " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
-      resMsg.headers = {};
-      resMsg.headers["Content-Type"] = "text/html";
-      res.writeHead(resMsg.code, resMsg.headers);
-      res.end(resMsg.body);
-    }
-    else {
-      resMsg.code = 202;
-      resMsg.message = "Successfully Added";
-      resMsg.headers = {};
-      resMsg.headers["Content-Type"] = "text/html";
-      res.writeHead(resMsg.code, resMsg.headers);
-      res.end(resMsg.message);
-      console.log("Successfully added to cart");
+  if(bodyList.add === "false"){
+    sqlStatement = "DELETE FROM trinityfashion.cart WHERE vid=" + bodyList.vid + " AND pid=" + bodyList.pid + " AND size=\"" + bodyList.size + "\" AND color=\"" + bodyList.color + "\";";
+    dBCon.query(sqlStatement, function (err, result) {
+      if (err) {
+        resMsg.code = 503;
+        resMsg.message = "Service Unavailable";
+        resMsg.body = "MySQL server error: CODE = " + err.code +
+          " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+        resMsg.headers = {};
+        resMsg.headers["Content-Type"] = "text/html";
+        res.writeHead(resMsg.code, resMsg.headers);
+        res.end(resMsg.body);
+      }
+      else {
+        resMsg.code = 202;
+        resMsg.message = "Successfully Removed";
+        resMsg.headers = {};
+        resMsg.headers["Content-Type"] = "text/html";
+        res.writeHead(resMsg.code, resMsg.headers);
+        res.end(resMsg.message);
+        console.log("Successfully removed from cart");
     }
   });
+  }
+  else if (bodyList.add === "true"){
+    sqlStatement = "INSERT INTO trinityfashion.cart VALUES (" + bodyList.vid + ", " + bodyList.pid + ", \"" + bodyList.size + "\", \"" + bodyList.color + "\");";
+    dBCon.query(sqlStatement, function (err, result) {
+      if (err) {
+        resMsg.code = 503;
+        resMsg.message = "Service Unavailable";
+        resMsg.body = "MySQL server error: CODE = " + err.code +
+          " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+        resMsg.headers = {};
+        resMsg.headers["Content-Type"] = "text/html";
+        res.writeHead(resMsg.code, resMsg.headers);
+        res.end(resMsg.body);
+      }
+      else {
+        resMsg.code = 202;
+        resMsg.message = "Successfully Added";
+        resMsg.headers = {};
+        resMsg.headers["Content-Type"] = "text/html";
+        res.writeHead(resMsg.code, resMsg.headers);
+        res.end(resMsg.message);
+        console.log("Successfully added to cart");
+      }
+    });
+  }
+  else{
+    resMsg.message = "Add field is invalid";
+    res.send(resMsg.message);
+  }
 })
 
 app.get(checkLogIn, async (req, res) => {   //GET request to check log in information, and create API Key 
@@ -406,12 +438,8 @@ app.post(createVisitor, (req, res) => {
 })
 
 app.get("/test", async (req, res) => {
-  check = verifyAPIKey(req);
-  await check;
-  result = await check.then((res) =>{ return res; })
-  console.log(result);
-  res.send(result);
-
+  console.log("Should see anchor body")
+  console.log(req.body);
 })
 
 app.get('/productcatalog/:pid', (req, res) => {
@@ -501,10 +529,33 @@ app.post(createMember, async (req, res) => {
   urlParts = parsedPath[0];
   parametersList = parsedPath[1];
   bodyList = parsedPath[3];
+  
+  // ADD TO VISITOR IN CASE SIMULATING IN POSTMAN 
 
-  randomVID = Math.floor(1000 + Math.random() * 9000);
-  sqlStatement = "INSERT INTO trinityfashion.Visitor VALUES (" + randomVID + ");";
+  /* sqlStatement = "INSERT INTO trinityfashion.Visitor VALUES (" + bodyList.vid + ");";
 
+  dBCon.query(sqlStatement, function (err, result) {
+    if (err) {
+      resMsg.code = 503;
+      resMsg.message = "Service Unavailable";
+      resMsg.body = "MySQL server error: CODE = " + err.code +
+        " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+      resMsg.headers = {};
+      resMsg.headers["Content-Type"] = "text/html";
+      res.writeHead(resMsg.code, resMsg.headers);
+      res.end(resMsg.body);
+    }
+    else {
+      console.log("Added random visitor");
+    }
+  });  */
+
+  sqlStatement = "INSERT INTO trinityfashion.Member VALUES (" + bodyList.vid + ", \"" + bodyList.Name + "\", \"" 
+          + bodyList.Address  + "\", \"" + bodyList.State + "\", \"" + bodyList.ZIP + "\", \"" + bodyList.Phone
+          + "\", \"" + bodyList.CreditCardNo + "\", \"" + bodyList.CreditCardCVV + "\", \"" + bodyList.CreditCardExpiry
+          + "\", \"" + bodyList.username + "\", \"" + bodyList.password + "\", " + bodyList.APIKey + ", " + bodyList.APIKeyDate +");";
+
+  console.log(sqlStatement);
   dBCon.query(sqlStatement, function (err, result) {
     if (err) {
       resMsg.code = 503;
@@ -523,11 +574,10 @@ app.post(createMember, async (req, res) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', '*');
       res.cookie('APIKey', 'None');
-      res.cookie('vid' , randomVID);
       //************************************res.setHeader('Cookie', ['type=ninja', 'language=javascript']);
       res.status(resMsg.code).send(resMsg.message);
       
-      console.log("Added random visitor");
+      console.log("Created Member. Now Log In");
 }});
 })
 app.post('/checkout', (req, res) =>{
