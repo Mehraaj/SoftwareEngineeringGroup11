@@ -4,8 +4,10 @@ const cors = require('cors');
 app.use(cors({origin: "*",
               methods: ["GET", "POST"]
 }));
-
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
 app.use(express.json());
+
 // const http = require("http");  // Not sure if we need this for express
 
 // utilities for parsing and formatting URL query strings
@@ -23,7 +25,7 @@ const port = (process.env.PORT || 8000);
 const dBCon = mysql.createConnection({ // MySQL database
   host: "localhost",
   user: "root",
-  password: "root"
+  password: "password"
 });
 
 
@@ -123,28 +125,43 @@ console.log(queryResult);
   return false;
 }
 
-app.get('/productcatalog', (req, res) => {   //Get request for our product catalog, will show all products available
+app.get('/productcatalog', async (req, res) => {   //Get request for our product catalog, will show all products available
   resMsg = {};
   //console.log(req);
- 
-  parsedPath = parsingRequest(req);
+  check = verifyAPIKey(req);
+  await check;
+  result = await check.then((res) =>{ return res; })
+  console.log(result);
+  //parsedPath = parsingRequest(req);
 
-  urlParts = parsedPath[0];
-  parametersList = parsedPath[1];
+  //urlParts = parsedPath[0];
+  //parametersList = parsedPath[1];
   /*parametersJson = querystring.parse(parametersList);
 
   console.log("Parameters Json: " );
   console.log(parametersJson);
   */
   sqlStatement = "SELECT * FROM trinityfashion.productcatalog ";
-  //if (req.query.sex && req.query.name && req.query.category){sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' AND Sex = '" + req.query.sex + "' ";}
-  //else if (req.query.sex && req.query.category) {sqlStatement = sqlStatement + " WHERE Sex = '" + req.query.sex+"' AND Category = '" + req.query.category + "' ";}
-  //else if (req.query.name && req.query.sex) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Sex = '" + req.query.sex + "' ";}
-  //else if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
-  if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
+
+  if(req.query.gender || req.query.name || req.query.category || !result){sqlStatement = sqlStatement + " WHERE ";}
+  if (!result){sqlStatement = sqlStatement + " (Category = 'shirts' or Category = 'pants') ";}
+  if(req.query.gender && !result) {sqlStatement = sqlStatement + " AND "}
+  if(req.query.gender){sqlStatement = sqlStatement + " gender = '" + req.query.gender + "' ";}
+  if(req.query.category && (!result || req.query.gender)){sqlStatement = sqlStatement + " AND ";}
+  if(req.query.category){sqlStatement = sqlStatement + " Category = '" + req.query.category+ "' ";}
+  if(req.query.name && (!result || req.query.gender || req.query.category)){sqlStatement = sqlStatement + " AND ";}
+  if(req.query.name){sqlStatement = sqlStatement + " Name = '" + req.query.name+ "' ";}
+  if (req.query.price){sqlStatement = sqlStatement + "ORDER BY Price " + req.query.price;}
+/*
+  if (req.query.sex && req.query.name && req.query.category){sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' AND Sex = '" + req.query.sex + "' ";}
+  else if (req.query.sex && req.query.category) {sqlStatement = sqlStatement + " WHERE Sex = '" + req.query.sex+"' AND Category = '" + req.query.category + "' ";}
+  else if (req.query.name && req.query.sex) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Sex = '" + req.query.sex + "' ";}
+  else if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
+  //if (req.query.name && req.query.category) {sqlStatement = sqlStatement + " WHERE Name = '" + req.query.name+"' AND Category = '" + req.query.category + "' ";}
   else if(req.query.name){sqlStatement = sqlStatement +" WHERE Name = '" + req.query.name + "' ";}
   else if(req.query.category){sqlStatement = sqlStatement + " WHERE Category = '" + req.query.category + "' ";}
   if (req.query.price){sqlStatement = sqlStatement + "ORDER BY Price " + req.query.price;}
+  */
   sqlStatement = sqlStatement + ";";
   console.log(sqlStatement);
 
@@ -157,7 +174,7 @@ app.get('/productcatalog', (req, res) => {   //Get request for our product catal
       //console.log(resMsg);
     } else {
       resMsg.body = JSON.parse(JSON.stringify(result));
-      console.log(result);
+      //console.log(result);
       resMsg.code = 202;
       res.writeHead(resMsg.code, resMsg.headers);
       final = { "data": resMsg.body };
@@ -432,7 +449,7 @@ app.get('/productcatalog/:pid', (req, res) => {
   pid = req.params.pid;
   //const cat = await getCategory(pid);
   //console.log(cat);
-  sqlStatement = "SELECT Category FROM trinityfashion.productcatalog WHERE PID = " + pid + ";";
+  sqlStatement = "SELECT * FROM trinityfashion.productcatalog WHERE PID = " + pid + ";";
   //FIRST SQL QUERY TO GET CATEGORY OF PID
   
   dBCon.query(sqlStatement, function (err, result) {
@@ -450,10 +467,12 @@ app.get('/productcatalog/:pid', (req, res) => {
       console.log("Successfully queried");
       console.log(result);
       result0 = result[0];
-      sqlStatement = "SELECT trinityfashion.productcatalog.PID, Category, Name, Color, Price, SubCategory, Size FROM trinityfashion.productcatalog INNER JOIN trinityfashion."+result0.Category+" ON trinityfashion.productcatalog.PID = trinityfashion."+result0.Category+".PID WHERE trinityfashion.productcatalog.PID = " +pid+";"
+      //sqlStatement = "SELECT trinityfashion.productcatalog.PID, Category, Name, Color, Price, SubCategory, Size FROM trinityfashion.productcatalog INNER JOIN trinityfashion."+result0.Category+" ON trinityfashion.productcatalog.PID = trinityfashion."+result0.Category+".PID WHERE trinityfashion.productcatalog.PID = " +pid+";"
+      sqlStatement = "SELECT DISTINCT size FROM " + "trinityfashion." + result0.Category + " WHERE PID = " + pid + ";";
       //console.log(sqlStatement);
-      //SECOND SQL CALL TO RETURN THE JOIN 
-      dBCon.query(sqlStatement, function (err, result) {
+      //SECOND SQL CALL TO RETURN THE SIZES
+      console.log(sqlStatement);
+      dBCon.query(sqlStatement, function (err, result2) {
         if (err) {
           resMsg.code = 503;
           resMsg.message = "Service Unavailable";
@@ -467,8 +486,34 @@ app.get('/productcatalog/:pid', (req, res) => {
         else { 
           console.log("Successfully queried");
           console.log(result);
-          res.send(result);
-  
+          console.log(result2);
+          result2arr = [];
+          for (let i = 0; i < result2.length; i++){
+            result2arr.push(result2[i].size);
+          }
+          console.log(result2arr);
+          sqlStatement = "SELECT DISTINCT color FROM " + "trinityfashion." + result0.Category + " WHERE PID = " + pid + ";"
+          dBCon.query(sqlStatement, function (err, result3) {
+            if (err) {
+              resMsg.code = 503;
+              resMsg.message = "Service Unavailable";
+              resMsg.body = "MySQL server error: CODE = " + err.code +
+             " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+              resMsg.headers = {};
+              resMsg.headers["Content-Type"] = "text/html";
+              res.writeHead(resMsg.code, resMsg.headers);
+              res.end(resMsg.body);
+            }
+            else {
+              result3arr = [];
+              for (let i = 0; i < result3.length; i++){
+                result3arr.push(result3[i].color);
+              }
+              resultfin = { "data": result, "sizes": result2arr, "colors": result3arr};
+              res.send(JSON.stringify(resultfin));
+      
+              } 
+            });
           } 
         });
       } 
@@ -536,7 +581,29 @@ app.post(createMember, async (req, res) => {
       console.log("Created Member. Now Log In");
 }});
 })
+app.post('/checkout', (req, res) =>{
+  body = req.body;
+  //console.log("body: " + req.body);
+  res.cookie('order', req.body);
+  res.send("successful");
+})
+app.get('/order', (req, res) =>{
+  cookiestr = req.headers.cookie;
+  cookieDict = parseCookie(cookiestr);
+  console.log(cookieDict);
+  order = cookieDict.order;
+  order = order.substring(2,order.length);
+  console.log(order);
+  orderJ = JSON.parse(order);
+  for (let i = 0; i < orderJ.length; i++){
+    orderJ[i].productName
+    orderJ[i].productName
 
+  }
+  console.log(orderJ[0].PID);
+  res.send("successful");
+
+})
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
