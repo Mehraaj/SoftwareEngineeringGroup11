@@ -62,12 +62,12 @@ function afterstart(DATA){
     
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let image = insideatag[0].children;
     let PID = insideatag[3];
-    
     name[0].innerHTML =ALLITEMSOBJ[i].Name
     price[0].innerHTML = ALLITEMSOBJ[i].Price
+    image[0].src = ALLITEMSOBJ[i].image;
     PID.value = ALLITEMSOBJ[i].PID
-    
   }
   var shoes = ALLITEMSOBJ.filter(item => item.Category === 'shoes')
  
@@ -80,8 +80,10 @@ function afterstart(DATA){
     let insideatag = aTagLitag[0].children;
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let image = insideatag[0].children;
     name[0].innerHTML =shoes[i].Name
     price[0].innerHTML = shoes[i].Price
+    image[0].src = shoes[i].image;
   }
   var shirts = ALLITEMSOBJ.filter(item => item.Category === 'shirts')
   var shirtItems = document.getElementById('Shirts').children;
@@ -93,8 +95,10 @@ function afterstart(DATA){
     let insideatag = aTagLitag[0].children;
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let image = insideatag[0].children;
     name[0].innerHTML =shirts[i].Name
     price[0].innerHTML = shirts[i].Price
+    image[0].src = shirts[i].image
   }
   var pants = ALLITEMSOBJ.filter(item => item.Category === 'pants')
   console.log(pants[0].Price)
@@ -108,8 +112,10 @@ function afterstart(DATA){
     let insideatag = aTagLitag[0].children;
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let image = insideatag[0].children;
     name[0].innerHTML =pants[i].Name
     price[0].innerHTML = pants[i].Price
+    image[0].src = pants[i].image
   }
   
   let anchors = document.getElementsByClassName("clickToViewPage");
