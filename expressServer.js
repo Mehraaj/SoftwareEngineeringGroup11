@@ -23,7 +23,7 @@ const port = (process.env.PORT || 8000);
 const dBCon = mysql.createConnection({ // MySQL database
   host: "localhost",
   user: "root",
-  password: "root"
+  password: "password"
 });
 
 
@@ -600,10 +600,12 @@ app.post('/order', (req, res) =>{
   // VID, PID, color, Size, quantity, orderNumber, state
   orderNum = Math.floor(10000 + Math.random() * 90000);
   console.log(orderNum);
+  date = new Date();
   for (let i = 0; i < orderJ.length; i++){
     //INSERT INTO trinityfashion.orders VALUES (2, 101, 'blue', 'M', 30, 10485, 'NJ');
-    
-    sqlStatement = "INSERT INTO trinityfashion.orders VALUES (" + vid + "," + orderJ[i].PID + ",'" + orderJ[i].color + "','" + orderJ[i].size + "'," + orderJ[i].quantity + "," + orderNum + ",'" + state + "');";
+    //sqlStatement = "INSERT INTO trinityfashion.orders VALUES (" + vid + "," + orderJ[i].PID + ",'" + orderJ[i].color + "','" + orderJ[i].size + "'," + orderJ[i].quantity + "," + orderNum + ",'" + state + "');";
+
+    sqlStatement = "INSERT INTO trinityfashion.orders VALUES (" + vid + "," + orderJ[i].PID + ",'" + orderJ[i].color + "','" + orderJ[i].size + "'," + orderJ[i].quantity + "," + orderNum + ",'" + state + "','" + date + "');";
     console.log(sqlStatement);
           dBCon.query(sqlStatement, function (err, result) {
             if (err) {
