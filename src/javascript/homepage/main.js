@@ -83,9 +83,11 @@ function afterstart(DATA){
     let name = insideatag[1].children;
     let price = insideatag[2].children;
     let image = insideatag[0].children;
+    let PID = insideatag[3];
     name[0].innerHTML =shoes[i].Name
     price[0].innerHTML = shoes[i].Price
     image[0].src = shoes[i].image;
+    PID.value = ALLITEMSOBJ[i].PID
   }
 
   var shirts = ALLITEMSOBJ.filter(item => item.Category === 'shirts')
@@ -100,9 +102,11 @@ function afterstart(DATA){
     let name = insideatag[1].children;
     let price = insideatag[2].children;
     let image = insideatag[0].children;
+    let PID = insideatag[3];
     name[0].innerHTML =shirts[i].Name
     price[0].innerHTML = shirts[i].Price
     image[0].src = shirts[i].image
+    PID.value = ALLITEMSOBJ[i].PID
   }
   var pants = ALLITEMSOBJ.filter(item => item.Category === 'pants')
   console.log("pants");
@@ -119,9 +123,11 @@ function afterstart(DATA){
     let name = insideatag[1].children;
     let price = insideatag[2].children;
     let image = insideatag[0].children;
+    let PID = insideatag[3];
     name[0].innerHTML =pants[i].Name;
     price[0].innerHTML = pants[i].Price;
     image[0].src = pants[i].image;
+    PID.value = ALLITEMSOBJ[i].PID
   }
   
   let anchors = document.getElementsByClassName("clickToViewPage");
@@ -131,15 +137,18 @@ function afterstart(DATA){
         let anchor = anchors[i];
         anchor.onclick = function() {
           
-        
+          
           
           let prodname = anchor.children[1].children[0].innerHTML
           let prodprice = anchor.children[2].children[0].innerHTML
           let PID = anchor.children[3].value
+
+          
           const productOBJ = {
               name: prodname,
               price: prodprice,
-              ProductID:PID
+              ProductID:PID,
+              
           }
           
           window.sessionStorage.setItem('productOBJ', JSON.stringify(productOBJ))

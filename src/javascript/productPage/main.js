@@ -58,9 +58,47 @@ async function Start(){
   var item_name = document.getElementById("itemprice");
   item_name.innerHTML = ProdOBJ.price
   PID = ProdOBJ.ProductID
-
+  window.sessionStorage.clear(); 
+  requestData(PID)
+}
+function requestData(ProdID){
+  const HTTP = new XMLHttpRequest();
+  const URL = 'http://localhost:8000/productcatalog/' + ProdID;
+  HTTP.open("GET", URL);
+  HTTP.onload = () =>{
+    console.log("response: ");
+    console.log(HTTP.response);
+    let response = HTTP.response;
+    configSizes(JSON.parse(response))
+    changeTopDirectory(JSON.parse(response))
+    imageSetter(JSON.parse(response))
+  }
+  HTTP.send();
 }
 
-Start();
+function imageSetter(responseObj){
+  console.log(responseObj.data[0].image)//.data.Category)
+
+  var item_image = document.getElementById("Item_Image");
+  item_image.innerHTML = "<img border-left=\none\" height=\"1001px\" width=\"755px\" src="+responseObj.data[0].image+">"
+}
+
+function changeTopDirectory(responseObj){
+  document.getElementById("category").innerHTML = responseObj.data[0].Category
+}
+
+function configSizes(responseObj){
+  console.log(responseObj)
+  let AvailableSizes = responseObj.sizes
+  
+  for(let i =0; i<AvailableSizes.length;i++){
+    let curr = String(AvailableSizes[i])
+    console.log(document.getElementById(curr))
+    document.getElementById(curr).style = "display:show;"
+
+  }
+}
+
+Start()
 console.log(PID)
 

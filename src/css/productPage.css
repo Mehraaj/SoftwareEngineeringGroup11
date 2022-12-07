@@ -114,7 +114,9 @@
 .sizes input[type="radio"] {
   display: none;
 }
-
+.sizes div{
+  display: inline-block;
+}
 .sizes label {
   display: inline-block;
   background-color: aliceblue;

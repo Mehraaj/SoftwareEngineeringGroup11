@@ -56,7 +56,7 @@
         <ul class="quick_Nav">
           <li class="clickable"><a class="bg" href = "./homepage.html">Home</a></li>
           <li><a class="bg">/</a></li>
-          <li class="clickable"><a class="bg" href = "./productListPage.html">Category</a></li>
+          <li class="clickable"><a class="bg" id="category" href = "./productListPage.html">Category</a></li>
           <li><a class="bg">/</a></li>
           <li><a class="bg" id="Item_Name"></a></li>
         </ul>
@@ -73,17 +73,24 @@
           <li id="itemsubcategory"></li>
           <li class="price" id="itemprice"></li>
         </ul>
-        <div class="sizes">
-          <input type="radio" name="size" id="size1">
-          <label for="size1">XS</label>
-          <input type="radio" name="size" id="size2">
-          <label for="size2">S</label>
-          <input type="radio" name="size" id="size3">
-          <label for="size3">M</label>
-          <input type="radio" name="size" id="size4">
-          <label for="size4">L</label>
-          <input type="radio" name="size" id="size5">
-          <label for="size5">XL</label>
+        <div class="sizes" id = "sizes">
+          <div id="S" style="display:none;">
+            <input type="hidden" name="size" id="S1" >
+            <label for="S1">S</label>
+          </div>
+          <div id="M" style="display:none;">
+            <input type="hidden" name="size" id="M1">
+            <label for="M1">M</label>
+          </div>
+          <div id="L" style="display:none;">
+            <input type="hidden" name="size" id="L1">
+            <label for="L1">L</label>
+          </div>
+          <div id="XL" style="display:none;">
+            <input type="hidden" name="size" id="XL1">
+            <label for="XL1">XL</label>
+          </div>
+          
         </div>
         
         <a name="ATC" class="add_to_cart">Add to Cart</a>
