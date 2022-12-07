@@ -59,8 +59,10 @@ function afterstart(DATA){
     let insideatag = aTagLitag[0].children;
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let image = insideatag[0].children;
     name[0].innerHTML =ALLITEMSOBJ[i].Name
     price[0].innerHTML = ALLITEMSOBJ[i].Price
+    image[0].src = ALLITEMSOBJ[i].image;
     
   }
   var shoes = ALLITEMSOBJ.filter(item => item.Category === 'shoes')
@@ -74,8 +76,10 @@ function afterstart(DATA){
     let insideatag = aTagLitag[0].children;
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let image = insideatag[0].children;
     name[0].innerHTML =shoes[i].Name
     price[0].innerHTML = shoes[i].Price
+    image[0].src = shoes[i].image;
   }
   var shirts = ALLITEMSOBJ.filter(item => item.Category === 'shirts')
   var shirtItems = document.getElementById('Shirts').children;
@@ -87,8 +91,10 @@ function afterstart(DATA){
     let insideatag = aTagLitag[0].children;
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let image = insideatag[0].children;
     name[0].innerHTML =shirts[i].Name
     price[0].innerHTML = shirts[i].Price
+    image[0].src = shirts[i].image
   }
   var pants = ALLITEMSOBJ.filter(item => item.Category === 'pants')
  
@@ -101,8 +107,10 @@ function afterstart(DATA){
     let insideatag = aTagLitag[0].children;
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let image = insideatag[0].children;
     name[0].innerHTML =pants[i].Name
     price[0].innerHTML = pants[i].Price
+    image[0].src = pants[i].image
   }
   
 
