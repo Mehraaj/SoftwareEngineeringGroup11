@@ -4,7 +4,8 @@ const cors = require('cors');
 app.use(cors({origin: "*",
               methods: ["GET", "POST"]
 }));
-
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 // const http = require("http");  // Not sure if we need this for express
 
@@ -420,7 +421,7 @@ app.get('/productcatalog/:pid', (req, res) => {
   pid = req.params.pid;
   //const cat = await getCategory(pid);
   //console.log(cat);
-  sqlStatement = "SELECT Category FROM trinityfashion.productcatalog WHERE PID = " + pid + ";";
+  sqlStatement = "SELECT * FROM trinityfashion.productcatalog WHERE PID = " + pid + ";";
   //FIRST SQL QUERY TO GET CATEGORY OF PID
   
   dBCon.query(sqlStatement, function (err, result) {
@@ -438,10 +439,12 @@ app.get('/productcatalog/:pid', (req, res) => {
       console.log("Successfully queried");
       console.log(result);
       result0 = result[0];
-      sqlStatement = "SELECT trinityfashion.productcatalog.PID, Category, Name, Color, Price, SubCategory, Size FROM trinityfashion.productcatalog INNER JOIN trinityfashion."+result0.Category+" ON trinityfashion.productcatalog.PID = trinityfashion."+result0.Category+".PID WHERE trinityfashion.productcatalog.PID = " +pid+";"
+      //sqlStatement = "SELECT trinityfashion.productcatalog.PID, Category, Name, Color, Price, SubCategory, Size FROM trinityfashion.productcatalog INNER JOIN trinityfashion."+result0.Category+" ON trinityfashion.productcatalog.PID = trinityfashion."+result0.Category+".PID WHERE trinityfashion.productcatalog.PID = " +pid+";"
+      sqlStatement = "SELECT DISTINCT size FROM " + "trinityfashion." + result0.Category + " WHERE PID = " + pid + ";";
       //console.log(sqlStatement);
-      //SECOND SQL CALL TO RETURN THE JOIN 
-      dBCon.query(sqlStatement, function (err, result) {
+      //SECOND SQL CALL TO RETURN THE SIZES
+      console.log(sqlStatement);
+      dBCon.query(sqlStatement, function (err, result2) {
         if (err) {
           resMsg.code = 503;
           resMsg.message = "Service Unavailable";
@@ -455,8 +458,34 @@ app.get('/productcatalog/:pid', (req, res) => {
         else { 
           console.log("Successfully queried");
           console.log(result);
-          res.send(result);
-  
+          console.log(result2);
+          result2arr = [];
+          for (let i = 0; i < result2.length; i++){
+            result2arr.push(result2[i].size);
+          }
+          console.log(result2arr);
+          sqlStatement = "SELECT DISTINCT color FROM " + "trinityfashion." + result0.Category + " WHERE PID = " + pid + ";"
+          dBCon.query(sqlStatement, function (err, result3) {
+            if (err) {
+              resMsg.code = 503;
+              resMsg.message = "Service Unavailable";
+              resMsg.body = "MySQL server error: CODE = " + err.code +
+             " SQL of the failed query: " + err.sql + " Textual description: " + err.sqlMessage;
+              resMsg.headers = {};
+              resMsg.headers["Content-Type"] = "text/html";
+              res.writeHead(resMsg.code, resMsg.headers);
+              res.end(resMsg.body);
+            }
+            else {
+              result3arr = [];
+              for (let i = 0; i < result3.length; i++){
+                result3arr.push(result3[i].color);
+              }
+              resultfin = { "data": result, "sizes": result2arr, "colors": result3arr};
+              res.send(JSON.stringify(resultfin));
+      
+              } 
+            });
           } 
         });
       } 
@@ -502,7 +531,29 @@ app.post(createMember, async (req, res) => {
       console.log("Added random visitor");
 }});
 })
+app.post('/checkout', (req, res) =>{
+  body = req.body;
+  //console.log("body: " + req.body);
+  res.cookie('order', req.body);
+  res.send("successful");
+})
+app.get('/order', (req, res) =>{
+  cookiestr = req.headers.cookie;
+  cookieDict = parseCookie(cookiestr);
+  console.log(cookieDict);
+  order = cookieDict.order;
+  order = order.substring(2,order.length);
+  console.log(order);
+  orderJ = JSON.parse(order);
+  for (let i = 0; i < orderJ.length; i++){
+    orderJ[i].productName
+    orderJ[i].productName
 
+  }
+  console.log(orderJ[0].PID);
+  res.send("successful");
+
+})
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
