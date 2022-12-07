@@ -53,14 +53,20 @@ async function start(){ // function that parses db for info first
 function afterstart(DATA){
   var ALLITEMSOBJ = JSON.parse(DATA).data;
   var featuredItems = document.getElementById('featuredItems').children;
-  for(let i = 0 ; i<featuredItems.length;i++){
+  console.log(ALLITEMSOBJ)
+  let len = Math.min(ALLITEMSOBJ.length,featuredItems.length)
+  for(let i = 0 ; i<len;i++){
     let innerProductCard = featuredItems[i].children; // view the featured product and get the elems of that 
     let aTagLitag = innerProductCard[0].children;// elems i
     let insideatag = aTagLitag[0].children;
+    
     let name = insideatag[1].children;
     let price = insideatag[2].children;
+    let PID = insideatag[3];
+    
     name[0].innerHTML =ALLITEMSOBJ[i].Name
     price[0].innerHTML = ALLITEMSOBJ[i].Price
+    PID.value = ALLITEMSOBJ[i].PID
     
   }
   var shoes = ALLITEMSOBJ.filter(item => item.Category === 'shoes')
@@ -91,6 +97,7 @@ function afterstart(DATA){
     price[0].innerHTML = shirts[i].Price
   }
   var pants = ALLITEMSOBJ.filter(item => item.Category === 'pants')
+  console.log(pants[0].Price)
  
   var pantItems = document.getElementById('pants').children;
    length = Math.min(shoeItems.length,shoes.length)
@@ -105,7 +112,28 @@ function afterstart(DATA){
     price[0].innerHTML = pants[i].Price
   }
   
+  let anchors = document.getElementsByClassName("clickToViewPage");
 
+
+      for(let i = 0; i < anchors.length; i++) {
+        let anchor = anchors[i];
+        anchor.onclick = function() {
+          
+        
+          
+          let prodname = anchor.children[1].children[0].innerHTML
+          let prodprice = anchor.children[2].children[0].innerHTML
+          let PID = anchor.children[3].value
+          const productOBJ = {
+              name: prodname,
+              price: prodprice,
+              ProductID:PID
+          }
+          
+          window.sessionStorage.setItem('productOBJ', JSON.stringify(productOBJ))
+          ;
+        }
+    }
 
 }
 
