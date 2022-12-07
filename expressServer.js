@@ -25,7 +25,7 @@ const port = (process.env.PORT || 8000);
 const dBCon = mysql.createConnection({ // MySQL database
   host: "localhost",
   user: "root",
-  password: "password"
+  password: "root"
 });
 
 
@@ -131,6 +131,7 @@ app.get('/productcatalog', async (req, res) => {   //Get request for our product
   check = verifyAPIKey(req);
   await check;
   result = await check.then((res) =>{ return res; })
+  console.log("verify API result: ");
   console.log(result);
   //parsedPath = parsingRequest(req);
 

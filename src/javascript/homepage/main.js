@@ -42,6 +42,7 @@ async function start(){ // function that parses db for info first
   const URL = 'http://localhost:8000/productCatalog';
   HTTP.open("GET", URL);
   HTTP.onload = () =>{
+    console.log("response: ");
     console.log(HTTP.response);
     
     afterstart(HTTP.response);
@@ -59,7 +60,6 @@ function afterstart(DATA){
     let innerProductCard = featuredItems[i].children; // view the featured product and get the elems of that 
     let aTagLitag = innerProductCard[0].children;// elems i
     let insideatag = aTagLitag[0].children;
-    
     let name = insideatag[1].children;
     let price = insideatag[2].children;
     let image = insideatag[0].children;
@@ -68,9 +68,11 @@ function afterstart(DATA){
     price[0].innerHTML = ALLITEMSOBJ[i].Price
     image[0].src = ALLITEMSOBJ[i].image;
     PID.value = ALLITEMSOBJ[i].PID
+  
   }
   var shoes = ALLITEMSOBJ.filter(item => item.Category === 'shoes')
- 
+  console.log("Shoes");
+  console.log(shoes);
   var shoeItems = document.getElementById('shoes').children;
   let length = Math.min(shoeItems.length,shoes.length)
   
@@ -85,10 +87,12 @@ function afterstart(DATA){
     price[0].innerHTML = shoes[i].Price
     image[0].src = shoes[i].image;
   }
+
   var shirts = ALLITEMSOBJ.filter(item => item.Category === 'shirts')
   var shirtItems = document.getElementById('Shirts').children;
    length = Math.min(shirtItems.length,shirts.length)
-  
+   console.log("Shirts");
+   console.log(shirts);
   for(let i =0; i<length;i++){
     let innerProductCard = shirtItems[i].children; // view the featured product and get the elems of that 
     let aTagLitag = innerProductCard[0].children;// elems i
@@ -101,10 +105,12 @@ function afterstart(DATA){
     image[0].src = shirts[i].image
   }
   var pants = ALLITEMSOBJ.filter(item => item.Category === 'pants')
+  console.log("pants");
+   console.log(pants);
   console.log(pants[0].Price)
  
   var pantItems = document.getElementById('pants').children;
-   length = Math.min(shoeItems.length,shoes.length)
+   length = Math.min(pantItems.length,pantItems.length)
   
   for(let i =0; i<length;i++){
     let innerProductCard = pantItems[i].children; // view the featured product and get the elems of that 
@@ -113,9 +119,9 @@ function afterstart(DATA){
     let name = insideatag[1].children;
     let price = insideatag[2].children;
     let image = insideatag[0].children;
-    name[0].innerHTML =pants[i].Name
-    price[0].innerHTML = pants[i].Price
-    image[0].src = pants[i].image
+    name[0].innerHTML =pants[i].Name;
+    price[0].innerHTML = pants[i].Price;
+    image[0].src = pants[i].image;
   }
   
   let anchors = document.getElementsByClassName("clickToViewPage");
