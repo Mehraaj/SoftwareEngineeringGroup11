@@ -164,3 +164,12 @@ font-family: "Montserrat", sans-serif;
   background-color: rgba(128,128,128, 1);
   cursor: pointer;
 }
+
+.COLORS{
+  font-family: "Montserrat", sans-serif;
+  border-color: black;
+  
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 20px;
+}
