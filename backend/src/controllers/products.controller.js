@@ -2,6 +2,7 @@ const logger = require("../utils/logger");
 const query = require("../utils/mysql");
 
 const fetchCatalog = async (req, res) => {
+  // #swagger.tags = ['Products']
   const { authenticated } = res.locals;
 
   let sqlStatement = "SELECT * FROM trinityfashion.productcatalog ";
@@ -45,7 +46,7 @@ const fetchCatalog = async (req, res) => {
 
   try {
     const result = await query(sqlStatement);
-    res.status(200).json(result);
+    res.status(200).json({ data: result });
     return;
   } catch (err) {
     logger.error(err);
@@ -54,6 +55,7 @@ const fetchCatalog = async (req, res) => {
 };
 
 const fetchCatalogById = async (req, res) => {
+  // #swagger.tags = ['Products']
   const { id } = req.params;
 
   try {

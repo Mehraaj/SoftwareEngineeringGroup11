@@ -1,4 +1,7 @@
 .DS_Store
+backend/src/utils/swagger-output.json
+
+
 logs
 *.log
 npm-debug.log*

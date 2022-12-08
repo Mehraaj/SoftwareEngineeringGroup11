@@ -5,6 +5,7 @@ const STATUS = require("http-status");
 const { getCart } = require("./orders.controller");
 
 const checkLogIn = async (req, res) => {
+  // #swagger.tags = ['Users']
   const { username, password } = req.query;
 
   let queryResult;
@@ -24,18 +25,9 @@ const checkLogIn = async (req, res) => {
 
   const userID = queryResult[0].VID;
 
-  const APIKey = uuidv4();
-  const APIKeyDate = new Date();
-
-  logger.debug(
-    `Generated APIKey: ${APIKey} for user ${userID} expiring at ${APIKeyDate.toLocaleString()}`
-  );
-
+  let APIKey;
   try {
-    query(
-      "UPDATE trinityfashion.Member SET APIKey = ?, APIKeyDate = ? WHERE vid = ?;",
-      [APIKey, APIKeyDate, userID]
-    );
+    APIKey = generateKey(userID);
   } catch (err) {
     res.status(STATUS.BAD_REQUEST).send(err.message);
     return;
@@ -55,17 +47,19 @@ const checkLogIn = async (req, res) => {
 
   res
     .status(STATUS.OK)
-    .json({ APIKey: APIKey, APIKeyDate: APIKeyDate.toString() });
+    .json({ APIKey: APIKey});
 
   logger.debug("Successfully found user and created API Key");
 };
 
 const createVisitor = async (req, res) => {
+  // #swagger.tags = ['Users']
+  logger.debug("HERE");
   const vid = uuidv4();
 
   try {
     await query("INSERT INTO trinityfashion.Visitor (VID) VALUES (?);", [vid]);
-    res.cookie("X-API-KEY", "None");
+    res.cookie("APIKey", "None");
     res.cookie("vid", vid);
     res.status(STATUS.OK).send("Successfully created visitor");
   } catch {
@@ -75,6 +69,7 @@ const createVisitor = async (req, res) => {
 };
 
 const createMember = async (req, res) => {
+  // #swagger.tags = ['Users']
   const {
     Name,
     Address,
@@ -90,10 +85,12 @@ const createMember = async (req, res) => {
 
   const vid = req.cookies.vid;
 
+  logger.debug(`Creating member for visitor: ${vid}`);
+
   try {
     await query(
-      "INSERT into trinityfashion.Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV,"
-      + "CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+      "INSERT into trinityfashion.Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV," +
+        "CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
       [
         vid,
         Name,
@@ -108,13 +105,31 @@ const createMember = async (req, res) => {
         password,
       ]
     );
-    res.cookie("APIKey", "None");
-    res.cookie("vid", vid);
+    const APIKey = generateKey(vid);
+    res.cookie("APIKey", APIKey, {
+      expires: new Date(Date.now() + 900000),
+    });
+    res.clearCookie("vid");
     res.status(STATUS.OK).send("Successfully created member");
   } catch {
     res.status(STATUS.BAD_REQUEST).send("Could not create member");
     return;
   }
+};
+
+const generateKey = (vid) => {
+  const APIKey = uuidv4();
+  const APIKeyDate = new Date(Date.now() + 900000);
+
+  logger.debug(
+    `Generated APIKey: ${APIKey} for user ${vid} expiring at ${APIKeyDate.toLocaleString()}`
+  );
+
+  query(
+    "UPDATE trinityfashion.Member SET APIKey = ?, APIKeyDate = ? WHERE vid = ?;",
+    [APIKey, APIKeyDate, vid]
+  );
+  return APIKey;
 };
 
 module.exports = {
