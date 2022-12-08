@@ -9,7 +9,7 @@ const doc = {
     schemes: ["http"],
   };
   
-  const outputFile = "./swagger-output.json";
+  const outputFile = "./backend/src/utils/swagger-output.json";
   const endpointsFiles = ["backend/src/routes/*route.js"];
   
   /* NOTE: if you use the express Router, you must pass in the 
