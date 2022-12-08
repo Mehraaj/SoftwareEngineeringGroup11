@@ -110,8 +110,6 @@ function afterstart(DATA){
       else{
         if (first === false)
           removeAllChildNodes(smallContainer[j])
-        
-
       }
     
       }
