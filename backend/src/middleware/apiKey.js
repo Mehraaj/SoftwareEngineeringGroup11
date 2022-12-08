@@ -24,7 +24,8 @@ const verifyUser = (stopPropogation) => {
         [APIKey]
       );
       if (result.length > 0) {
-        logger.info(`User ${result[0].username} verified`);
+        req.user = { vid: result[0].VID };
+        logger.info(`User ${result[0].VID} verified`);
       } else {
         throw new Error();
       }

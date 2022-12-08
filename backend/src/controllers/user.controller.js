@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 const logger = require("../utils/logger");
 const query = require("../utils/mysql");
 const STATUS = require("http-status");
+const { getCart } = require("./orders.controller");
 
 const checkLogIn = async (req, res) => {
   const { username, password } = req.query;
@@ -43,7 +44,15 @@ const checkLogIn = async (req, res) => {
   res.cookie("APIKey", APIKey, {
     expires: new Date(Date.now() + 900000),
   });
-  res.cookie("vid", userID);
+  try {
+    const cart = await getCart(userID);
+    res.cookie("cart", JSON.stringify(cart));
+    logger.debug(JSON.stringify(cart));
+  } catch {
+    res.status(STATUS.BAD_REQUEST).send("Could not get cart");
+    return;
+  }
+
   res
     .status(STATUS.OK)
     .json({ APIKey: APIKey, APIKeyDate: APIKeyDate.toString() });
@@ -56,7 +65,7 @@ const createVisitor = async (req, res) => {
 
   try {
     await query("INSERT INTO trinityfashion.Visitor (VID) VALUES (?);", [vid]);
-    res.cookie("APIKey", "None");
+    res.cookie("X-API-KEY", "None");
     res.cookie("vid", vid);
     res.status(STATUS.OK).send("Successfully created visitor");
   } catch {
@@ -83,7 +92,8 @@ const createMember = async (req, res) => {
 
   try {
     await query(
-      "INSERT into trinityfashion.Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV, CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+      "INSERT into trinityfashion.Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV,"
+      + "CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
       [
         vid,
         Name,
