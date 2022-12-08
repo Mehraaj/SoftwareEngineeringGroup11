@@ -633,3 +633,23 @@ app.post('/order', (req, res) =>{
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+app.get("/getItemImage", (req, res) => {
+  let parameters = req.query;
+  let pid = parameters.pid; 
+  let category = parameters.category;
+  let color = parameters.color; 
+
+  sqlStatement = "SELECT  DISTINCT * FROM " + "trinityfashion." + category + " WHERE PID = " + pid + " and color = " + color + ";";
+
+  dBCon.query(sqlStatement, function (err, result) {
+    if (err) {
+      res.end("Server Error");
+    }
+    else {
+     
+      res.status(202).send(result);
+    
+}});
+  
+})

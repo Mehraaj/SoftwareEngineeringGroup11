@@ -36,6 +36,20 @@ for(let i =0; i<ATC.length;i++){
 }
 }
 
+async function makeVisitor(){
+  const HTTP = new XMLHttpRequest();
+  const URL = 'http://localhost:8000/createVisitor';
+  HTTP.open("GET", URL);
+  HTTP.onload = () =>{
+    console.log("response: ");
+    console.log(HTTP.response);
+    
+    start();
+  }
+  HTTP.send();
+}
+
+
 
 async function start(){ // function that parses db for info first
   const HTTP = new XMLHttpRequest();
@@ -159,5 +173,4 @@ function afterstart(DATA){
 
 }
 
-
-await start();
+await makeVisitor();
