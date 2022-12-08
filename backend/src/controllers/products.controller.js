@@ -91,9 +91,9 @@ const fetchSizes = async (category, pid) => {
 };
 
 const fetchColors = async (category, pid) => {
-  const sql = `SELECT DISTINCT color FROM trinityfashion.${category} WHERE pid = ?`;
+  const sql = `SELECT DISTINCT color,image FROM trinityfashion.${category} WHERE pid = ?`;
   const result = await query(sql, [pid]);
-  return result.map((row) => row.color);
+  return result;
 };
 
 module.exports = {
