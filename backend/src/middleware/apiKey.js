@@ -13,6 +13,7 @@ const verifyUser = (stopPropogation) => {
       } else {
         res.locals["authenticated"] = false;
         next(false);
+        return;
       }
     }
 

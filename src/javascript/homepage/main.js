@@ -38,8 +38,8 @@ for(let i =0; i<ATC.length;i++){
 
 async function makeVisitor(){
   const HTTP = new XMLHttpRequest();
-  const URL = 'http://localhost:8000/createVisitor';
-  HTTP.open("GET", URL);
+  const URL = 'http://localhost:8000/users/visitor';
+  HTTP.open("POST", URL);
   HTTP.onload = () =>{
     console.log("response: ");
     console.log(HTTP.response);
@@ -53,7 +53,7 @@ async function makeVisitor(){
 
 async function start(){ // function that parses db for info first
   const HTTP = new XMLHttpRequest();
-  const URL = 'http://localhost:8000/productCatalog';
+  const URL = 'http://localhost:8000/products/productCatalog';
   HTTP.open("GET", URL);
   HTTP.onload = () =>{
     console.log("response: ");

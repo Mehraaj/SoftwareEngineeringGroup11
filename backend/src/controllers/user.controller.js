@@ -65,7 +65,7 @@ const createVisitor = async (req, res) => {
 
   try {
     await query("INSERT INTO trinityfashion.Visitor (VID) VALUES (?);", [vid]);
-    res.cookie("X-API-KEY", "None");
+    res.cookie("APIKey", "None");
     res.cookie("vid", vid);
     res.status(STATUS.OK).send("Successfully created visitor");
   } catch {

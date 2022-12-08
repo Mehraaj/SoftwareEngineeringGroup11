@@ -65,7 +65,7 @@ async function Start(){
 
 function requestData(ProdID){
   const HTTP = new XMLHttpRequest();
-  const URL = 'http://localhost:8000/productcatalog/' + ProdID;
+  const URL = 'http://localhost:8000/products/productCatalog/' + ProdID;
   HTTP.open("GET", URL);
   HTTP.onload = () =>{
     console.log("response: ");
@@ -110,7 +110,7 @@ function imageSetterChange(responseObj, color){
   }
   HTTP.send();*/
   const HTTP = new XMLHttpRequest();
-  const URL = 'http://localhost:8000/productcatalog/' + sessionStorage.getItem("PID");
+  const URL = 'http://localhost:8000/products/productCatalog/' + sessionStorage.getItem("PID");
   HTTP.open("GET", URL);
   HTTP.onload = () =>{
     console.log("response: ");
@@ -162,7 +162,7 @@ ATCBUTTON.onclick = function(){
     "add":"true"
 }
   const HTTP = new XMLHttpRequest();
-    const URL = 'http://localhost:8000/cart';
+    const URL = 'http://localhost:8000/orders/cart';
     HTTP.open("POST", URL);
     HTTP.onload = () =>{
     let INFO = HTTP.responseText;

@@ -18,6 +18,7 @@ const urlParams = new URLSearchParams(queryString);
 const category = urlParams.get('Category');
 console.log(category);
 var filter = urlParams.get('filter');
+var productName = urlParams.get('productName');
 console.log(filter);
 let ATC = document.getElementsByName("ATC");
 let Counter = document.getElementById("ATCcounter")
@@ -44,7 +45,13 @@ async function start(){ // function that parses db for info first
   if (filter === "all"){
     filter = '';
   }
-  const URL = 'http://localhost:8000/productCatalog?category=' + category + '&gender=' + filter;
+  if(productName === undefined)
+  {
+    productName = '';
+  }
+
+  const URL = (productName !== '') ? `http://localhost:8000/products/productCatalog?Name=${productName}` : (filter !== '') ? `http://localhost:8000/products/productCatalog?category=${category}&gender=${filter}` : `http://localhost:8000/products/productCatalog?category=${category}` ;
+  console.log("URL for filtering: " );
   console.log(URL);
   HTTP.open("GET", URL);
   HTTP.onload = () =>{
@@ -85,7 +92,7 @@ function afterstart(DATA){
       else{
         if (first)
         {
-        filledInRow = count % 4; 
+        let filledInRow = count % 4; 
         if (filledInRow === 0) {
           removeAllChildNodes(smallContainer[j])
         }
