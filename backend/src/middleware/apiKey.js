@@ -21,17 +21,21 @@ const verifyUser = (stopPropogation) => {
 
     try {
       const result = await query(
-        "SELECT * FROM trinityfashion.Member WHERE APIKey = ?",
+        "SELECT APIKeyDate FROM trinityfashion.Member WHERE APIKey = ?",
         [APIKey]
       );
-      if (result.length > 0) {
+      logger.debug(new Date(result[0].APIKeyDate));
+      logger.debug(new Date());
+      if (result.length === 0) {
+        throw new Error("Could not verify API key");
+      } else if (new Date(result[0].APIKeyDate) < new Date()) {
+        throw new Error("API Key expired");
+      } else {
         req.user = { vid: result[0].VID };
         logger.info(`User ${result[0].VID} verified`);
-      } else {
-        throw new Error();
       }
     } catch (err) {
-      logger.error("Could not verify API key");
+      logger.error(err);
       if (stopPropogation) {
         return res.status(STATUS.UNAUTHORIZED).send("Could not verify API key");
       } else {

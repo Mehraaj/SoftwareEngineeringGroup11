@@ -5,6 +5,7 @@ const STATUS = require("http-status");
 const tax = require("sales-tax");
 
 const fetchTax = async (req, res) => {
+  // #swagger.tags = ['Orders']
   try {
     const { state } = req.params;
     const taxRate = await tax.getSalesTax("US", state);
@@ -16,6 +17,7 @@ const fetchTax = async (req, res) => {
 };
 
 const fetchOrders = async (req, res) => {
+  // #swagger.tags = ['Orders']
   const { vid } = req.user;
   try {
     const orders = await query(
@@ -43,6 +45,7 @@ const fetchOrders = async (req, res) => {
 };
 
 const fetchOrderByID = async (req, res) => {
+  // #swagger.tags = ['Orders']
   const { vid } = req.user;
   const { orderNumber } = req.params;
   try {
@@ -81,6 +84,7 @@ const fetchOrderByID = async (req, res) => {
 };
 
 const handleOrder = async (req, res) => {
+  // #swagger.tags = ['Orders']
   const { state } = req.query;
   const { cart } = req.cookies;
   const { vid } = req.user;
@@ -106,6 +110,7 @@ const handleOrder = async (req, res) => {
 };
 
 const updateCart = async (req, res) => {
+  // #swagger.tags = ['Orders']
   const { cart } = req.cookies;
   const { vid } = req.user;
 
@@ -131,6 +136,7 @@ const updateCart = async (req, res) => {
 };
 
 const fetchCart = async (req, res) => {
+  // #swagger.tags = ['Orders']
   const { vid } = req.user;
   logger.debug(`Fetching cart for user: ${vid}`);
   try {
@@ -144,6 +150,7 @@ const fetchCart = async (req, res) => {
 };
 
 const getCart = async (vid) => {
+  // #swagger.tags = ['Orders']
   try {
     const cart = await query(
       "SELECT * FROM trinityfashion.Cart WHERE vid = ?;",
