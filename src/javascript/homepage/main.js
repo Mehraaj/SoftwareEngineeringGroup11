@@ -47,12 +47,18 @@ for(let i =0; i<ATC.length;i++){
 
 async function makeVisitor(){
   const HTTP = new XMLHttpRequest();
-  const URL = 'http://localhost:8000/users/visitor';
+  const URL = 'http://localhost:8000/users';
   HTTP.open("POST", URL);
+  HTTP.withCredentials = true;
   HTTP.onload = () =>{
-    console.log("response: ");
-    console.log(HTTP.response);
-    
+    if(HTTP.status === 202){
+      document.getElementById("shoesHeader").style = "display: show;"
+      document.getElementById("shoes").style = "display: show;"
+      //document.getElementById("socksHeader").style = "display: show;"
+      //document.getElementById("socks").style = "display: show;"
+      //document.getElementById("hatsHeader").style = "display: show;"
+      //document.getElementById("hats").style = "display: show;"
+    }
     start();
   }
   HTTP.send();
@@ -64,6 +70,7 @@ async function start(){ // function that parses db for info first
   const HTTP = new XMLHttpRequest();
   const URL = 'http://localhost:8000/products/productCatalog';
   HTTP.open("GET", URL);
+  
   HTTP.onload = () =>{
     console.log("response: ");
     console.log(HTTP.response);

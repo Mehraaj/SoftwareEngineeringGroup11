@@ -25,15 +25,20 @@ submit.onclick = async function () {
 async function httpRequest(){
   console.log("In httpRequest");
   const HTTP = new XMLHttpRequest();
-  let url =
-        "http://localhost:8000/checkLogIn?username=" +
-        "username" +
-        "&password=" +
-        "password";
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  console.log("Password: ");
+  console.log(password);
+  const url =
+        `http://localhost:8000/users?username=${username}&password=${password}`;
   
-
+  console.log("url: ")
+  console.log(url)
   HTTP.open("GET", url, false);
+  HTTP.withCredentials = true;
   HTTP.onload = () =>{
+    console.log("HTTP Response: ")
+    console.log(HTTP.status);
     console.log(HTTP.response);
     processRequest(HTTP.response);
   }
@@ -67,7 +72,7 @@ console.log("in submit");
 function processRequest(data){
   console.log("in ProcessRequest");
   console.log(data);
-  document.getElementById("check").href='./homepage.html?loggedIn=true';
+  document.getElementById("check").href='./homepage.html';
 }
 
 var searchBtn = document.getElementById("searchIconEnter");
@@ -84,15 +89,4 @@ function searchName(){
   
   }
 
-function CreateUser() {
-  let user = {
-    Username: "",
-    Password: "",
-    Cart: "",
-    CCNum: "",
-    CVV: "",
-    Exp: "",
-    address: "",
-  };
-  return user;
-}
+

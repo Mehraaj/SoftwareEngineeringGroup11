@@ -11,30 +11,30 @@
   </head>
   <header id="mainmenu">
     <a href="homepage.html" class="homeLink"><img class = "logo"    src="./src/resources/homepage/logo.png" alt="Logo" href="./homepage.html"></a>
-      <nav>
-          <ul class = "nav_links">
-            <li class = "menuList"><a href = "./productListPage.html">Shoes</a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div>
-            </li>
-            <li class = "menuList"><a href = "./productListPage.html">Shirts </a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div></li>
-            <li class = "menuList"><a href = "./productListPage.html">Pants </a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div></li>
-          </ul>
-          
-      </nav>
+    <nav>
+      <ul class = "nav_links">
+        <li class = "menuList"><a href = "./productListPage.html?Category=shoes">Shoes</a>
+          <div class="dropdown-content">
+            <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+            <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+            <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
+          </div>
+        </li>
+        <li class = "menuList"><a href = "./productListPage.html?Category=shirts">Shirts </a>
+          <div class="dropdown-content">
+            <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+            <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+            <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
+          </div></li>
+        <li class = "menuList"><a href = "./productListPage.html?Category=pants">Pants </a>
+          <div class="dropdown-content">
+            <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+            <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+            <a href="./productListPage.html?Category=pants&filter=all">View All</a>
+          </div></li>
+      </ul>
+      
+  </nav>
       <nav>
         <ul class ="cta">
           <li class ="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
@@ -54,9 +54,9 @@
     <div>
       <ul class = "LoginCredentials">
         <li class = "textAboveInput">Username</li>
-        <li class = "inputs"><input class = "Inputs" placeholder="Username"></li>
+        <li class = "inputs"><input id = "username" class = "Inputs" placeholder="Username"></li>
         <li class ="textAboveInput">Password</li>
-        <li class = "inputs"><input type="password" class = "Inputs" placeholder="Password"></li>
+        <li class = "inputs"><input id = "password" type="password" class = "Inputs" placeholder="Password"></li>
         <li class = "buttonItem"><a id="check" href=""><button  id = "submitButton" class="submitButton">Submit</button></a></li>
       </ul>
     </div>

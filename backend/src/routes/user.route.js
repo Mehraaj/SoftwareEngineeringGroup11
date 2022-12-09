@@ -15,7 +15,7 @@ router.route("/member").post(createMember);
 
 router.route("/supplier").post(createSupplier);
 
-router.route("/").post(verifyUser(false), (req, res) => {
+router.route("/").post(verifyUser(true), (req, res) => {
   res.status(202).json({
     message: `APIKey ${
       res.locals.authenticated ? "verified" : "not verified"
