@@ -3,6 +3,7 @@ const logger = require("../utils/logger");
 const query = require("../utils/mysql");
 const STATUS = require("http-status");
 const { getCart } = require("./orders.controller");
+const emailValidator = require("deep-email-validator");
 
 const checkLogIn = async (req, res) => {
   // #swagger.tags = ['Users']
@@ -66,6 +67,7 @@ const createMember = async (req, res) => {
   // #swagger.tags = ['Users']
   const {
     Name,
+    Email,
     Address,
     State,
     ZIP,
@@ -76,17 +78,39 @@ const createMember = async (req, res) => {
     username,
     password,
   } = req.body;
+  logger.debug(
+    JSON.stringify({
+      email: Email,
+      validateSMTP: false,
+    })
+  );
+
+  const validation = await emailValidator.validate({
+    email: Email,
+    validateSMTP: false,
+  });
+
+  if (!validation.valid) {
+    const message = {
+      message: "Invalid Email",
+      category: validation.reason,
+      reason: validation.validators[validation.reason].reason,
+    };
+    res.status(STATUS.BAD_REQUEST).json(message);
+    return;
+  }
 
   try {
     const vid = await createVisitor();
     logger.debug(`Creating member for visitor: ${vid}`);
 
     await query(
-      "INSERT into trinityfashion.Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV," +
-        "CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+      "INSERT into trinityfashion.Member (VID, Name, email, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV," +
+        "CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
       [
         vid,
         Name,
+        Email,
         Address,
         State,
         ZIP,
@@ -110,6 +134,31 @@ const createMember = async (req, res) => {
   }
 };
 
+const createSupplier = async (req, res) => {
+  // #swagger.tags = ['Users']
+  const { Name, username, password, Title } = req.body;
+
+  try {
+    const vid = await createVisitor();
+    logger.debug(`Creating Supplier for visitor: ${vid}`);
+
+    await query(
+      "INSERT into trinityfashion.Supplier (VID, Name, username, password, Title)" +
+        " VALUES (?, ?, ?, ?, ?);",
+      [vid, Name, username, password, Title]
+    );
+    const APIKey = generateKey(vid);
+    res.cookie("APIKey", APIKey, {
+      expires: new Date(Date.now() + 900000),
+    });
+    res.clearCookie("vid");
+    res.status(STATUS.OK).send("Successfully created supplier");
+  } catch {
+    res.status(STATUS.BAD_REQUEST).send("Could not create supplier");
+    return;
+  }
+};
+
 const generateKey = (vid) => {
   const APIKey = uuidv4();
   const APIKeyDate = new Date(Date.now() + 900000);
@@ -128,4 +177,5 @@ const generateKey = (vid) => {
 module.exports = {
   checkLogIn,
   createMember,
+  createSupplier,
 };

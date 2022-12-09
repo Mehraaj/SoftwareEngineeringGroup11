@@ -70,6 +70,20 @@ function processRequest(data){
   document.getElementById("check").href='./homepage.html?loggedIn=true';
 }
 
+var searchBtn = document.getElementById("searchIconEnter");
+
+searchBtn.addEventListener("click",searchName);
+
+function searchName(){
+  let enteredSearch = document.getElementById("search").value;
+  console.log(enteredSearch);
+  let url = `./searchListPage.html?productName=${enteredSearch}`
+  console.log(url);
+  document.getElementById("searchIconEnter").href=url;
+  //location.assign(url);
+  
+  }
+
 function CreateUser() {
   let user = {
     Username: "",

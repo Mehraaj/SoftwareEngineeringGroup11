@@ -1,6 +1,19 @@
 window.onscroll = function() {myFunction()};
 var header = document.getElementById("mainmenu");
 
+var searchBtn = document.getElementById("searchIconEnter");
+
+searchBtn.addEventListener("click",searchName);
+
+function searchName(){
+enteredSearch = document.getElementById("search").value;
+console.log(enteredSearch);
+let url = `./searchListPage.html?productName=${enteredSearch}`
+console.log(url);
+document.getElementById("searchIconEnter").href=url;
+//location.assign(url);
+
+}
 // Get the offset position of the navbar
 var sticky = header.offsetTop;
 
@@ -12,31 +25,16 @@ function myFunction() {
     header.classList.remove("sticky");
   }
 }
-
-var searchBtn = document.getElementById("searchIconEnter");
-
-searchBtn.addEventListener("click",searchName);
-
-function searchName(){
-  let enteredSearch = document.getElementById("search").value;
-  console.log(enteredSearch);
-  let url = `./searchListPage.html?productName=${enteredSearch}`
-  console.log(url);
-  document.getElementById("searchIconEnter").href=url;
-  //location.assign(url);
-  
-  }
-
 const queryString = window.location.search;
 console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
-const category = urlParams.get('Category');
-console.log(category);
-var filter = urlParams.get('filter');
-var sortPrice = urlParams.get('sortPrice');
-var productName = urlParams.get('productName');
 
-if (filter === "all" || filter === null || filter === "All Products" || filter === ''){
+var productName = urlParams.get('productName');
+console.log("Product Name: ");
+console.log(productName);
+
+
+/* if (filter === "all" || filter === null || filter === "All Products" || filter === ''){
   document.getElementById("filterGender").value = 'All Products';
   filter = '';
 }
@@ -52,9 +50,10 @@ if(sortPrice === undefined || sortPrice === null || sortPrice === "Filters")
 else{
   document.getElementById("filterPrice").value = sortPrice;
 }
+*/
 
 let titleName = document.getElementById("main").children[0].children[0];
-titleName.innerHTML = `ALL ${category.toUpperCase()}`
+//titleName.innerHTML = `ALL ${category.toUpperCase()}`
 let ATC = document.getElementsByName("ATC");
 let Counter = document.getElementById("ATCcounter")
 
@@ -78,9 +77,9 @@ function removeAllChildNodes(parent) {
 async function start(){ // function that parses db for info first
   
   const HTTP = new XMLHttpRequest();
-  let URLbase = `http://localhost:8000/products/productCatalog?category=${category}&`;
+  let URLbase = `http://localhost:8000/products/productCatalog?name=${productName}&`;
   let URL = URLbase;
-  if (filter !== '' && filter !== "All Products" && filter !== undefined && filter !== 'all'&& filter!==null ) 
+  /* if (filter !== '' && filter !== "All Products" && filter !== undefined && filter !== 'all'&& filter!==null ) 
   URL = URL + `gender=${filter}&`;
 
   if(sortPrice !== "Filters" && sortPrice !== undefined && sortPrice !== null)
@@ -92,8 +91,11 @@ async function start(){ // function that parses db for info first
   if(productName !== '' && productName !== undefined  && productName != null)
   URL = URLbase + `Name=${productName}&`;
 
+  */
+
   console.log("URL for filtering: " );
   console.log(URL);
+  try{
   HTTP.open("GET", URL);
   HTTP.onload = () =>{
     console.log("response");
@@ -102,8 +104,16 @@ async function start(){ // function that parses db for info first
   }
   HTTP.send();
 }
+catch(err){
+  titleName.innerHTML = "No Product With Given Name";
+  let smallContainer = document.getElementById('main').children; //row + 1
+  removeAllChildNodes(smallContainer)
 
-async function reassignParameters(filterChanged, priceChanged)
+
+}
+}
+
+/* async function reassignParameters(filterChanged, priceChanged)
 {
   if(priceChanged)
   sortPrice = document.getElementById("filterPrice").value;
@@ -112,7 +122,7 @@ async function reassignParameters(filterChanged, priceChanged)
   filter = document.getElementById("filterGender").value;
 
   location.assign(`./productListPage.html?Category=${category}&filter=${filter}&sortPrice=${sortPrice}`);
-} 
+}  */
 
 function afterstart(DATA){
   console.log("in afterstart");
@@ -120,6 +130,8 @@ function afterstart(DATA){
   let first = true;
   let second = true; 
   var ALLITEMSOBJ = JSON.parse(DATA).data;
+  if (ALLITEMSOBJ.length === 0)
+        titleName.innerHTML = "No Product With Given Name";
   let smallContainer = document.getElementById('main').children; //row + 1
   //let innerproductcard = productcard[0].children;
   console.log(smallContainer.length)
@@ -194,8 +206,8 @@ function afterstart(DATA){
 
 start();
 
-let filterDropDown = document.getElementById("filterGender");
+/* let filterDropDown = document.getElementById("filterGender");
 filterDropDown.onchange =  function(){reassignParameters(true, false)};
 
 let priceDropDown = document.getElementById("filterPrice");
-priceDropDown.onchange =  function(){reassignParameters(false, true)};
+priceDropDown.onchange =  function(){reassignParameters(false, true)};  */
