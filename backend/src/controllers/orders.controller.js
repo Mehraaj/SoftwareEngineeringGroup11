@@ -3,6 +3,10 @@ const logger = require("../utils/logger");
 const query = require("../utils/mysql");
 const STATUS = require("http-status");
 const tax = require("sales-tax");
+const retry = require("async-retry");
+const { nanoid } = require("nanoid");
+const { validatePaymentPayload } = require("../utils/schema");
+const { ApiError, client: square } = require("../utils/square");
 
 const fetchTax = async (req, res) => {
   // #swagger.tags = ['Orders']
@@ -46,47 +50,24 @@ const fetchOrders = async (req, res) => {
 
 const fetchOrderByID = async (req, res) => {
   // #swagger.tags = ['Orders']
+  // #swagger.summary = 'Get specific order details'
   const { vid } = req.user;
   const { orderNumber } = req.params;
   try {
-    const orders = await query(
-      `select *, quantity * price as itemTotal from trinityfashion.orders 
-      natural join trinityfashion.productCatalog
-      where VID = ? and orderNumber = ?;`,
-      [vid, orderNumber]
-    );
-    logger.debug(JSON.stringify(orders));
-    await Promise.all(
-      orders.map((order) => {
-        order.date = new Date(order.date).toLocaleString();
-        order.Price = Number(order.Price);
-        order.itemTotal = Number(order.itemTotal);
-        return order;
-      })
-    );
-    const subTotal = orders.reduce((acc, order) => {
-      return acc + order.itemTotal;
-    }, 0);
-    const taxRate = await tax.getSalesTax("US", orders[0].state);
-    const taxTotal = taxRate.rate * subTotal;
-    const grandTotal = subTotal + taxTotal;
-
-    res.status(STATUS.OK).json({
-      orders,
-      subTotal,
-      taxTotal,
-      grandTotal,
-    });
+    res.status(STATUS.OK).json(await calculateOrderDetails(vid, orderNumber));
   } catch (error) {
-    logger.error(error);
-    res.status(STATUS.INTERNAL_SERVER_ERROR).json(error);
+    logger.error("Could not fetch order details");
+    res
+      .status(STATUS.INTERNAL_SERVER_ERROR)
+      .send("Could not fetch order details");
   }
 };
 
 const handleOrder = async (req, res) => {
   // #swagger.tags = ['Orders']
+  // #swagger.summary = 'Handles order placement and payment'
   const { state } = req.query;
-  const { cart } = req.cookies;
+  const cart = req.body;
 
   let vid;
   if (res.locals["authenticated"] === false) {
@@ -99,16 +80,15 @@ const handleOrder = async (req, res) => {
   const orderNum = uuidv4();
   try {
     await Promise.all(
-      JSON.parse(cart).map(async (order) => {
+      cart.map(async (order) => {
         const { PID, color, Size, quantity } = order;
         await query(
-          "INSERT INTO trinityfashion.orders VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
-          [vid, PID, color, Size, quantity, orderNum, state, date]
+          "INSERT INTO trinityfashion.orders VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
+          [vid, PID, color, Size, quantity, orderNum, state, date, null]
         );
       })
     );
-    res.clearCookie("cart");
-    res.status(STATUS.OK).json({ orderNum, date, cart: JSON.parse(cart) });
+    res.status(STATUS.OK).json({ orderNum, date, cart });
   } catch (error) {
     logger.error(error);
     res.status(STATUS.INTERNAL_SERVER_ERROR).json(error);
@@ -179,6 +159,112 @@ const createVisitor = async () => {
   return vid;
 };
 
+const createPayment = async (req, res) => {
+  const payload = req.body;
+  const orderNumber = req.params.orderNumber;
+
+  if (!orderNumber) {
+    res.status(STATUS.BAD_REQUEST).send("Missing order number");
+    return;
+  }
+  if (!validatePaymentPayload(payload)) {
+    res.status(STATUS.BAD_REQUEST).send("Invalid payload");
+    return;
+  }
+
+  const { grandTotal } = await calculateOrderDetails(null, orderNumber);
+  const cents = Math.trunc(grandTotal * 100);
+
+  await retry(async (bail, attempt) => {
+    try {
+      logger.debug("Creating payment", { attempt });
+
+      const idempotencyKey = payload.idempotencyKey || nanoid();
+      const payment = {
+        idempotencyKey,
+        locationId: payload.locationId,
+        sourceId: payload.sourceId,
+        amountMoney: {
+          amount: cents,
+          currency: "USD",
+        },
+      };
+
+      if (payload.customerId) {
+        payment.customerId = payload.customerId;
+      }
+
+      if (payload.verificationToken) {
+        payment.verificationToken = payload.verificationToken;
+      }
+
+      const { result, statusCode } = await square.paymentsApi.createPayment(
+        payment
+      );
+
+      logger.info("Payment succeeded!", { result, statusCode });
+
+      await query(
+        "UPDATE trinityfashion.orders SET transactionId = ? WHERE orderNumber = ?;",
+        [result.payment.id, orderNumber]
+      );
+
+      res.status(STATUS.OK).json({
+        success: true,
+        payment: {
+          id: result.payment.id,
+          status: result.payment.status,
+          receiptUrl: result.payment.receiptUrl,
+          orderId: result.payment.orderId,
+        },
+      });
+    } catch (ex) {
+      if (ex instanceof ApiError) {
+        logger.error(ex.errors);
+        bail(ex);
+      } else {
+        logger.error(`Error creating payment on attempt ${attempt}: ${ex}`);
+      }
+    }
+  });
+};
+
+const calculateOrderDetails = async (vid, orderNumber) => {
+  const sql = `select *, quantity * price as itemTotal from trinityfashion.orders 
+  natural join trinityfashion.productCatalog
+  where orderNumber = ? ${vid !== null ? "and VID = ?" : ""};`;
+  logger.debug(sql);
+
+  const orders = await query(sql, [orderNumber, vid]);
+
+  if (orders.length === 0) {
+    throw new Error("No matching orders found");
+  }
+
+  logger.debug(JSON.stringify(orders));
+  await Promise.all(
+    orders.map((order) => {
+      order.date = new Date(order.date).toLocaleString();
+      order.Price = Number(order.Price);
+      order.itemTotal = Number(order.itemTotal);
+      return order;
+    })
+  );
+  const subTotal = orders.reduce((acc, order) => {
+    return acc + order.itemTotal;
+  }, 0);
+  const taxRate = await tax.getSalesTax("US", orders[0].state);
+  const taxTotal = taxRate.rate * subTotal;
+  const grandTotal = subTotal + taxTotal;
+
+  return {
+    items: orders,
+    subTotal,
+    taxTotal,
+    grandTotal,
+  };
+};
+
 module.exports = {
   fetchTax,
   fetchOrders,
@@ -187,4 +273,5 @@ module.exports = {
   getCart,
   fetchCart,
   updateCart,
+  createPayment,
 };

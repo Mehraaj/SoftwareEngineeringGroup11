@@ -6,6 +6,7 @@ const {
   updateCart,
   fetchOrders,
   fetchOrderByID,
+  createPayment,
 } = require("../controllers/orders.controller");
 const { verifyUser } = require("../middleware/apiKey");
 
@@ -26,6 +27,8 @@ router
   .route("/cart")
   .get(verifyUser(true), fetchCart)
   .post(verifyUser(true), updateCart);
+
+router.route("/payment/:orderNumber").post(verifyUser(false), createPayment);
 
 router.route("/tax/:state").get(fetchTax);
 

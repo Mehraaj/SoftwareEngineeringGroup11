@@ -1,18 +1,13 @@
 const express = require("express");
 const {
   checkLogIn,
-  createMember,
-  createSupplier,
-} = require("../controllers/user.controller");
+} = require("../controllers/supplier.controller");
 const { verifyUser } = require("../middleware/apiKey");
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 router.route("/").get(checkLogIn);
-
-router.route("/member").post(createMember);
-router.route("/member").post(createSupplier);
 
 router.route("/").post(verifyUser(false), (req, res) => {
   res.status(202).json({
