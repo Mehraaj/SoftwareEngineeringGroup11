@@ -127,6 +127,7 @@ function afterstart(DATA){
   for(let j = 1; j <smallContainer.length; j++){
     console.log("In first for loop");
     for(let i = 0; i<4;i++){
+      console.log(ALLITEMSOBJ)
       if (count < ALLITEMSOBJ.length){
       let productcard = smallContainer[j].children[0].children;      //col
       let innerProductCard = productcard[i].children; // view the featured product and get the elems of that 
@@ -135,10 +136,12 @@ function afterstart(DATA){
       let name = productList[1].children;
       let price = productList[2].children;
       let image = productList[0].children;
+      let PID = productList[3];
       console.log(i + (j-1)*(productcard.length))
       name[0].innerHTML = ALLITEMSOBJ[i + (j-1)*(productcard.length)].Name
       price[0].innerHTML = ALLITEMSOBJ[i + (j-1)*(productcard.length)].Price
       image[0].src = ALLITEMSOBJ[i + (j-1)*(productcard.length)].image
+      PID.value = ALLITEMSOBJ[i + (j-1)*(productcard.length)].PID
       count++;
       }
       else{
@@ -188,7 +191,31 @@ function afterstart(DATA){
     price[0].innerHTML = ALLITEMSOBJ[i].Price
     
   }*/
+  let anchors = document.getElementsByClassName("clickToViewPage");
 
+
+  for(let i = 0; i < anchors.length; i++) {
+    let anchor = anchors[i];
+    anchor.onclick = function() {
+      
+      
+      
+      let prodname = anchor.children[1].children[0].innerHTML
+      let prodprice = anchor.children[2].children[0].innerHTML
+      let PID = anchor.children[3].value
+
+      
+      const productOBJ = {
+          name: prodname,
+          price: prodprice,
+          ProductID:PID,
+          
+      }
+      
+      window.sessionStorage.setItem('productOBJ', JSON.stringify(productOBJ))
+      ;
+    }
+}
 }
 
 
