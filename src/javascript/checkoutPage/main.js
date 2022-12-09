@@ -18,9 +18,10 @@ function Abbreviation(State){
 }
 
 function postReq(obj){
+
     const HTTP = new XMLHttpRequest();
-    const URL = 'http://localhost:8001/tax';
-    HTTP.open("POST", URL);
+    const URL = 'http://localhost:8000/orders/tax/'+ obj.State;
+    HTTP.open("GET", URL);
     HTTP.withCredentials = true;
     HTTP.onload = () =>{
     let INFO = JSON.parse(HTTP.responseText);
@@ -33,11 +34,89 @@ function postReq(obj){
     Shipping = Shipping.replace('$', "")
     let taxed = TaxRate * SUB
     document.getElementById("Tax").innerHTML= ("$" + Math.ceil(taxed * 100) / 100)
-    document.getElementById("Total").innerHTML =  ((Math.ceil(taxed * 100) / 100) + parseFloat(Shipping) + SUB)
+    setTOTAL()
     
     }
     HTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     const string = JSON.stringify(obj)
     HTTP.send(string);
 }
+function setTOTAL(){
+    let subtotal = document.getElementById("subtotal").innerHTML
+    subtotal = subtotal.replace('$', "")
+    let tax = document.getElementById("Tax").innerHTML
+    tax = tax.replace('$', "")
+    if(document.getElementById("Shipping").innerHTML != "FREE"){
+        let Shipping = document.getElementById("Shipping").innerHTML
+        Shipping = Shipping.replace('$', "")
+        let total = parseFloat(subtotal)+ parseFloat(Shipping) + parseFloat(tax)
+        document.getElementById("Total").innerHTML = ("$" + Math.ceil(total * 100) / 100)
+    }else{
+        let total = parseFloat(tax) + parseFloat(subtotal)
+        document.getElementById("Total").innerHTML = ("$" + Math.ceil(total * 100) / 100)
+        
+    }
+    
+}
+getDataFromCartSessionStorage()
+function getDataFromCartSessionStorage(){
+    let cartArr = window.sessionStorage.getItem("cart")
+    cartArr = JSON.parse(cartArr)
+    let subtotal = 0;
+    for(let i =0; i<cartArr.length;i++){
+        let temp = cartArr[i]
+        let price = temp.price
+        let quantity = temp.quantity
+        subtotal += price *quantity
+    }
+    document.getElementById("subtotal").innerHTML = subtotal
+    console.log(document.cookie)
+    if(document.cookie != null && document.cookie != "None"){
+        document.getElementById("Shipping").innerHTML = "FREE"
+    }
+    let total = subtotal + document.getElementById("Tax")
+    console.log(total)
+    console.log(cartArr)
+    console.log(subtotal)
+}
+document.getElementById("check").onclick = function(){
+    SubmitButton()
+}
+function SubmitButton(){
+    console.log("THUEHAIGUUEHGUIHUIO HJ")
+    let cartArr = window.sessionStorage.getItem("cart")
+    let x = document.getElementById("dropdown");
+    let state = x.options[x.selectedIndex].value
+    console.log(String(state))
+
+    const HTTP = new XMLHttpRequest();
+
+    const URL = 'http://localhost:8000/orders?state='+ state ;
+    
+    HTTP.open("POST", URL, true);
+    HTTP.withCredentials = true;
+    HTTP.setRequestHeader("Content-Type", "application/json");
+    HTTP.onreadystatechange = () =>{
+        if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200){
+            console.log("SUCCESS")
+        }
+    }
+    
+    HTTP.send(cartArr);
+    console.log(state)
+    alert("TEST STOP")
+}
+/*
+post to /orders? state = 
+
+in the body put 
+pid color size image quantity
+
+array of objects*/
+
+/*
+
+
+
+*/
 
