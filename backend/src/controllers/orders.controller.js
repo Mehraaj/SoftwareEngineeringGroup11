@@ -87,8 +87,14 @@ const handleOrder = async (req, res) => {
   // #swagger.tags = ['Orders']
   const { state } = req.query;
   const { cart } = req.cookies;
-  const { vid } = req.user;
-  logger.debug(cart);
+
+  let vid;
+  if (res.locals["authenticated"] === false) {
+    logger.debug("Placing order as guest");
+    vid = await createVisitor();
+  } else {
+    vid = req.user.vid;
+  }
   const date = new Date();
   const orderNum = uuidv4();
   try {
@@ -164,6 +170,13 @@ const getCart = async (vid) => {
     logger.error(error);
     throw error;
   }
+};
+
+const createVisitor = async () => {
+  const vid = uuidv4();
+  logger.debug(`Creating visitor: ${vid}`);
+  await query("INSERT INTO trinityfashion.Visitor (VID) VALUES (?);", [vid]);
+  return vid;
 };
 
 module.exports = {

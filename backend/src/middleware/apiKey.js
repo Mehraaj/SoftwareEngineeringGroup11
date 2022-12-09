@@ -6,7 +6,7 @@ const verifyUser = (stopPropogation) => {
   return async (req, res, next) => {
     const { APIKey } = req.cookies;
 
-    if (!APIKey) {
+    if (!APIKey || APIKey === "None") {
       logger.error("No API Key provided");
       if (stopPropogation) {
         return res.status(STATUS.UNAUTHORIZED).send("No API Key provided");
@@ -21,11 +21,9 @@ const verifyUser = (stopPropogation) => {
 
     try {
       const result = await query(
-        "SELECT APIKeyDate FROM trinityfashion.Member WHERE APIKey = ?",
+        "SELECT VID, APIKeyDate FROM trinityfashion.Member WHERE APIKey = ?",
         [APIKey]
       );
-      logger.debug(new Date(result[0].APIKeyDate));
-      logger.debug(new Date());
       if (result.length === 0) {
         throw new Error("Could not verify API key");
       } else if (new Date(result[0].APIKeyDate) < new Date()) {

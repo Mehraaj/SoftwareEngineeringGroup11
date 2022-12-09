@@ -18,7 +18,7 @@ const router = express.Router();
 router
   .route("/")
   .get(verifyUser(true), fetchOrders)
-  .post(verifyUser(true), handleOrder);
+  .post(verifyUser(false), handleOrder);
 
 router.route("/details/:orderNumber").get(verifyUser(true), fetchOrderByID);
 

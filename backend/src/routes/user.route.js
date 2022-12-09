@@ -1,7 +1,6 @@
 const express = require("express");
 const {
   checkLogIn,
-  createVisitor,
   createMember,
 } = require("../controllers/user.controller");
 const { verifyUser } = require("../middleware/apiKey");
@@ -10,8 +9,6 @@ const { verifyUser } = require("../middleware/apiKey");
 const router = express.Router();
 
 router.route("/").get(checkLogIn);
-
-router.route("/visitor").post(createVisitor);
 
 router.route("/member").post(createMember);
 

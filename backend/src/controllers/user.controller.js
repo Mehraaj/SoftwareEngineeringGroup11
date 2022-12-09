@@ -8,6 +8,11 @@ const checkLogIn = async (req, res) => {
   // #swagger.tags = ['Users']
   const { username, password } = req.query;
 
+  if (!username || !password) {
+    res.status(STATUS.BAD_REQUEST).send("Invalid Username and Password");
+    return;
+  }
+
   let queryResult;
   try {
     queryResult = await query(
@@ -45,27 +50,16 @@ const checkLogIn = async (req, res) => {
     return;
   }
 
-  res
-    .status(STATUS.OK)
-    .json({ APIKey: APIKey});
+  res.status(STATUS.OK).json({ APIKey: APIKey });
 
   logger.debug("Successfully found user and created API Key");
 };
 
-const createVisitor = async (req, res) => {
-  // #swagger.tags = ['Users']
-  logger.debug("HERE");
+const createVisitor = async () => {
   const vid = uuidv4();
-
-  try {
-    await query("INSERT INTO trinityfashion.Visitor (VID) VALUES (?);", [vid]);
-    res.cookie("APIKey", "None");
-    res.cookie("vid", vid);
-    res.status(STATUS.OK).send("Successfully created visitor");
-  } catch {
-    res.status(STATUS.BAD_REQUEST).send("Could not create visitor");
-    return;
-  }
+  logger.debug(`Creating visitor: ${vid}`);
+  await query("INSERT INTO trinityfashion.Visitor (VID) VALUES (?);", [vid]);
+  return vid;
 };
 
 const createMember = async (req, res) => {
@@ -83,11 +77,10 @@ const createMember = async (req, res) => {
     password,
   } = req.body;
 
-  const vid = req.cookies.vid;
-
-  logger.debug(`Creating member for visitor: ${vid}`);
-
   try {
+    const vid = await createVisitor();
+    logger.debug(`Creating member for visitor: ${vid}`);
+
     await query(
       "INSERT into trinityfashion.Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV," +
         "CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
@@ -134,6 +127,5 @@ const generateKey = (vid) => {
 
 module.exports = {
   checkLogIn,
-  createVisitor,
   createMember,
 };
