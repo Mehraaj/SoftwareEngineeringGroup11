@@ -4,10 +4,13 @@ const query = require("../utils/mysql");
 const STATUS = require("http-status");
 const tax = require("sales-tax");
 const retry = require("async-retry");
+const convert = require("color-convert");
+const { jsPDF } = require("jspdf");
+require("jspdf-autotable");
 const { nanoid } = require("nanoid");
 const { validatePaymentPayload } = require("../utils/schema");
 const { ApiError, client: square } = require("../utils/square");
-
+const logo = require("../../../src/resources/homepage/logo.js");
 const fetchTax = async (req, res) => {
   // #swagger.tags = ['Orders']
   try {
@@ -265,24 +268,57 @@ const calculateOrderDetails = async (vid, orderNumber) => {
   };
 };
 
-const generateOrderReceipt = async (vid, orderNumber) => {
-  const { items, subTotal, taxTotal, grandTotal } = await calculateOrderDetails(
-    vid,
-    orderNumber
-  );
+const generateOrderReceipt = async (req, res) => {
+  const { vid } = req.user;
+  const orderNumber = req.params.orderNumber;
 
-  const order = items[0];
+  const details = await calculateOrderDetails(vid, orderNumber);
 
-  const receipt = {
-    orderNumber,
-    date: order.date,
-    items,
-    subTotal,
-    taxTotal,
-    grandTotal,
-  };
+  const body = details.items.map((item, idx) => {
+    return [
+      idx + 1,
+      item.Name,
+      item.Size,
+      undefined,
+      item.quantity,
+      `$${item.Price.toFixed(2)}`,
+      `$${item.itemTotal.toFixed(2)}`,
+    ];
+  });
+  const colors = details.items.map((item) => item.color);
 
-  return receipt;
+  const doc = new jsPDF();
+
+  const filename = `order-${orderNumber}.pdf`;
+  res.setHeader('Content-Disposition', 'attachment; filename="' + filename + '"')
+  res.setHeader('Content-Type', 'application/pdf')
+  doc.setFont("cambria");
+  doc.setFontSize(20);
+  doc.addImage(logo, doc.internal.pageSize.getWidth() / 2 - 60, 10, 120, 30);
+  doc.text(`Order: ${orderNumber}`, 10, 60);
+  doc.autoTable({
+    startY: 70,
+    head: [
+      ["#", "Item", "Size", "Color", "Quantity", "Unit Price", "Total Price"],
+    ],
+    body,
+    didDrawCell: (data) => {
+      if (data.section === "body" && data.column.index === 3) {
+        doc.setFillColor(...convert.keyword.rgb(colors[data.row.index]));
+        doc.setDrawColor(0, 0, 0);
+        doc.rect(data.cell.x + 5, data.cell.y + 2, 2, 2, "FD");
+      }
+    },
+  });
+
+  const offset = doc.lastAutoTable.finalY + 30;
+  doc.setFontSize(16);
+  doc.text(`Subtotal: $${details.subTotal.toFixed(2)}`, 10, offset);
+  doc.text(`Tax: $${details.taxTotal.toFixed(2)}`, 10, offset + 10);
+  doc.text(`Grand Total: $${details.grandTotal.toFixed(2)}`, 10, offset + 20);
+
+  const arraybuffer = doc.output('blob');
+  res.send(await arraybuffer.text());
 };
 
 module.exports = {
