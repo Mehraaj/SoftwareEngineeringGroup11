@@ -131,6 +131,7 @@ const fetchCart = async (req, res) => {
   // #swagger.tags = ['Orders']
   const { vid } = req.user;
   logger.debug(`Fetching cart for user: ${vid}`);
+
   try {
     const cart = await getCart(vid);
     res.cookie("cart", JSON.stringify(cart));
@@ -145,12 +146,10 @@ const getCart = async (vid) => {
   // #swagger.tags = ['Orders']
   try {
     const cart = await query(
-      "SELECT * FROM trinityfashion.Cart WHERE vid = ?;",
+      "SELECT cart.PID, cart.quantity, cart.size as Size, cart.color, cart.image, products.name as ProductName, products.price FROM trinityfashion.Cart as cart inner join trinityfashion.productCatalog as products ON cart.PID = products.PID WHERE VID = ?;",
       [vid]
     );
-    cart.map((item) => {
-      item["quantity"] = 1;
-    });
+    
     return cart;
   } catch (error) {
     logger.error(error);

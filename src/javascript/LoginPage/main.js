@@ -24,6 +24,9 @@ submit.onclick = async function () {
 
 async function httpRequest(){
   console.log("In httpRequest");
+
+  
+
   const HTTP = new XMLHttpRequest();
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
@@ -64,10 +67,27 @@ async function httpRequest(){
 reject(error);
 }
 }); */
+async function importCart(){
+  const HTTP = new XMLHttpRequest();
+  const url = 'http://localhost:8000/orders/cart'
+  HTTP.open("GET", url, false);
+  HTTP.withCredentials = true;
+  HTTP.onload = () =>{
+    if(HTTP.status != 200){
+      //alert("Error: Invalid Username or Password");
+      //location.assign('./logInpage.html');
+      //console.log("NOT AUTHORIZED");
+      return;
+    }
+    sessionStorage.setItem('cart',HTTP.response);
+  }
+  HTTP.send();
 
+}
 async function Submit() {
 console.log("in submit");
   httpRequest();
+  importCart();
  /* if (resp.APIKey !== null) {
     let check = document.getElementById("check");
     check.href = "./AccountPage.html";
