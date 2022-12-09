@@ -110,6 +110,42 @@ const createMember = async (req, res) => {
   }
 };
 
+const createSupplier = async (req, res) => {
+  // #swagger.tags = ['Users']
+  const {
+    Name,
+    username,
+    password,
+    Title
+  } = req.body;
+
+  try {
+    const vid = await createVisitor();
+    logger.debug(`Creating Supplier for visitor: ${vid}`);
+
+    await query(
+      "INSERT into trinityfashion.Supplier (VID, Name, username, password, Title)" +
+        " VALUES (?, ?, ?, ?, ?);",
+      [
+        vid,
+        Name,
+        username,
+        password,
+        Title
+      ]
+    );
+    const APIKey = generateKey(vid);
+    res.cookie("APIKey", APIKey, {
+      expires: new Date(Date.now() + 900000),
+    });
+    res.clearCookie("vid");
+    res.status(STATUS.OK).send("Successfully created supplier");
+  } catch {
+    res.status(STATUS.BAD_REQUEST).send("Could not create supplier");
+    return;
+  }
+};
+
 const generateKey = (vid) => {
   const APIKey = uuidv4();
   const APIKeyDate = new Date(Date.now() + 900000);
@@ -128,4 +164,5 @@ const generateKey = (vid) => {
 module.exports = {
   checkLogIn,
   createMember,
+  createSupplier,
 };

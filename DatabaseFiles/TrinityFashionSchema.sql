@@ -25,6 +25,16 @@ primary key(VID),
 foreign key (VID) references Visitor(VID)
 );
 
+create table Supplier(
+VID varchar(50),
+Name varchar(50),
+username varchar(50),
+password varchar(50),
+Title varchar(50),
+primary key (VID),
+foreign key (VID) reference Visitor(VID)
+);
+
 create table ProductCatalog(
 PID int,
 Category enum('shirts', 'pants', 'shoes', 'hats', 'socks'),
@@ -95,6 +105,7 @@ quantity int,
 orderNumber varchar(50), 
 state varchar(50),
 date varchar(100), 
+transactionId varchar(100),
 primary key(VID, PID, color, Size, orderNumber), 
 foreign key(VID) references Visitor(VID), 
 foreign key(PID) references productCatalog(PID) 
