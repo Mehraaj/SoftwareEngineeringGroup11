@@ -97,24 +97,27 @@ const handleOrder = async (req, res) => {
 
 const updateCart = async (req, res) => {
   // #swagger.tags = ['Orders']
-  const { cart } = req.cookies;
+
+  const cart  = req.body;
   const { vid } = req.user;
 
   query("DELETE FROM trinityfashion.Cart WHERE vid = ?;", [vid]);
 
   try {
     await Promise.all(
-      JSON.parse(cart).map(async (order) => {
-        const { PID, color, Size } = order;
-        await query("INSERT INTO trinityfashion.Cart VALUES (?, ?, ?, ?);", [
+      cart.map(async (order) => {
+        const { PID, color, Size , image, quantity} = order;
+        await query("INSERT INTO trinityfashion.Cart VALUES (?, ?, ?, ?, ?, ?);", [
           vid,
           PID,
+          quantity,
           Size,
           color,
+          image,
         ]);
       })
     );
-    res.status(STATUS.OK).json({ cart: JSON.parse(cart) });
+    res.status(STATUS.OK).json({ cart: cart });
   } catch (error) {
     logger.error(error);
     res.status(STATUS.INTERNAL_SERVER_ERROR).json(error);

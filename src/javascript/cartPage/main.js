@@ -1,15 +1,22 @@
 var searchBtn = document.getElementById("searchIconEnter");
 
 searchBtn.addEventListener("click",searchName);
-
+/*
+const HTTP1 = new XMLHttpRequest();
+const URL1 = 'http://localhost:8000/users?username=username&password=password';
+HTTP1.open("GET", URL1);
+HTTP1.withCredentials = true;
+HTTP1.onload = () =>{
+    console.log("response: ");
+    console.log(HTTP1.response);    }
+HTTP1.send();
+*/
 function searchName(){
   let enteredSearch = document.getElementById("search").value;
   console.log(enteredSearch);
   let url = `./searchListPage.html?productName=${enteredSearch}`
   console.log(url);
-  document.getElementById("searchIconEnter").href=url;
-  //location.assign(url);
-  
+  document.getElementById("searchIconEnter").href=url; 
   }
 
 const itemsString = sessionStorage.getItem("cart");
@@ -25,31 +32,27 @@ function getSessionStorage(){
         let image = items[i].image;
         let quantity = items[i].quantity;
         addItemsToPage(name, color, size, image, price, quantity);
-        
-        //let checkout = document.getElementById("checkout");
-        //checkout.addEventListener("click", checkoutPressed());
     }
+    addListeners();
+    //var checkout = document.getElementsByClassName('checkoutClass')
+    getTotal();
+}
+function addListeners(){
     var quantityInputs = document.getElementsByClassName('quantity');
     for (let i = 0; i < quantityInputs.length; i++){
         var input = quantityInputs[i];
         input.addEventListener('change', quantityChanged);
-        //console.log(quantity.value);
     }
     var removeInputs = document.getElementsByClassName('removeButton');
     for (let i = 0; i < removeInputs.length; i++){
         var input = removeInputs[i];
         input.addEventListener('click', removeItem);
-        //console.log(quantity.value);
     }
-
-   getTotal();
-   //checkoutPressed();
 }
 function removeItem(event){
     
     let input = event.target;
     let cart = input.parentElement;
-    console.log(cart);
     let name = cart.getElementsByClassName('ProductName')[0].innerHTML;
     let size = cart.getElementsByClassName('ProductSize')[0].innerHTML;
     let color = cart.getElementsByClassName('ProductColor')[0].innerHTML;
@@ -57,6 +60,7 @@ function removeItem(event){
     removeItemFromSession(name,size,color)
     input.parentElement.parentElement.remove();
     getTotal();
+    updateCart();
 }
 function removeItemFromSession(name,size,color){
     for (var i = 0; i < items.length; i++){
@@ -79,15 +83,13 @@ function quantityChanged(event){
     let color = cart.getElementsByClassName('ProductColor')[0].innerHTML;
     changeQuantityInSession(name,size,color,input.value)
     getTotal();
-    //console.log(input.value);
+    updateCart();
 
 }
 function changeQuantityInSession(name,size,color,quantity){
     console.log(quantity);
     for (var i = 0; i < items.length; i++){
-        //console.log("item" + i);
         if(name === items[i].ProductName && size === items[i].Size && color === items[i].color){
-            //console.log("true");
             items[i].quantity = quantity;
         }
     }
@@ -97,46 +99,6 @@ function addItemsToPage(name, color, size, image, price, quantity){
     var cartRow = document.createElement('div');
     cartRow.classList.add('cart');
     var cartItems = document.getElementsByClassName('page')[0];
-    /*
-    var cartRowContents =  `
-        <div class="cart">
-        <ul class="productImage">
-        <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-        </ul>
-
-        <ul class="productData">
-        <li class="productDetails">
-            <div class="ProductName">
-            ${name}
-
-            </div>
-            </div>
-            <div class="ProductSize">
-            ${size}
-
-            </div>
-            <div class="ProductColor">
-            ${color}
-
-            </div>
-        </li>
-        
-        </ul>
-        <ul>
-        <li>
-            ${price}
-        </li>
-
-
-        </ul>
-        <ul>
-        <li>
-            <input type="number" id="points" name="points" step="1" value = "1">
-        </li>
-        </ul>
-
-        </div>`
-        */
         var cartRowContents =  `
         <div class="cart">
         <ul class="productImage">
@@ -168,11 +130,6 @@ function addItemsToPage(name, color, size, image, price, quantity){
       </div>`
     cartRow.innerHTML = cartRowContents;
     cartItems.append(cartRow);
-    //let checkout = document.getElementsByClassName("quantity");
-    //let checkout = document.getElementById("quantity");
-
-    //console.log(checkout.value);
-
 }
 function getTotal(){
     let sum = 0;
@@ -183,23 +140,40 @@ function getTotal(){
     }
     document.getElementsByClassName('cart-total-price')[0].innerText = '$' + sum.toFixed(2);
 }
-function checkoutPressed(){
-    let newItems = items;
+
+function updateCart(){
+    
+    let newItems = JSON.parse(JSON.stringify(items));;
+
     for(var i = 0; i < items.length; i++){
         delete newItems[i].ProductName;
         delete newItems[i].price;
     }
+    /*
     console.log(JSON.stringify(newItems));
-    
+    const HTTP1 = new XMLHttpRequest();
+    const URL1 = 'http://localhost:8000/users?username=username&password=password';
+    HTTP1.open("GET", URL1);
+    HTTP1.withCredentials = true;
+    HTTP1.onload = () =>{
+        console.log("response: ");
+        console.log(HTTP.response);    }
+    HTTP1.send();
+**/
     const HTTP = new XMLHttpRequest();
+
     const URL = 'http://localhost:8000/orders/cart';
+    
+    HTTP.open("POST", URL, true);
+    HTTP.withCredentials = true;
     HTTP.setRequestHeader("Content-Type", "application/json");
-    HTTP.open("POST", URL);
+
     HTTP.onreadystatechange = () =>{
         if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200){
             console.log("SUCCESS")
         }
     }
+    
     HTTP.send(JSON.stringify(newItems));
     
 }
