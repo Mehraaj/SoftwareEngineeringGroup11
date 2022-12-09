@@ -36,6 +36,7 @@ function getSessionStorage(){
     addListeners();
     //var checkout = document.getElementsByClassName('checkoutClass')
     getTotal();
+    updateCart();
 }
 function addListeners(){
     var quantityInputs = document.getElementsByClassName('quantity');
