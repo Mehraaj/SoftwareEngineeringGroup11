@@ -20,7 +20,8 @@
     "square": "^24.0.0",
     "swagger-ui-express": "^4.6.0",
     "uuid": "^9.0.0",
-    "winston": "^3.8.2"
+    "winston": "^3.8.2",
+    "yamljs": "^0.3.0"
   },
   "scripts": {
     "swagger": "node backend/src/utils/swagger.js",
@@ -62,7 +63,6 @@
   "devDependencies": {
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
-    "prettier": "2.8.0",
-    "swagger-autogen": "^2.22.0"
+    "prettier": "2.8.0"
   }
 }

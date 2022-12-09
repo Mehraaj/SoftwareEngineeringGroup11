@@ -3,8 +3,9 @@ const userRoutes = require("./user.route");
 const productRoutes = require("./products.route");
 const orderRoutes = require("./orders.route");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("../utils/swagger-output.json");
 const supplierRoutes = require("./supplier.route");
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('backend/src/utils/swagger.yml');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
