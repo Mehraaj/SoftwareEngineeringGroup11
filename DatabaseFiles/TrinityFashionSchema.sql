@@ -755,9 +755,3 @@ Insert into Socks (PID, Size, color, image) values
     ('135', "11", "white", "./productImages/whiteAnkleSocksW.jpg"),
     ('135', "12", "white", "./productImages/whiteAnkleSocksW.jpg");
     
-Insert into Cart (VID, PID, quantity, Size, color) values
-	('001', '101', 1,  "S", "white"),
-    ('001', '102', 1, "L", "green"),
-    ('001', '105', 1, "S", "black" ),
-    ('002', '106', 1, "XL", "blue"),
-    ('002', '107', 1, "M", "red");

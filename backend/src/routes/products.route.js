@@ -8,10 +8,6 @@ const { verifyUser } = require("../middleware/apiKey");
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.route("/").get((req, res) => {
-  res.send("Hello World!");
-});
-
 router.route("/productCatalog").get(verifyUser(false), fetchCatalog);
 
 router.route("/productCatalog/:id").get(fetchCatalogById);
