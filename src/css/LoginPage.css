@@ -6,6 +6,13 @@
     
     background-color: rgba(245, 245, 220, 1);
 }
+.createAcct{
+    font-family: "Montserrat", sans-serif;
+    
+}
+.createAcct a{
+    color: inherit;
+}
 .LoginCredentials{
    
     border-radius: 10px;
