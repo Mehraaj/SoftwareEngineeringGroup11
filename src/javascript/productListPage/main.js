@@ -95,6 +95,7 @@ async function start(){ // function that parses db for info first
   console.log("URL for filtering: " );
   console.log(URL);
   HTTP.open("GET", URL);
+  HTTP.withCredentials = true;
   HTTP.onload = () =>{
     console.log("response");
     console.log(HTTP.response);

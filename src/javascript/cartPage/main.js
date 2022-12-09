@@ -167,7 +167,6 @@ function updateCart(){
     HTTP.open("POST", URL, true);
     HTTP.withCredentials = true;
     HTTP.setRequestHeader("Content-Type", "application/json");
-
     HTTP.onreadystatechange = () =>{
         if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200){
             console.log("SUCCESS")

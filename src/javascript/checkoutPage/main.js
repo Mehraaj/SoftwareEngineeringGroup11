@@ -21,6 +21,7 @@ function postReq(obj){
     const HTTP = new XMLHttpRequest();
     const URL = 'http://localhost:8001/tax';
     HTTP.open("POST", URL);
+    HTTP.withCredentials = true;
     HTTP.onload = () =>{
     let INFO = JSON.parse(HTTP.responseText);
     let taxRate = INFO.rate

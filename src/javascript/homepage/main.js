@@ -6,6 +6,8 @@ window.onscroll = function() {myFunction()};
 var header = document.getElementById("mainmenu");
 // Get the offset position of the navbar
 var sticky = header.offsetTop;
+
+var loggedin = false;
 // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
 function myFunction() {
   if (window.pageYOffset > sticky) {
@@ -52,12 +54,13 @@ async function makeVisitor(){
   HTTP.withCredentials = true;
   HTTP.onload = () =>{
     if(HTTP.status === 202){
+      loggedin = true;
       document.getElementById("shoesHeader").style = "display: show;"
       document.getElementById("shoes").style = "display: show;"
-      //document.getElementById("socksHeader").style = "display: show;"
-      //document.getElementById("socks").style = "display: show;"
-      //document.getElementById("hatsHeader").style = "display: show;"
-      //document.getElementById("hats").style = "display: show;"
+      document.getElementById("socksHeader").style = "display: show;"
+      document.getElementById("socks").style = "display: show;"
+      document.getElementById("hatsHeader").style = "display: show;"
+      document.getElementById("hats").style = "display: show;"
     }
     start();
   }
@@ -70,7 +73,7 @@ async function start(){ // function that parses db for info first
   const HTTP = new XMLHttpRequest();
   const URL = 'http://localhost:8000/products/productCatalog';
   HTTP.open("GET", URL);
-  
+  HTTP.withCredentials = true;
   HTTP.onload = () =>{
     console.log("response: ");
     console.log(HTTP.response);
@@ -100,25 +103,6 @@ function afterstart(DATA){
     PID.value = ALLITEMSOBJ[i].PID
   
   }
-  var shoes = ALLITEMSOBJ.filter(item => item.Category === 'shoes')
-  console.log("Shoes");
-  console.log(shoes);
-  var shoeItems = document.getElementById('shoes').children;
-  let length = Math.min(shoeItems.length,shoes.length)
-  
-  for(let i =0; i<length;i++){
-    let innerProductCard = shoeItems[i].children; // view the featured product and get the elems of that 
-    let aTagLitag = innerProductCard[0].children;// elems i
-    let insideatag = aTagLitag[0].children;
-    let name = insideatag[1].children;
-    let price = insideatag[2].children;
-    let image = insideatag[0].children;
-    let PID = insideatag[3];
-    name[0].innerHTML =shoes[i].Name
-    price[0].innerHTML = shoes[i].Price
-    image[0].src = shoes[i].image;
-    PID.value = ALLITEMSOBJ[i].PID
-  }
 
   var shirts = ALLITEMSOBJ.filter(item => item.Category === 'shirts')
   var shirtItems = document.getElementById('Shirts').children;
@@ -139,6 +123,7 @@ function afterstart(DATA){
     PID.value = shirts[i].PID
     
   }
+
   var pants = ALLITEMSOBJ.filter(item => item.Category === 'pants')
   console.log("pants");
    console.log(pants);
@@ -160,6 +145,72 @@ function afterstart(DATA){
     image[0].src = pants[i].image;
     PID.value = pants[i].PID
   }
+
+  if(loggedin)
+  {
+  var shoes = ALLITEMSOBJ.filter(item => item.Category === 'shoes')
+  console.log("Shoes");
+  console.log(shoes);
+  var shoeItems = document.getElementById('shoes').children;
+  let length = Math.min(shoeItems.length,shoes.length)
+  
+  for(let i =0; i<length;i++){
+    let innerProductCard = shoeItems[i].children; // view the featured product and get the elems of that 
+    let aTagLitag = innerProductCard[0].children;// elems i
+    let insideatag = aTagLitag[0].children;
+    let name = insideatag[1].children;
+    let price = insideatag[2].children;
+    let image = insideatag[0].children;
+    let PID = insideatag[3];
+    name[0].innerHTML =shoes[i].Name
+    price[0].innerHTML = shoes[i].Price
+    image[0].src = shoes[i].image;
+    PID.value = shoes[i].PID;
+  }
+
+  var socks = ALLITEMSOBJ.filter(item => item.Category === 'socks')
+  console.log("socks");
+   console.log(socks);
+  console.log(socks[0].Price)
+ 
+  var socksItems = document.getElementById('socks').children;
+   length = Math.min(socksItems.length,socksItems.length)
+  
+  for(let i =0; i<length;i++){
+    let innerProductCard = socksItems[i].children; // view the featured product and get the elems of that 
+    let aTagLitag = innerProductCard[0].children;// elems i
+    let insideatag = aTagLitag[0].children;
+    let name = insideatag[1].children;
+    let price = insideatag[2].children;
+    let image = insideatag[0].children;
+    let PID = insideatag[3];
+    name[0].innerHTML =socks[i].Name;
+    price[0].innerHTML = socks[i].Price;
+    image[0].src = socks[i].image;
+    PID.value = socks[i].PID
+  }
+  var hats = ALLITEMSOBJ.filter(item => item.Category === 'hats')
+  console.log("hats");
+   console.log(hats);
+  console.log(hats[0].Price)
+ 
+  var hatsItems = document.getElementById('hats').children;
+   length = Math.min(hatsItems.length,hatsItems.length)
+  
+  for(let i =0; i<length;i++){
+    let innerProductCard = hatsItems[i].children; // view the featured product and get the elems of that 
+    let aTagLitag = innerProductCard[0].children;// elems i
+    let insideatag = aTagLitag[0].children;
+    let name = insideatag[1].children;
+    let price = insideatag[2].children;
+    let image = insideatag[0].children;
+    let PID = insideatag[3];
+    name[0].innerHTML =hats[i].Name;
+    price[0].innerHTML = hats[i].Price;
+    image[0].src = hats[i].image;
+    PID.value = hats[i].PID
+  }
+}
   
   let anchors = document.getElementsByClassName("clickToViewPage");
 

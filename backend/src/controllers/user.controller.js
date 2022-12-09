@@ -23,6 +23,7 @@ const checkLogIn = async (req, res) => {
     if (queryResult.length === 0)
       throw new Error("Invalid Username and Password. Please Try Again");
   } catch (err) {
+    res.clearCookie("APIKey");
     res
       .status(STATUS.BAD_REQUEST)
       .send("Invalid Username and Password. Please Try Again");
@@ -65,6 +66,8 @@ const createVisitor = async () => {
 
 const createMember = async (req, res) => {
   // #swagger.tags = ['Users']
+
+  logger.debug(JSON.stringify(req.body));
   const {
     Name,
     Email,
@@ -101,6 +104,7 @@ const createMember = async (req, res) => {
   }
 
   try {
+    console.log("In try");
     const vid = await createVisitor();
     logger.debug(`Creating member for visitor: ${vid}`);
 
