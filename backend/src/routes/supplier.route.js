@@ -1,7 +1,5 @@
 const express = require("express");
-const {
-  checkLogIn,
-} = require("../controllers/supplier.controller");
+const { checkLogIn } = require("../controllers/supplier.controller");
 const { verifyUser } = require("../middleware/apiKey");
 
 // eslint-disable-next-line new-cap

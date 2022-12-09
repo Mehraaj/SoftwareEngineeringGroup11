@@ -3,6 +3,7 @@ const logger = require("../utils/logger");
 const query = require("../utils/mysql");
 const STATUS = require("http-status");
 const { getCart } = require("./orders.controller");
+const emailValidator = require("deep-email-validator");
 
 const checkLogIn = async (req, res) => {
   // #swagger.tags = ['Users']
@@ -66,6 +67,7 @@ const createMember = async (req, res) => {
   // #swagger.tags = ['Users']
   const {
     Name,
+    Email,
     Address,
     State,
     ZIP,
@@ -76,17 +78,39 @@ const createMember = async (req, res) => {
     username,
     password,
   } = req.body;
+  logger.debug(
+    JSON.stringify({
+      email: Email,
+      validateSMTP: false,
+    })
+  );
+
+  const validation = await emailValidator.validate({
+    email: Email,
+    validateSMTP: false,
+  });
+
+  if (!validation.valid) {
+    const message = {
+      message: "Invalid Email",
+      category: validation.reason,
+      reason: validation.validators[validation.reason].reason,
+    };
+    res.status(STATUS.BAD_REQUEST).json(message);
+    return;
+  }
 
   try {
     const vid = await createVisitor();
     logger.debug(`Creating member for visitor: ${vid}`);
 
     await query(
-      "INSERT into trinityfashion.Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV," +
-        "CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+      "INSERT into trinityfashion.Member (VID, Name, email, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV," +
+        "CreditCardExpiry, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
       [
         vid,
         Name,
+        Email,
         Address,
         State,
         ZIP,
@@ -112,12 +136,7 @@ const createMember = async (req, res) => {
 
 const createSupplier = async (req, res) => {
   // #swagger.tags = ['Users']
-  const {
-    Name,
-    username,
-    password,
-    Title
-  } = req.body;
+  const { Name, username, password, Title } = req.body;
 
   try {
     const vid = await createVisitor();
@@ -126,13 +145,7 @@ const createSupplier = async (req, res) => {
     await query(
       "INSERT into trinityfashion.Supplier (VID, Name, username, password, Title)" +
         " VALUES (?, ?, ?, ?, ?);",
-      [
-        vid,
-        Name,
-        username,
-        password,
-        Title
-      ]
+      [vid, Name, username, password, Title]
     );
     const APIKey = generateKey(vid);
     res.cookie("APIKey", APIKey, {

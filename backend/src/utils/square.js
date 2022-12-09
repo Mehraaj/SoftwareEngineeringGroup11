@@ -1,4 +1,4 @@
-const { ApiError, Client, Environment } = require('square');
+const { ApiError, Client, Environment } = require("square");
 
 const client = new Client({
   environment: Environment.Sandbox,

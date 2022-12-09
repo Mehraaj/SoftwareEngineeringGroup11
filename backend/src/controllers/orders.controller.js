@@ -265,6 +265,26 @@ const calculateOrderDetails = async (vid, orderNumber) => {
   };
 };
 
+const generateOrderReceipt = async (vid, orderNumber) => {
+  const { items, subTotal, taxTotal, grandTotal } = await calculateOrderDetails(
+    vid,
+    orderNumber
+  );
+
+  const order = items[0];
+
+  const receipt = {
+    orderNumber,
+    date: order.date,
+    items,
+    subTotal,
+    taxTotal,
+    grandTotal,
+  };
+
+  return receipt;
+};
+
 module.exports = {
   fetchTax,
   fetchOrders,
@@ -274,4 +294,5 @@ module.exports = {
   fetchCart,
   updateCart,
   createPayment,
+  generateOrderReceipt,
 };

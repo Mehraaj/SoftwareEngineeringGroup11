@@ -12,7 +12,8 @@ const router = express.Router();
 router.route("/").get(checkLogIn);
 
 router.route("/member").post(createMember);
-router.route("/member").post(createSupplier);
+
+router.route("/supplier").post(createSupplier);
 
 router.route("/").post(verifyUser(false), (req, res) => {
   res.status(202).json({
