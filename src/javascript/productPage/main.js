@@ -58,6 +58,8 @@ for(let i =0; i<ATC.length;i++){
 const image = "http://cdn.shopify.com/s/files/1/1002/1104/files/bs_480x480.png?v=1633371444"
 async function Start(){
   let ProdOBJ = window.sessionStorage.getItem('productOBJ')
+  console.log("you need to look at this")
+  console.log(ProdOBJ)
   ProdOBJ = JSON.parse(ProdOBJ)
   
   var item_name = document.getElementById("Item_Name");
@@ -196,21 +198,21 @@ function AddToCart(){
       }
     }
     if(flag){
-      currCart.push(JSON.stringify(CARTOBJ))
+      currCart.push(CARTOBJ)
       console.log(currCart)
       let currCartObJString = JSON.stringify(currCart)
       console.log(currCartObJString)
       window.sessionStorage.setItem("cart", currCartObJString)
-      
+      alert("Successfully added to cart!")
     }
     
   }else{
     var CartArr = [];
-    let StringCartOBJ = JSON.stringify(CARTOBJ)
-    CartArr.push(StringCartOBJ)
+    CartArr.push(CARTOBJ)
     console.log(CartArr)
     window.sessionStorage.setItem("cart", JSON.stringify(CartArr))
-    
+    alert("Successfully added to cart!")
+
 
   }
 

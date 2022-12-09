@@ -12,11 +12,6 @@ function searchName(){
   
   }
 
-//var x = sessionStorage.getItem("cart");
-//console.log(x);
-//var y = JSON.parse(x);
-//console.log(y[1].PID);
-
 const itemsString = sessionStorage.getItem("cart");
 let items = JSON.parse(itemsString);
 function getSessionStorage(){
@@ -29,10 +24,6 @@ function getSessionStorage(){
         let price = items[i].price;
         let image = items[i].image;
         let quantity = items[i].quantity;
-
-        //console.log(PID);
-        //console.log(color);
-        //console.log(size);
         addItemsToPage(name, color, size, image, price, quantity);
         
         //let checkout = document.getElementById("checkout");
@@ -50,16 +41,9 @@ function getSessionStorage(){
         input.addEventListener('click', removeItem);
         //console.log(quantity.value);
     }
-    /*
-    var page = document.getElementsByClassName('page')[0];
-    var cartRows = page.getElementsByClassName('cart');
-    for (let i = 0; i < cartRows.length; i++){
-        var cartRow = cartRows[i];
-        var quantity = cartRow.getElementsByClassName('quantity')[0];
-        console.log(quantity.value);
-    }
-    */
+
    getTotal();
+   //checkoutPressed();
 }
 function removeItem(event){
     
@@ -70,15 +54,6 @@ function removeItem(event){
     let size = cart.getElementsByClassName('ProductSize')[0].innerHTML;
     let color = cart.getElementsByClassName('ProductColor')[0].innerHTML;
 
-/*
-    console.log("Name: ");
-    console.log(name);
-    console.log("Size: ");
-    console.log(size);
-    console.log("Color: ");
-    console.log(color);
-    console.log(itemsString);
-*/
     removeItemFromSession(name,size,color)
     input.parentElement.parentElement.remove();
     getTotal();
@@ -165,7 +140,7 @@ function addItemsToPage(name, color, size, image, price, quantity){
         var cartRowContents =  `
         <div class="cart">
         <ul class="productImage">
-          <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class="productList"><img class="productCardImage" src="${image}"></li>
         </ul>
         
         <ul class="productData">
@@ -209,6 +184,23 @@ function getTotal(){
     document.getElementsByClassName('cart-total-price')[0].innerText = '$' + sum.toFixed(2);
 }
 function checkoutPressed(){
+    let newItems = items;
+    for(var i = 0; i < items.length; i++){
+        delete newItems[i].ProductName;
+        delete newItems[i].price;
+    }
+    console.log(JSON.stringify(newItems));
+    
+    const HTTP = new XMLHttpRequest();
+    const URL = 'http://localhost:8000/orders/cart';
+    HTTP.setRequestHeader("Content-Type", "application/json");
+    HTTP.open("POST", URL);
+    HTTP.onreadystatechange = () =>{
+        if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200){
+            console.log("SUCCESS")
+        }
+    }
+    HTTP.send(JSON.stringify(newItems));
     
 }
 
