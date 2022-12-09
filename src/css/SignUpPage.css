@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+* {
+    background-color: rgba(245, 245, 220, 1);
+}
+
+.LoginCard {
+
+    background-color: rgba(245, 245, 220, 1);
+}
+
+.LoginCredentials {
+
+    border-radius: 10px;
+    border-color: black;
+    list-style: none;
+    text-align: center;
+    padding: 10px;
+
+
+}
+
+.textAboveInput {
+    padding: 10px;
+    font-family: "Montserrat", sans-serif;
+    font-family: 500;
+    font-size: 30px;
+}
+
+.memberText {
+    padding: 100px;
+    padding-bottom: 100px;
+    font-family: "Montserrat", sans-serif;
+    font-family: 250;
+    font-size: 30px;
+}
+
+.buttonItem {
+    padding: 20px;
+
+}
+.inputs {
+    padding: 20px;
+}
+
+.Inputs {
+    font-size: large;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+
+.Inputs:hover {
+    transition: all 0.3s ease 0s;
+    background-color: rgba(128, 128, 128, 1);
+}
+
+.PasswordView {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+
+}
+
+.submitButton {
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 1px;
+}
+
+.submitButton:hover {
+    transition: all 0.3s ease 0s;
+    background-color: rgba(128, 128, 128, 1);
+}

@@ -15,12 +15,21 @@ function myFunction() {
   }
 }
 
-let search = document.getElementById("search")
-search.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    document.getElementById("searchIconEnter").click();
+var searchBtn = document.getElementById("searchIconEnter");
+
+searchBtn.addEventListener("click",searchName);
+
+function searchName(){
+  let enteredSearch = document.getElementById("search").value;
+  console.log("Entered Search: ");
+  console.log(enteredSearch);
+  let url = `./searchListPage.html?productName=${enteredSearch}`
+  console.log("url: ");
+  console.log(url);
+  document.getElementById("searchIconEnter").href=url;
+  //location.assign(url);
+  
   }
-});
 
 let ATC = document.getElementsByName("ATC");
 let Counter = document.getElementById("ATCcounter")
@@ -58,7 +67,6 @@ async function start(){ // function that parses db for info first
   HTTP.onload = () =>{
     console.log("response: ");
     console.log(HTTP.response);
-    
     afterstart(HTTP.response);
   }
   HTTP.send();
@@ -67,6 +75,7 @@ async function start(){ // function that parses db for info first
 
 function afterstart(DATA){
   var ALLITEMSOBJ = JSON.parse(DATA).data;
+  sessionStorage.setItem("key", JSON.stringify(ALLITEMSOBJ));
   var featuredItems = document.getElementById('featuredItems').children;
   console.log(ALLITEMSOBJ)
   let len = Math.min(ALLITEMSOBJ.length,featuredItems.length)
