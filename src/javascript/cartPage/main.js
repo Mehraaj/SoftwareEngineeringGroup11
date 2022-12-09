@@ -149,16 +149,11 @@ function addItemsToPage(name, color, size, image, price, quantity){
         <ul class="productData">
           <li class="productDetails">
             <h2>Product Name:</h2>
-            <div class="ProductName">
-                ${name} 
+            <div class="ProductName">${name}</div> 
             <h2> Size:</h2>
-            <div class="ProductSize">
-                ${size} 
+            <div class="ProductSize">${size}</div>
             <h2>Color:</h2>
-            <div class="ProductColor">
-                ${color}
-
-            </div>
+            <div class="ProductColor">${color}</div>
           </li>
 
         </ul>
@@ -170,7 +165,7 @@ function addItemsToPage(name, color, size, image, price, quantity){
 
 
         </ul>
-
+        <button class="removeButton" type="button">REMOVE</button>
         <ul>
           <li>
             <h2>Quantity:</h2>
