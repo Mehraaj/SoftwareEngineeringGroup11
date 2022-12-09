@@ -196,7 +196,7 @@ function AddToCart(){
       }
     }
     if(flag){
-      currCart.push(JSON.stringify(CARTOBJ))
+      currCart.push(CARTOBJ)
       console.log(currCart)
       let currCartObJString = JSON.stringify(currCart)
       console.log(currCartObJString)
@@ -206,8 +206,7 @@ function AddToCart(){
     
   }else{
     var CartArr = [];
-    let StringCartOBJ = JSON.stringify(CARTOBJ)
-    CartArr.push(StringCartOBJ)
+    CartArr.push(CARTOBJ)
     console.log(CartArr)
     window.sessionStorage.setItem("cart", JSON.stringify(CartArr))
     
