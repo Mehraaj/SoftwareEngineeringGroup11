@@ -16,6 +16,7 @@ function Abbreviation(State){
     
     postReq(obj);
 }
+
 function postReq(obj){
     const HTTP = new XMLHttpRequest();
     const URL = 'http://localhost:8001/tax';
