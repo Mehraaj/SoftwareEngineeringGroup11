@@ -9,6 +9,7 @@ primary key(VID)
 
 create table Member(
 VID varchar(50), 
+email varchar(100),
 username varchar (50),
 password varchar(50),
 Name varchar(50),
@@ -84,6 +85,7 @@ foreign key(PID) references ProductCatalog(PID)
 create table Cart(
 VID varchar(50),
 PID int,
+quantity int,
 Size varchar(50),
 color varchar(50), 
 image varchar(150),
@@ -95,9 +97,9 @@ foreign key(PID) references ProductCatalog(PID)
 create table Orders( 
 VID varchar(50), 
 PID int,
+quantity int,
 color varchar(50), 
-Size varchar(50),
-quantity int, 
+Size varchar(50), 
 orderNumber int, 
 state varchar(50),
 date varchar(100),
@@ -113,12 +115,12 @@ Insert into Visitor (VID) values
     ('004'), 
     ('005');
     
-Insert into Member (VID, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV, CreditCardExpiry, username, password, APIKey, APIKeyDate) values
-	('001', "John Doe", "123 Summer St,", "NJ", "00000", "732-555-5555", "1234567891123456", "123", "10/26", "username", "password", null, null),
-	('002', "Sean Daley", "147 Niagra Ave,", "NJ", "01225", "908-168-4564", "987654321123456", "456", "12/27", "seanyRonny", "daleybaley", null, null),
-	('003', "Humphrey Donald", "12 Proctor Blvd,", "MA", "95648", "708-968-1235", "1643267894620134", "889", "09/25", "HummerPhrey", "McDonRon", null, null),
-	('004', "Jenny Longbottom", "918 Saint Johnny St,", "PA", "01345", "988-694-1387", "6011045746987315", "981", "11/25", "JongBottom", "LennyJenny", null, null),
-	('005', "Kenny Glover", "23 Farmington Ave,", "TN", "56489", "789-654-1345", "9786431230465795", "498", "05/26", "GloverTheShover", "ken109Glove", null, null);
+Insert into Member (VID, email, Name, Address, State, ZIP, Phone, CreditCardNo, CreditCardCVV, CreditCardExpiry, username, password, APIKey, APIKeyDate) values
+	('001', "John Doe", "john@gmail.com", "123 Summer St,", "NJ", "00000", "732-555-5555", "1234567891123456", "123", "10/26", "username", "password", null, null),
+	('002', "Sean Daley", "sean@gmail.com", "147 Niagra Ave,", "NJ", "01225", "908-168-4564", "987654321123456", "456", "12/27", "seanyRonny", "daleybaley", null, null),
+	('003', "Humphrey Donald", "humphrey@gmail.com", "12 Proctor Blvd,", "MA", "95648", "708-968-1235", "1643267894620134", "889", "09/25", "HummerPhrey", "McDonRon", null, null),
+	('004', "Jenny Longbottom", "jenny@gmail.com", "918 Saint Johnny St,", "PA", "01345", "988-694-1387", "6011045746987315", "981", "11/25", "JongBottom", "LennyJenny", null, null),
+	('005', "Kenny Glover", "kenny@gmail.com", "23 Farmington Ave,", "TN", "56489", "789-654-1345", "9786431230465795", "498", "05/26", "GloverTheShover", "ken109Glove", null, null);
 	
 
 
@@ -752,9 +754,9 @@ Insert into Socks (PID, Size, color, image) values
     ('135', "11", "white", "./productImages/whiteAnkleSocksW.jpg"),
     ('135', "12", "white", "./productImages/whiteAnkleSocksW.jpg");
     
-Insert into Cart (VID, PID, Size, color) values
-	('001', '101', "S", "white"),
-    ('001', '102', "L", "green"),
-    ('001', '105', "S", "black" ),
-    ('002', '106', "XL", "blue"),
-    ('002', '107', "M", "red");
+Insert into Cart (VID, PID, quantity, Size, color) values
+	('001', '101', 1,  "S", "white"),
+    ('001', '102', 1, "L", "green"),
+    ('001', '105', 1, "S", "black" ),
+    ('002', '106', 1, "XL", "blue"),
+    ('002', '107', 1, "M", "red");
