@@ -62,14 +62,22 @@
   <main>
     <div class="page">
       <h1>Your Cart</h1>
+        <!--
       <div class="cart">
         <ul class="productImage">
           <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
         </ul>
-
         <ul class="productData">
           <li class="productDetails">
             <div class="ProductName">
+              Product Name
+
+            </div>
+            <div class="ProductSize">
+              M
+
+            </div>
+            <div class="ProductColor">
               Product Name
 
             </div>
@@ -83,13 +91,15 @@
 
 
         </ul>
+        <button class="removeButton" type="button">REMOVE</button>
         <ul>
           <li>
-            <input type="number" id="points" name="points" step="1" value = "1">
+            <input type="number" class = "quantity" id="points" name="points" step="1" value = "1">
           </li>
         </ul>
 
       </div>
+   
       <div class="cart">
         <ul class="productImage">
           <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
@@ -147,10 +157,15 @@
         </ul>
 
       </div>
+    -->
+    </div>
+    <div class="cart-total">
+      <strong class="cart-total-title">Total</strong>
+      <span class="cart-total-price">$39.97</span>
     </div>
     <div class="butCenter">
       <a href ="./checkoutPage.html" class = "checkClick">
-        <button  class ="checkout" type="button">Checkout</button>
+        <button  id ="checkout" type="button">Checkout</button>
       </a>
 
     </div>
