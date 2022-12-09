@@ -100,31 +100,81 @@ function addItemsToPage(name, color, size, image, price, quantity){
     var cartRow = document.createElement('div');
     cartRow.classList.add('cart');
     var cartItems = document.getElementsByClassName('page')[0];
+    
+/*<div class="cart">
+        <ul class="productImage">
+          <li class="productList"><img class="productCardImage" src=${image}></li>
+        </ul>
+
+        <ul class="productData">
+          <li class="productDetails">
+            <h2>Product Name:</h2>
+            <div class="ProductName">
+                ${name} 
+            <h2> Size:</h2>
+            <div class="ProductSize">
+                ${size} 
+            <h2>Color:</h2>
+            <div class="ProductColor">
+                ${color}
+
+            </div>
+          </li>
+
+        </ul>
+        <ul>
+          <li>
+            <h2>Price:</h2>
+              ${price}
+          </li>
+
+
+        </ul>
+
+        <ul>
+          <li>
+            <h2>Quantity:</h2>
+            <input type="number" class = "quantity" id="points" name="points" step="1" value = ${quantity}>
+          </li>
+        </ul>
+
+      </div>*/
+
         var cartRowContents =  `
         <div class="cart">
         <ul class="productImage">
-          <li class="productList"><img class="productCardImage" src="${image}"></li>
+          <li class="productList"><img class="productCardImage" src=${image}></li>
         </ul>
-        
+
         <ul class="productData">
           <li class="productDetails">
-            <div class="ProductName">${name}</div>
-            <div class="ProductSize">${size}</div>
-            <div class="ProductColor">${color}</div>
+            <h2>Product Name:</h2>
+            <div class="ProductName">
+                ${name} 
+            <h2> Size:</h2>
+            <div class="ProductSize">
+                ${size} 
+            <h2>Color:</h2>
+            <div class="ProductColor">
+                ${color}
+
+            </div>
           </li>
-          
+
         </ul>
         <ul>
           <li>
-            ${price}
+            <h2>Price:</h2>
+              ${price}
           </li>
 
 
         </ul>
-        <button class="removeButton" type="button">REMOVE</button>
+
         <ul>
           <li>
-            <input type="number" class = "quantity" id="points" name="points" step="1" value = "${quantity}">
+            <h2>Quantity:</h2>
+            <input type="number" class = "quantity" id="points" name="points" step="1" value = ${quantity}>
           </li>
         </ul>
 
