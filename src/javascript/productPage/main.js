@@ -1,3 +1,5 @@
+
+
 // When the user scrolls the page, execute myFunction
 window.onscroll = function() {myFunction()};
 
@@ -58,7 +60,7 @@ async function Start(){
   item_name.innerHTML = ProdOBJ.price
   const PID = ProdOBJ.ProductID
   //window.sessionStorage.clear();  UNCOMMENT WHEN DONE
-  window.sessionStorage.setItem("PID", PID)
+  
   requestData(PID)
   
 }
@@ -72,9 +74,11 @@ function requestData(ProdID){
     console.log(HTTP.response);
     let response = HTTP.response;
     this.DataObj = HTTP.response;
+    window.sessionStorage.setItem("responseOBJ", response)
     configSizes(JSON.parse(response))
     changeTopDirectory(JSON.parse(response))
     imageSetterSTOCK(JSON.parse(response))
+    console.log("it got here")
     configColors(JSON.parse(response))
     changeSubCat(JSON.parse(response))
   }
@@ -90,40 +94,7 @@ function imageSetterSTOCK(responseObj, color){
   var item_image = document.getElementById("Item_Image");
   item_image.innerHTML = "<img border-left=\none\" height=\"1001px\" width=\"755px\" src="+responseObj.data[0].image+">"
 }
-function imageSetterChange(responseObj, color){
-  // need pid category and color
-  /*let category = responseObj.data[0].Category
-  let pid = responseObj.data[0].PID
-  const HTTP = new XMLHttpRequest();
-  const URL = 'http://localhost:8000/getItemImage' + ProdID;
-  HTTP.open("GET", URL);
-  HTTP.onload = () =>{
-    console.log("response: ");
-    console.log(HTTP.response);
-    let response = HTTP.response;
-    this.DataObj = HTTP.response;
-    configSizes(JSON.parse(response))
-    changeTopDirectory(JSON.parse(response))
-    imageSetter(JSON.parse(response))
-    configColors(JSON.parse(response))
-    changeSubCat(JSON.parse(response))
-  }
-  HTTP.send();*/
-  const HTTP = new XMLHttpRequest();
-  const URL = 'http://localhost:8000/products/productCatalog/' + sessionStorage.getItem("PID");
-  HTTP.open("GET", URL);
-  HTTP.onload = () =>{
-    console.log("response: ");
-    console.log(HTTP.response);
-    let response = HTTP.response;
-    responseObj =JSON.parse(response)
-    var item_image = document.getElementById("Item_Image");
-    item_image.innerHTML = "<img border-left=\none\" height=\"1001px\" width=\"755px\" src="+"./productImages/"+String(color) +responseObj.data.name +">"
-    console.log((responseObj.data[0].Name).split(" ").join(""))
-  }
-  HTTP.send();
-  
-}
+
 console.log(sessionStorage.getItem("PID"))
 function changeTopDirectory(responseObj){
   document.getElementById("category").innerHTML = responseObj.data[0].Category
@@ -142,9 +113,10 @@ function configSizes(responseObj){
   }
 }
 function configColors(responseObj){
+  console.log(responseObj)
   const Colors = responseObj.colors
   for(let i =0; i<Colors.length;i++){
-    let curr = String(Colors[i]);
+    let curr = String(Colors[i].color);
     document.getElementById(curr).style = "display:show;"
   }
 }
@@ -154,36 +126,99 @@ Start()
 
 const ATCBUTTON = document.getElementById("ATC")
 ATCBUTTON.onclick = function(){
-  let testObj = {
-    "vid":"001",
-    "pid":"102",
-    "size":"S",
-    "color":"blue",
-    "add":"true"
+  AddToCart()
 }
-  const HTTP = new XMLHttpRequest();
-    const URL = 'http://localhost:8000/orders/cart';
-    HTTP.open("POST", URL);
-    HTTP.onload = () =>{
-    let INFO = HTTP.responseText;
-    console.log(INFO)
+
+
+let dropdown = document.getElementById("dropdown");
+dropdown.onchange =  function(){
+  let selectedColor = dropdown.options[dropdown.selectedIndex].value
+  let OBJ = window.sessionStorage.getItem("responseOBJ")
+  let responseOBJ = JSON.parse(OBJ);
+  let Colors = responseOBJ.colors
+  for(let i =0; i<Colors.length;i++){
+    let curr = String(Colors[i].color);
+    if(Colors[i].color == selectedColor){
+      var item_image = document.getElementById("Item_Image");
+      item_image.innerHTML = "<img border-left=\none\" height=\"1001px\" width=\"755px\" src="+Colors[i].image+">"
+      window.sessionStorage.setItem("currIMG", Colors[i].image)
+      
     }
-    HTTP.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    const string = JSON.stringify(testObj)
-    HTTP.send(string);
+      
+  }
+};
+/* Fields needed in cart session storage
+pid:
+
+*/
+
+  
+function AddToCart(){
+  let selectedColor = dropdown.options[dropdown.selectedIndex].value
+  let size = window.sessionStorage.getItem("CurrSize");
+  let pid = (JSON.parse(window.sessionStorage.getItem("productOBJ"))).ProductID
+  let productName = (JSON.parse(window.sessionStorage.getItem("productOBJ"))).name
+  let image = window.sessionStorage.getItem("currIMG")
+  let price = document.getElementById("itemprice").innerHTML
+  let quantity = 1;
+  let CARTOBJ = {
+    "PID":pid,
+    "ProductName":productName,
+    "color":selectedColor,
+    "Size":size,
+    "image":image,
+    "price":price,
+    "quantity":quantity
+  }
+  let currCart = window.sessionStorage.getItem("cart")
+  if(currCart != null){
+    let flag = true
+    currCart = JSON.parse(currCart)
+    for(let i =0;i<currCart.length; i++){
+      if (currCart[i] == JSON.stringify(CARTOBJ)){
+        flag=false
+        alert("You Have Already Added a Product With The Same Size And Color Go To Cart Page To Edit Quantity")
+      }
+    }
+    if(flag){
+      currCart.push(JSON.stringify(CARTOBJ))
+      console.log(currCart)
+      let currCartObJString = JSON.stringify(currCart)
+      console.log(currCartObJString)
+      window.sessionStorage.setItem("cart", currCartObJString)
+      
+    }
+    
+  }else{
+    var CartArr = [];
+    let StringCartOBJ = JSON.stringify(CARTOBJ)
+    CartArr.push(StringCartOBJ)
+    console.log(CartArr)
+    window.sessionStorage.setItem("cart", JSON.stringify(CartArr))
+    
+
+  }
+
+  
 }
-document.cookie = "test =hello WOrld"
-let x= new Date(Date.now() + 900000).toUTCString()
-let testObj = {
-  "vid":"001",
-  "pid":"102",
-  "size":"S",
-  "color":"blue",
-  "add":"true"
+var ele = document.getElementsByName('size');
+document.getElementById("S").onclick = function() {
+  window.sessionStorage.setItem("CurrSize", "S")
+  console.log(window.sessionStorage.getItem("CurrSize"))
+}
+document.getElementById("M").onclick = function() {
+  window.sessionStorage.setItem("CurrSize", "M")
+  console.log(window.sessionStorage.getItem("CurrSize"))
+}
+document.getElementById("L").onclick = function() {
+  window.sessionStorage.setItem("CurrSize", "L")
+  console.log(window.sessionStorage.getItem("CurrSize"))
+}
+document.getElementById("XL").onclick = function() {
+  window.sessionStorage.setItem("CurrSize", "XL")
+  console.log(window.sessionStorage.getItem("CurrSize"))
 }
 
 
-document.cookie= "username="+JSON.stringify(testObj)+"; expires=" + x;
-console.log(x)
 
 
