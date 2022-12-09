@@ -86,6 +86,7 @@ function requestData(ProdID){
   const HTTP = new XMLHttpRequest();
   const URL = 'http://localhost:8000/products/productCatalog/' + ProdID;
   HTTP.open("GET", URL);
+  HTTP.withCredentials = true;
   HTTP.onload = () =>{
     console.log("response: ");
     console.log(HTTP.response);

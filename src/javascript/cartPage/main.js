@@ -195,6 +195,7 @@ function checkoutPressed(){
     const URL = 'http://localhost:8000/orders/cart';
     HTTP.setRequestHeader("Content-Type", "application/json");
     HTTP.open("POST", URL);
+    HTTP.withCredentials = true;
     HTTP.onreadystatechange = () =>{
         if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200){
             console.log("SUCCESS")

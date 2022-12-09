@@ -37,6 +37,12 @@ async function httpRequest(){
   HTTP.open("GET", url, false);
   HTTP.withCredentials = true;
   HTTP.onload = () =>{
+    if(HTTP.status != 200){
+      alert("Error: Invalid Username or Password");
+      location.assign('./logInpage.html');
+      return;
+    }
+
     console.log("HTTP Response: ")
     console.log(HTTP.status);
     console.log(HTTP.response);
