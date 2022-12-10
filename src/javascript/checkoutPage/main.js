@@ -1,4 +1,162 @@
+const appId = 'sandbox-sq0idb-iycAVETrDwv8RmQASgRRfQ';
+const locationId = 'LK38JFXQTCF5Z';
 
+async function initializeCard(payments) {
+const card = await payments.card();
+await card.attach('#card-container');
+return card;
+}
+
+async function createPayment(token) {
+console.log("TEST");
+const body = JSON.stringify({
+    locationId,
+    sourceId: token,
+});
+
+async function getPay() {
+    let cartArr = window.sessionStorage.getItem("cart")
+    let x = document.getElementById("dropdown");
+    let state = x.options[x.selectedIndex].value
+    console.log(String(state))
+
+
+    console.log("SUCCESS")
+    const HTTP = new XMLHttpRequest();
+    var paymentResponse;
+    const URL = 'http://localhost:8000/orders?state=' + state;
+    console.log("SENDING", URL);
+    let orderNumber;
+    HTTP.open("POST", URL, false);
+    HTTP.withCredentials = true;
+    HTTP.setRequestHeader("Content-Type", "application/json");
+    HTTP.onreadystatechange = () => {
+    if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200) {
+        console.log("SUCCESS")
+        const check = JSON.parse(HTTP.response)
+        console.log(check.orderNum)
+        orderNumber = check.orderNum
+        paymentResponse = getPaymentResp(orderNumber)
+
+    }
+    }
+    HTTP.send(cartArr);
+    console.log("DONE");
+    console.log(paymentResponse)
+    return paymentResponse;
+}
+const paymentResponse = await getPay();
+async function getPaymentResp(orderNumber) {
+    console.log(orderNumber)
+    const paymentResp = await fetch('http://localhost:8000/orders/payment/' + orderNumber, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body,
+    });
+    window.location.replace("/OrderPlaced.html?ordernumber=" + orderNumber);
+    return paymentResp
+}
+console.log(orderNumber)
+//JSON.parse(orderNumber)
+
+
+
+if (paymentResponse.ok) {
+    console.log("returning");
+    return paymentResponse.json();
+}
+
+const errorBody = await paymentResponse.text();
+throw new Error(errorBody);
+}
+
+async function tokenize(paymentMethod) {
+const tokenResult = await paymentMethod.tokenize();
+if (tokenResult.status === 'OK') {
+    return tokenResult.token;
+} else {
+    let errorMessage = `Tokenization failed with status: ${tokenResult.status}`;
+    if (tokenResult.errors) {
+    errorMessage += ` and errors: ${JSON.stringify(
+        tokenResult.errors
+    )}`;
+    }
+
+    throw new Error(errorMessage);
+}
+}
+
+// status is either SUCCESS or FAILURE;
+function displayPaymentResults(status) {
+const statusContainer = document.getElementById(
+    'payment-status-container'
+);
+if (status === 'SUCCESS') {
+    statusContainer.classList.remove('is-failure');
+    statusContainer.classList.add('is-success');
+} else {
+    statusContainer.classList.remove('is-success');
+    statusContainer.classList.add('is-failure');
+}
+
+statusContainer.style.visibility = 'visible';
+}
+
+document.addEventListener('DOMContentLoaded', async function () {
+if (!window.Square) {
+    throw new Error('Square.js failed to load properly');
+}
+
+let payments;
+try {
+    payments = window.Square.payments(appId, locationId);
+} catch {
+    const statusContainer = document.getElementById(
+    'payment-status-container'
+    );
+    statusContainer.className = 'missing-credentials';
+    statusContainer.style.visibility = 'visible';
+    return;
+}
+
+let card;
+try {
+    card = await initializeCard(payments);
+} catch (e) {
+    console.error('Initializing Card failed', e);
+    return;
+}
+
+// Checkpoint 2.
+async function handlePaymentMethodSubmission(event, paymentMethod) {
+    event.preventDefault();
+
+    try {
+    // disable the submit button as we await tokenization and make a payment request.
+    cardButton.disabled = true;
+    const token = await tokenize(paymentMethod);
+    const paymentResults = await createPayment(token);
+    displayPaymentResults('SUCCESS');
+
+    console.debug('Payment Success', paymentResults);
+    } catch (e) {
+    cardButton.disabled = false;
+    displayPaymentResults('FAILURE');
+    console.error(e.message);
+    }
+}
+
+const cardButton = document.getElementById('check');
+cardButton.addEventListener('click', async function (event) {
+    await handlePaymentMethodSubmission(event, card);
+});
+
+});
+
+
+// <----------------- 1.0 ----------------->
 let x = document.getElementById("dropdown");
 x.onchange =  function(){Abbreviation(x.options[x.selectedIndex].value)};
 function Abbreviation(State){
@@ -79,9 +237,9 @@ function getDataFromCartSessionStorage(){
     console.log(cartArr)
     console.log(subtotal)
 }
-document.getElementById("check").onclick = function(){
-    SubmitButton()
-}
+// document.getElementById("check").onclick = function(){
+//     SubmitButton()
+// }
 function SubmitButton(){
     
     let cartArr = window.sessionStorage.getItem("cart")
@@ -104,7 +262,6 @@ function SubmitButton(){
     
     HTTP.send(cartArr);
     console.log(state)
-    alert("TEST STOP")
 }
 /*
 post to /orders? state = 

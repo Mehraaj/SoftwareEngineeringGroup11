@@ -45,7 +45,6 @@ const checkLogIn = async (req, res) => {
   });
   try {
     const cart = await getCart(userID);
-    res.cookie("cart", JSON.stringify(cart));
     logger.debug(JSON.stringify(cart));
   } catch {
     res.status(STATUS.BAD_REQUEST).send("Could not get cart");

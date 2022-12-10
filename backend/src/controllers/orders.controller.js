@@ -69,9 +69,9 @@ const fetchOrderByID = async (req, res) => {
 const handleOrder = async (req, res) => {
   // #swagger.tags = ['Orders']
   // #swagger.summary = 'Handles order placement and payment'
-  const {state}  = req.query;
-  console.log("State from request:")
-  console.log(state)
+  const { state } = req.query;
+  console.log("State from request:");
+  console.log(state);
   const cart = req.body;
 
   let vid;
@@ -89,7 +89,7 @@ const handleOrder = async (req, res) => {
         const { PID, color, Size, quantity } = order;
         await query(
           "INSERT INTO trinityfashion.orders VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
-          [vid, PID, quantity, color,Size , orderNum, state, date, null]
+          [vid, PID, quantity, color, Size, orderNum, state, date, null]
         );
       })
     );
@@ -103,7 +103,7 @@ const handleOrder = async (req, res) => {
 const updateCart = async (req, res) => {
   // #swagger.tags = ['Orders']
 
-  const cart  = req.body;
+  const cart = req.body;
   const { vid } = req.user;
 
   query("DELETE FROM trinityfashion.Cart WHERE vid = ?;", [vid]);
@@ -111,15 +111,11 @@ const updateCart = async (req, res) => {
   try {
     await Promise.all(
       cart.map(async (order) => {
-        const { PID, color, Size , image, quantity} = order;
-        await query("INSERT INTO trinityfashion.Cart VALUES (?, ?, ?, ?, ?, ?);", [
-          vid,
-          PID,
-          quantity,
-          Size,
-          color,
-          image,
-        ]);
+        const { PID, color, Size, image, quantity } = order;
+        await query(
+          "INSERT INTO trinityfashion.Cart VALUES (?, ?, ?, ?, ?, ?);",
+          [vid, PID, quantity, Size, color, image]
+        );
       })
     );
     res.status(STATUS.OK).json({ cart: cart });
@@ -136,7 +132,6 @@ const fetchCart = async (req, res) => {
 
   try {
     const cart = await getCart(vid);
-    res.cookie("cart", JSON.stringify(cart));
     res.status(STATUS.OK).json(cart);
   } catch (error) {
     logger.error(error);
@@ -151,7 +146,7 @@ const getCart = async (vid) => {
       "SELECT cart.PID, cart.quantity, cart.size as Size, cart.color, cart.image, products.name as ProductName, products.price FROM trinityfashion.Cart as cart inner join trinityfashion.productCatalog as products ON cart.PID = products.PID WHERE VID = ?;",
       [vid]
     );
-    
+
     return cart;
   } catch (error) {
     logger.error(error);
@@ -294,8 +289,11 @@ const generateOrderReceipt = async (req, res) => {
   const doc = new jsPDF();
 
   const filename = `order-${orderNumber}.pdf`;
-  res.setHeader('Content-Disposition', 'attachment; filename="' + filename + '"')
-  res.setHeader('Content-Type', 'application/pdf')
+  res.setHeader(
+    "Content-Disposition",
+    'attachment; filename="' + filename + '"'
+  );
+  res.setHeader("Content-Type", "application/pdf");
   doc.setFont("cambria");
   doc.setFontSize(20);
   doc.addImage(logo, doc.internal.pageSize.getWidth() / 2 - 60, 10, 120, 30);
@@ -321,8 +319,9 @@ const generateOrderReceipt = async (req, res) => {
   doc.text(`Tax: $${details.taxTotal.toFixed(2)}`, 10, offset + 10);
   doc.text(`Grand Total: $${details.grandTotal.toFixed(2)}`, 10, offset + 20);
 
-  const arraybuffer = doc.output('blob');
-  res.send(await arraybuffer.text());
+  const arraybuffer = doc.output("arraybuffer");
+  res.write(new Uint8Array(arraybuffer));
+  res.end();
 };
 
 module.exports = {
