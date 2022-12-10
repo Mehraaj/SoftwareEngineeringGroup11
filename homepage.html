@@ -17,24 +17,38 @@
       <a href="homepage.html" class="homeLink"><img class = "logo"    src="./src/resources/homepage/logo.png" alt="Logo" href="./homepage.html"></a>
         <nav>
             <ul class = "nav_links">
-              <li class = "menuList"><a href = "./productListPage.html">Shoes</a>
+              <li class = "menuList"><a href = "./productListPage.html?Category=socks">Socks</a>
                 <div class="dropdown-content">
-                  <a href="./productListPage.html">Mens</a>
-                  <a href="./productListPage.html">Womens</a>
-                  <a href="./productListPage.html">View All</a>
+                  <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
+                  <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
+                  <a href="./productListPage.html?Category=socks&filter=all">View All</a>
                 </div>
               </li>
-              <li class = "menuList"><a href = "./productListPage.html">Shirts </a>
+              <li class = "menuList"><a href = "./productListPage.html?Category=hats">Hats</a>
                 <div class="dropdown-content">
-                  <a href="./productListPage.html">Mens</a>
-                  <a href="./productListPage.html">Womens</a>
-                  <a href="./productListPage.html">View All</a>
+                  <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
+                  <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
+                  <a href="./productListPage.html?Category=hats&filter=all">View All</a>
+                </div>
+              </li>
+              <li class = "menuList"><a href = "./productListPage.html?Category=shoes">Shoes</a>
+                <div class="dropdown-content">
+                  <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+                  <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+                  <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
+                </div>
+              </li>
+              <li class = "menuList"><a href = "./productListPage.html?Category=shirts">Shirts </a>
+                <div class="dropdown-content">
+                  <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+                  <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+                  <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
                 </div></li>
-              <li class = "menuList"><a href = "./productListPage.html">Pants </a>
+              <li class = "menuList"><a href = "./productListPage.html?Category=pants">Pants </a>
                 <div class="dropdown-content">
-                  <a href="./productListPage.html">Mens</a>
-                  <a href="./productListPage.html">Womens</a>
-                  <a href="./productListPage.html">View All</a>
+                  <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+                  <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+                  <a href="./productListPage.html?Category=pants&filter=all">View All</a>
                 </div></li>
             </ul>
             
@@ -42,7 +56,7 @@
         <nav>
           <ul class ="cta">
             <li class ="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
-            <li class = "menuList"><a href="./productListPage.html" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
+            <li class = "menuList"><a href="" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
             <li class = "menuList"><a href="./cartPage.html"><button><img class = "cartIMG" src="./src/resources/homepage/cart.png"><span class = "ATCcounter" id="ATCcounter">0</span></button></a></li>
             <li class = "menuList"><a href="./LoginPage.html"><img  class = "pfpIMG"src="./src/resources/homepage/profile.png"></a>
               <div class="dropdown-content">
@@ -59,9 +73,9 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
           <!-- Slides -->
-          <div class="swiper-slide"><img src="./src/resources/homepage/sliderimg1.jpg"></div>
-          <div class="swiper-slide"><img src="./src/resources/homepage/sliderimg1.jpg"></div>
-          <div class="swiper-slide"><img src="./src/resources/homepage/sliderimg1.jpg"></div>
+          <div class="swiper-slide"><img src="./src/resources/homepage/tphpv-yi1xv.jpg"></div>
+          <div class="swiper-slide"><img src="./src/resources/homepage/tgi88-ilao4.jpg"></div>
+          <div class="swiper-slide" id="blurry"><a href = "./LoginPage.html"><img src="./src/resources/homepage/wallpaperflare.com_wallpaper.jpg"></div></a>
           
         </div>
         <!-- If we need pagination -->
@@ -73,6 +87,7 @@
 
         
       </div>
+    
     </div>
     
     <h1>Featured Items</h1>
@@ -85,6 +100,8 @@
           <li class ="productList"><img id = "testing" class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+
           </a>
           
         </ul>
@@ -98,6 +115,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -111,6 +129,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -124,6 +143,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -137,6 +157,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -145,16 +166,18 @@
     </div>
 
 
-
-    <h2><a href="/productListPage.html" class="shoetag">Shoes</a></h2>
-    <div id = "shoes" class ="productsContainer">
+    <h2><a href="/productListPage.html?Category=hats&filter=all" id = "hatsHeader" class="shoetag" style="display:none;">Hats</a></h2>
+    <div id = "hats" class ="productsContainer" style="display:none;">
       
       <div class="productCard">
+        
         <ul class ="innerProductCard">
           <a href="/productPage.html" class = "clickToViewPage">
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+
           </a>
            
         </ul>
@@ -167,6 +190,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -179,6 +203,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -191,6 +216,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -203,6 +229,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -210,7 +237,149 @@
       </div>
     </div>
 
-    <h3><a href="/productListPage.html" class="shoetag">Shirts</a></h3>
+    <h2><a href="/productListPage.html?Category=socks&filter=all" id = "socksHeader" class="shoetag" style="display:none;">Socks</a></h2>
+    <div id = "socks" class ="productsContainer" style="display:none;">
+      
+      <div class="productCard">
+        
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+
+          </a>
+           
+        </ul>
+        
+      </div>
+
+      <div class="productCard">
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+          </a>
+           
+        </ul>
+        
+      </div>
+
+      <div class="productCard">
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+          </a>
+           
+        </ul>
+        
+      </div>
+
+      <div class="productCard">
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+          </a>
+           
+        </ul>
+        
+      </div>
+
+      <div class="productCard">
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+          </a>
+           
+        </ul>
+        
+      </div>
+    </div>
+
+    <h2><a href="/productListPage.html?Category=shoes&filter=all" id = "shoesHeader" class="shoetag" style="display:none;">Shoes</a></h2>
+    <div id = "shoes" class ="productsContainer" style="display:none;">
+      
+      <div class="productCard">
+        
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+
+          </a>
+           
+        </ul>
+        
+      </div>
+
+      <div class="productCard">
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+          </a>
+           
+        </ul>
+        
+      </div>
+
+      <div class="productCard">
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+          </a>
+           
+        </ul>
+        
+      </div>
+
+      <div class="productCard">
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+          </a>
+           
+        </ul>
+        
+      </div>
+
+      <div class="productCard">
+        <ul class ="innerProductCard">
+          <a href="/productPage.html" class = "clickToViewPage">
+          <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
+          <li class ="productList"><div class="ProductName">Product Name</div></li>
+          <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+          </a>
+           
+        </ul>
+        
+      </div>
+    </div>
+
+    <h3><a href="/productListPage.html?Category=shirts&filter=all" class="shoetag">Shirts</a></h3>
         <div  id = "Shirts" class ="productsContainer">
       
       <div class="productCard">
@@ -219,6 +388,8 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+    
           </a>
            
         </ul>
@@ -231,6 +402,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+              <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -243,6 +415,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+              <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -255,6 +428,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+              <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -267,13 +441,14 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+              <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
         
       </div>
     </div>
-    <h4><a href="/productListPage.html" class="shoetag">Pants</a></h4>
+    <h4><a href="/productListPage.html?Category=pants&filter=all" class="shoetag">Pants</a></h4>
     <div id = "pants"class ="productsContainer">
       
       <div class="productCard">
@@ -282,6 +457,8 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
+
           </a>
            
         </ul>
@@ -294,6 +471,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -306,6 +484,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -318,6 +497,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>
@@ -330,6 +510,7 @@
           <li class ="productList"><img class ="productCardImage"src="./src/resources/homepage/black-shirt.jpg"></li>
           <li class ="productList"><div class="ProductName">Product Name</div></li>
           <li class="productList"><div class="ProductName">$9.99</div></li>
+          <input type="hidden" id="custId" name="custId" value="3487">
           </a>
            
         </ul>

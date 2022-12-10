@@ -24,16 +24,30 @@ submit.onclick = async function () {
 
 async function httpRequest(){
   console.log("In httpRequest");
-  const HTTP = new XMLHttpRequest();
-  let url =
-        "http://localhost:8000/checkLogIn?username=" +
-        "username" +
-        "&password=" +
-        "password";
+
   
 
+  const HTTP = new XMLHttpRequest();
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  console.log("Password: ");
+  console.log(password);
+  const url =
+        `http://localhost:8000/users?username=${username}&password=${password}`;
+  
+  console.log("url: ")
+  console.log(url)
   HTTP.open("GET", url, false);
+  HTTP.withCredentials = true;
   HTTP.onload = () =>{
+    if(HTTP.status != 200){
+      alert("Error: Invalid Username or Password");
+      location.assign('./logInpage.html');
+      return;
+    }
+
+    console.log("HTTP Response: ")
+    console.log(HTTP.status);
     console.log(HTTP.response);
     processRequest(HTTP.response);
   }
@@ -53,10 +67,27 @@ async function httpRequest(){
 reject(error);
 }
 }); */
+async function importCart(){
+  const HTTP = new XMLHttpRequest();
+  const url = 'http://localhost:8000/orders/cart'
+  HTTP.open("GET", url, false);
+  HTTP.withCredentials = true;
+  HTTP.onload = () =>{
+    if(HTTP.status != 200){
+      //alert("Error: Invalid Username or Password");
+      //location.assign('./logInpage.html');
+      //console.log("NOT AUTHORIZED");
+      return;
+    }
+    sessionStorage.setItem('cart',HTTP.response);
+  }
+  HTTP.send();
 
+}
 async function Submit() {
 console.log("in submit");
   httpRequest();
+  importCart();
  /* if (resp.APIKey !== null) {
     let check = document.getElementById("check");
     check.href = "./AccountPage.html";
@@ -67,18 +98,21 @@ console.log("in submit");
 function processRequest(data){
   console.log("in ProcessRequest");
   console.log(data);
-  document.getElementById("check").href='./homepage.html?loggedIn=true';
+  document.getElementById("check").href='./homepage.html';
 }
 
-function CreateUser() {
-  let user = {
-    Username: "",
-    Password: "",
-    Cart: "",
-    CCNum: "",
-    CVV: "",
-    Exp: "",
-    address: "",
-  };
-  return user;
-}
+var searchBtn = document.getElementById("searchIconEnter");
+
+searchBtn.addEventListener("click",searchName);
+
+function searchName(){
+  let enteredSearch = document.getElementById("search").value;
+  console.log(enteredSearch);
+  let url = `./searchListPage.html?productName=${enteredSearch}`
+  console.log(url);
+  document.getElementById("searchIconEnter").href=url;
+  //location.assign(url);
+  
+  }
+
+

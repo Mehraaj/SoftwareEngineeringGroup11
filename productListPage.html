@@ -16,40 +16,52 @@
     <a href="homepage.html" class="homeLink"><img class="logo" src="./src/resources/homepage/logo.png" alt="Logo"
         href="./homepage.html"></a>
     <nav>
-      <ul class="nav_links">
-        <li class="menuList"><a href="./productListPage.html">Shoes</a>
+      <ul class = "nav_links">
+        <li class = "menuList"><a href = "./productListPage.html?Category=socks">Socks</a>
           <div class="dropdown-content">
-            <a href="./productListPage.html">Mens</a>
-            <a href="./productListPage.html">Womens</a>
-            <a href="./productListPage.html">View All</a>
+            <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
+            <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
+            <a href="./productListPage.html?Category=socks&filter=all">View All</a>
           </div>
         </li>
-        <li class="menuList"><a href="./productListPage.html">Shirts </a>
+        <li class = "menuList"><a href = "./productListPage.html?Category=hats">Hats</a>
           <div class="dropdown-content">
-            <a href="./productListPage.html">Mens</a>
-            <a href="./productListPage.html">Womens</a>
-            <a href="./productListPage.html">View All</a>
+            <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
+            <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
+            <a href="./productListPage.html?Category=hats&filter=all">View All</a>
           </div>
         </li>
-        <li class="menuList"><a href="./productListPage.html">Pants </a>
+        <li class = "menuList"><a href = "./productListPage.html?Category=shoes">Shoes</a>
           <div class="dropdown-content">
-            <a href="./productListPage.html">Mens</a>
-            <a href="./productListPage.html">Womens</a>
-            <a href="./productListPage.html">View All</a>
+            <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+            <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+            <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
           </div>
         </li>
+        <li class = "menuList"><a href = "./productListPage.html?Category=shirts">Shirts </a>
+          <div class="dropdown-content">
+            <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+            <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+            <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
+          </div></li>
+        <li class = "menuList"><a href = "./productListPage.html?Category=pants">Pants </a>
+          <div class="dropdown-content">
+            <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+            <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+            <a href="./productListPage.html?Category=pants&filter=all">View All</a>
+          </div></li>
       </ul>
 
     </nav>
     <nav>
       <ul class="cta">
         <li class="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
-        <li class="menuList"><a href="./productListPage.html" id="searchIconEnter"><button><img class="searchIcon"
+        <li class="menuList"><a href="" id="searchIconEnter"><button><img class="searchIcon"
                 src="./src/resources/homepage/Vector-Search.png"></button></a></li>
         <li class="menuList"><a href="./cartPage.html"><button><img class="cartIMG"
                 src="./src/resources/homepage/cart.png"><span class="ATCcounter" id="ATCcounter">0</span></button></a>
         </li>
-        <li class="menuList"><a href=""><img class="pfpIMG" src="./src/resources/homepage/profile.png"></a>
+        <li class="menuList"><a href="./LoginPage.html"><img class="pfpIMG" src="./src/resources/homepage/profile.png"></a>
           <div class="dropdown-content">
             <a>Login For Exclusive Content</a>
           </div>
@@ -63,15 +75,15 @@
     <div class="small-container">
       <h1>All Products</h1>
       <div class="drop">
-        <select name="dropdown" id="dropdown">
+        <select name="dropdownGender" id="filterGender">
           <option>All Products</option>
-          <option>Mens</option>
-          <option>Womens</option>
+          <option>male</option>
+          <option>female</option>
         </select>
         <select name="dropdownPrice" id="filterPrice">
           <option>Filters</option>
-          <option>Price Low to High</option>
-          <option>Price High to Low</option>
+          <option>Ascending Price</option>
+          <option>Descending Price</option>
         </select>
       </div>
     </div>
@@ -88,8 +100,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -104,8 +116,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -120,8 +132,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -136,8 +148,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -159,8 +171,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -175,8 +187,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -191,8 +203,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -207,80 +219,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-
-      </div>
-
-    </div>
-
-    <div class="small-container">
-      <div class="productsContainer">
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -303,8 +243,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -319,8 +259,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -335,8 +275,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -351,80 +291,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-
-      </div>
-
-    </div>
-
-    <div class="small-container">
-      <div class="productsContainer">
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -447,8 +315,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -463,8 +331,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -479,8 +347,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -495,8 +363,8 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>
@@ -519,8 +387,184 @@
               <li class="productList">
                 <div class="ProductName">$9.99</div>
               </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
+          </ul>
+
+        </div>
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="small-container">
+      <div class="productsContainer">
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="small-container">
+      <div class="productsContainer">
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
+          </ul>
+
+        </div>
+
+        <div class="productCard">
+          <ul class="innerProductCard">
+            <a href="/productPage.html" class="clickToViewPage">
+              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
+              <li class="productList">
+                <div class="ProductName">Product Name</div>
+              </li>
+              <li class="productList">
+                <div class="ProductName">$9.99</div>
+              </li>
+              <input type="hidden" id="custId" name="custId" value="3487">
+            </a>
           </ul>
 
         </div>
@@ -536,39 +580,6 @@
                 <div class="ProductName">$9.99</div>
               </li>
             </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
-          </ul>
-
-        </div>
-
-        <div class="productCard">
-          <ul class="innerProductCard">
-            <a href="/productPage.html" class="clickToViewPage">
-              <li class="productList"><img class="productCardImage" src="./src/resources/homepage/black-shirt.jpg"></li>
-              <li class="productList">
-                <div class="ProductName">Product Name</div>
-              </li>
-              <li class="productList">
-                <div class="ProductName">$9.99</div>
-              </li>
-            </a>
-            <li class="productList"><button class="ATC" name="ATC">Add to Cart</button></li>
           </ul>
 
         </div>

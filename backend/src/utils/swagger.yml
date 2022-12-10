@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: Welcome to swagger-jsdoc!
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: http://localhost:8000
+tags:
+  - name: users
+    description: Handling operations related to site members
+  - name: products
+    description: Interact with site catalog of products
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: Authenticate a user
+      description: Welcome to swagger-jsdoc!
+      parameters:
+       - in: query
+         name: username
+         required: true
+         description: Username of the user
+         schema:
+          type: string
+       - in: query
+         name: password
+         required: true
+         description: Password of the user
+         schema:
+          type: string
+      responses:
+        200:
+          description: Returns a mysterious string.
+    post:
+      tags:
+        - users
+      summary: Verify APIKey
+      description: Verify APIKey
+      parameters:
+       - in: cookie
+         name: APIKey
+         required: true
+         description: APIKey of the user
+      responses:
+        202:
+          description: APIKey verified
+          headers: 
+            Set-Cookie:
+              schema: 
+                type: string
+                example: "APIKey=bd6d8cb1-7617-408f-882e-a9a303f87222; Path=/; Expires=Fri, 09 Dec 2022 21:29:20 GMT"
+        401:
+          description: APIKey not verified
+      
+  /users/member:
+    post:
+      tags:
+        - users
+      summary: Create a new member
+      requestBody:
+        description: Provide all relevant information for the new member
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+      responses:
+        200:
+          description: Successfully created member
+        400:
+          description: Error with input validation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid Email"
+                  category:
+                    type: string
+                    enum:
+                      - typo
+                      - regex
+                      - disposable
+                    example: typo
+                  reason:
+                    type: string
+                    example: "Likely typo, suggested email: johndoe@gmail.com"
+  /products/productCatalog:
+    get:
+      tags:
+        - products
+      summary: Fetch items that the current visitor has access to
+      parameters:
+        - in: query
+          name: gender
+          schema:
+            type: string
+          description: gender to filter by
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: search by item name
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: search by category name
+      security:
+        - cookieAuth: []
+      responses:
+        200:
+          description: Successfully retrieved items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        PID:
+                          type: number
+                        Category:
+                          type: string
+                        Name:
+                          type: string
+                        Price:
+                          type: string
+                        SubCategory:
+                          type: string
+                        gender:
+                          type: string
+                          example: Male
+                        image:
+                          type: string
+              example:
+                data: 
+                - PID: 101
+                  Category: shirts
+                  Name: Plain Tee
+                  Price: "13.99"
+                  SubCategory: T-Shirts
+                  gender: male
+                  image: "./productImages/blackPlainTeeM.jpg"
+                - PID: 102
+                  Category: "pants"
+                  Name: "Ruler Straight Jeans"
+                  Price: "44.99"
+                  SubCategory: "Jeans"
+                  gender: "male"
+                  image: "./productImages/blueRulerStraightJeanM.jpg"
+
+components:
+  schemas:
+    Member:
+      type: object
+      properties:
+        Name:
+          type: string
+          example: John Doe
+        Email:
+          type: string
+          format: email
+          example: john.doe@gmail.com
+        Address:
+          type: string
+          example: 1 Main Street
+        State:
+          type: string
+          example: NJ
+        ZIP:
+          type: string
+          example: "08854"
+        Phone:
+          type: number
+          format: phone
+          example: 7327771234
+        username:
+          type: string
+          example: johndoe007
+        password:
+          type: string
+          format: password
+          example: supersecret
+  securitySchemes:
+    APIKey:
+      type: apiKey
+      name: APIKey
+      in: cookie

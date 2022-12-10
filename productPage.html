@@ -12,34 +12,48 @@
   <body>
     <header id="mainmenu">
       <a href="homepage.html" class="homeLink"><img class = "logo"    src="./src/resources/homepage/logo.png" alt="Logo" href="./homepage.html"></a>
-        <nav>
-            <ul class = "nav_links">
-              <li class = "menuList"><a href = "./productListPage.html">Shoes</a>
-                <div class="dropdown-content">
-                  <a href="./productListPage.html">Mens</a>
-                  <a href="./productListPage.html">Womens</a>
-                  <a href="./productListPage.html">View All</a>
-                </div>
-              </li>
-              <li class = "menuList"><a href = "./productListPage.html">Shirts </a>
-                <div class="dropdown-content">
-                  <a href="./productListPage.html">Mens</a>
-                  <a href="./productListPage.html">Womens</a>
-                  <a href="./productListPage.html">View All</a>
-                </div></li>
-              <li class = "menuList"><a href = "./productListPage.html">Pants </a>
-                <div class="dropdown-content">
-                  <a href="./productListPage.html">Mens</a>
-                  <a href="./productListPage.html">Womens</a>
-                  <a href="./productListPage.html">View All</a>
-                </div></li>
-            </ul>
-            
-        </nav>
+      <nav>
+        <ul class = "nav_links">
+          <li class = "menuList"><a href = "./productListPage.html?Category=socks">Socks</a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=socks&filter=all">View All</a>
+            </div>
+          </li>
+          <li class = "menuList"><a href = "./productListPage.html?Category=hats">Hats</a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=hats&filter=all">View All</a>
+            </div>
+          </li>
+          <li class = "menuList"><a href = "./productListPage.html?Category=shoes">Shoes</a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
+            </div>
+          </li>
+          <li class = "menuList"><a href = "./productListPage.html?Category=shirts">Shirts </a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
+            </div></li>
+          <li class = "menuList"><a href = "./productListPage.html?Category=pants">Pants </a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=pants&filter=all">View All</a>
+            </div></li>
+        </ul>
+        
+    </nav>
         <nav>
           <ul class ="cta">
             <li class ="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
-            <li class = "menuList"><a href="./productListPage.html" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
+            <li class = "menuList"><a href="" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
             <li class = "menuList"><a href="./cartPage.html"><button><img class = "cartIMG" src="./src/resources/homepage/cart.png"><span class = "ATCcounter" id="ATCcounter">0</span></button></a></li>
             <li class = "menuList"><a href="./LoginPage.html"><img  class = "pfpIMG"src="./src/resources/homepage/profile.png"></a>
               <div class="dropdown-content">
@@ -56,7 +70,7 @@
         <ul class="quick_Nav">
           <li class="clickable"><a class="bg" href = "./homepage.html">Home</a></li>
           <li><a class="bg">/</a></li>
-          <li class="clickable"><a class="bg" href = "./productListPage.html">Category</a></li>
+          <li class="clickable"><a class="bg" id="category" href = "./productListPage.html">Category</a></li>
           <li><a class="bg">/</a></li>
           <li><a class="bg" id="Item_Name"></a></li>
         </ul>
@@ -73,20 +87,51 @@
           <li id="itemsubcategory"></li>
           <li class="price" id="itemprice"></li>
         </ul>
-        <div class="sizes">
-          <input type="radio" name="size" id="size1">
-          <label for="size1">XS</label>
-          <input type="radio" name="size" id="size2">
-          <label for="size2">S</label>
-          <input type="radio" name="size" id="size3">
-          <label for="size3">M</label>
-          <input type="radio" name="size" id="size4">
-          <label for="size4">L</label>
-          <input type="radio" name="size" id="size5">
-          <label for="size5">XL</label>
+        <div class="sizes" id = "sizes">
+          <div id="S" style="display:none;">
+            <input type="hidden" name="size" id="S1" >
+            <label for="S1">S</label>
+          </div>
+          <div id="M" style="display:none;">
+            <input type="hidden" name="size" id="M1">
+            <label for="M1">M</label>
+          </div>
+          <div id="L" style="display:none;">
+            <input type="hidden" name="size" id="L1">
+            <label for="L1">L</label>
+          </div>
+          <div id="XL" style="display:none;">
+            <input type="hidden" name="size" id="XL1">
+            <label for="XL1">XL</label>
+          </div>
+          
         </div>
-        
-        <a name="ATC" class="add_to_cart">Add to Cart</a>
+        <div>
+          <select id = "dropdown" class = "COLORS">
+            <option>--Select-A-Color--</option>
+            <option   id ="white" value="white">white</option>
+            <option  style="display:none;" id ="green"  value="green">green</option>
+            <option  style="display:none;" id ="black"  value="black">black</option>
+            <option  style="display:none;" id ="blue"  value="blue">blue</option>
+            <option  style="display:none;" id ="red" value="red">red</option>
+          </select>
+        </div>
+        <div class = "sizes">
+          <select style="display:none;" id = "dropdown1" class = "COLORS">
+            <option value="">--Select-A-Size--</option>
+            <option style="display:none;"id ="8" value="8">8</option>
+            <option style="display:none;" id ="8.5"  value="8.5">8.5</option>
+            <option style="display:none;" id = "9" value="9">9</option>
+            <option style="display:none;" id ="9.5"  value="9.5">9.5</option>
+            <option style="display:none;" id ="10"  value="10">10</option>
+            <option style="display:none;" id ="10.5"  value="10.5">10.5</option>
+            <option style="display:none;" id = "11" value="11">11</option>
+            <option style="display:none;" id ="11.5"  value="11.5">11.5</option>
+            <option style="display:none;" id ="12"  value="12">12</option>
+            <option style="display:none;" id ="12.5"  value="12.5">12.5</option>
+          </select>
+        </div>
+        <a id = "ATC" name="ATC" class="add_to_cart">Add to Cart</a>
 
       </div>
     </div>

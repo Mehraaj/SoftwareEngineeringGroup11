@@ -1,44 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trinity Fashion | Checkout</title>
-    <link rel="stylesheet" href="./src/css/mainMenu.css">
-    <link rel="stylesheet" href="./src/css/checkoutPage.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <header id="mainmenu">
-    <a href="homepage.html" class="homeLink"><img class = "logo"    src="./src/resources/homepage/logo.png" alt="Logo" href="./homepage.html"></a>
-      <nav>
-          <ul class = "nav_links">
-            <li class = "menuList"><a href = "./productListPage.html">Shoes</a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div>
-            </li>
-            <li class = "menuList"><a href = "./productListPage.html">Shirts </a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div></li>
-            <li class = "menuList"><a href = "./productListPage.html">Pants </a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div></li>
-          </ul>
-          
-      </nav>
-      <nav>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trinity Fashion | Checkout</title>
+  <link rel="stylesheet" href="./src/css/mainMenu.css">
+  <link rel="stylesheet" href="./src/css/checkoutPage.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <link href="/app.css" rel="stylesheet" />
+
+</head>
+<header id="mainmenu">
+  <a href="homepage.html" class="homeLink"><img class="logo" src="./src/resources/homepage/logo.png" alt="Logo"
+      href="./homepage.html"></a>
+  <nav>
+    <ul class="nav_links">
+      <li class="menuList"><a href="./productListPage.html?Category=socks">Socks</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=socks&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=hats">Hats</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=hats&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=shoes">Shoes</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=shirts">Shirts </a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=pants">Pants </a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=pants&filter=all">View All</a>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
         <ul class ="cta">
           <li class ="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
-          <li class = "menuList"><a href="./productListPage.html" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
+          <li class = "menuList"><a href="" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
           <li class = "menuList"><a href="./cartPage.html"><button><img class = "cartIMG" src="./src/resources/homepage/cart.png"><span class = "ATCcounter" id="ATCcounter">0</span></button></a></li>
           <li class = "menuList"><a href="./LoginPage.html"><img  class = "pfpIMG"src="./src/resources/homepage/profile.png"></a>
             <div class="dropdown-content">
@@ -55,17 +74,15 @@
         <div class="split">
           <div class = "leftSide">
             <ul class = "cart">
-              <li>cart shit</li>
-              <li>cart Shit 2</li>
-              <li>cart Shit 3</li>
-              <li>cart Shit 2</li>
+              <ul class = "CheckoutLIST"><li>Name Of Item</li><li>Product Quantity</li><li>Price</li></ul>
+              <!--The code for this part is in main.js in the onStart Function-->
             </ul>
             <div class = "pricing">
               <ul>
                 <li>Subtotal:<div id="subtotal">$1000</div></li>
                 <li>Shipping:<div id="Shipping">$100</div></li>
-                <li>Tax:<div id = "Tax">$90</div></li>
-                <li>Total:<div id="Total">$200</div></li>
+                <li>Tax:<div id = "Tax">Enter A state</div></li>
+                <li>Total:<div id="Total">Enter A state to view total</div></li>
               </ul>
                 
             </div>
@@ -73,12 +90,6 @@
           <ul class = "checkoutInfo">
             <li class = "textAboveInput">Name</li>
                   <li class = "inputs"><input class = "Inputs" placeholder="Name"></li>
-                  <li class = "textAboveInput">Credit Card Number</li>
-                  <li class = "inputs"><input class = "Inputs" placeholder="Credit Card Number"></li>
-                  <li class ="textAboveInput">Expiry Date</li>
-                  <li class = "inputs"><input  class = "Inputs" placeholder="Expiry Date"></li>
-                  <li class = "textAboveInput">CVV</li>
-                  <li class = "inputs"><input class = "Inputs" placeholder="CVV"></li>
                   <li class ="textAboveInput">State</li>
                   <li class = "inputs"><select id = "dropdown">
                     <option value="">State</option>
@@ -136,10 +147,32 @@
                   </select></li>
                   <li class ="textAboveInput">Address</li>
                   <li class = "inputs"><input class = "Inputs" placeholder="Address"></li>
-                  <li class = "buttonItem"><a id="check" href="./OrderPlaced.html"><button  id = "submitButton" class="submitButton">Submit</button></a></li>
+                  <li class ="textAboveInput">Credit Card Info</li>
+                  <li>  <form id="payment-form">
+                    <div id="card-container"></div>
+                    <button id="card-button" type="button"></button>
+                  </form>
+                  <div id="payment-status-container"></div></li>
+                  <li class = "buttonItem"><a id="check"><button  id = "submitButton" class="submitButton">Submit</button></a></li>
           </ul>
         </div>
+        <script
+      type="text/javascript"
+      src="https://sandbox.web.squarecdn.com/v1/square.js"
+    ></script>
+    <script>
+      
+
+    </script>
+  </head>
+  <body>
+    <form id="payment-form">
+      <div id="card-container"></div>
+      <button id="card-button" type="button">Pay $5.00</button>
+    </form>
+    <div id="payment-status-container"></div>
     </main>
 	<script src="./src/javascript/checkoutPage/main.js"></script>
+
   </body>
 </html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trinity Fashion | Login</title>
+  <link rel="stylesheet" href="./src/css/mainMenu.css">
+  <link rel="stylesheet" href="./src/css/SignUpPage.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+<header id="mainmenu">
+  <a href="homepage.html" class="homeLink"><img class="logo" src="./src/resources/homepage/logo.png" alt="Logo"
+      href="./homepage.html"></a>
+      <nav>
+        <ul class = "nav_links">
+          <li class = "menuList"><a href = "./productListPage.html?Category=socks">Socks</a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=socks&filter=all">View All</a>
+            </div>
+          </li>
+          <li class = "menuList"><a href = "./productListPage.html?Category=hats">Hats</a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=hats&filter=all">View All</a>
+            </div>
+          </li>
+          <li class = "menuList"><a href = "./productListPage.html?Category=shoes">Shoes</a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
+            </div>
+          </li>
+          <li class = "menuList"><a href = "./productListPage.html?Category=shirts">Shirts </a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
+            </div></li>
+          <li class = "menuList"><a href = "./productListPage.html?Category=pants">Pants </a>
+            <div class="dropdown-content">
+              <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+              <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+              <a href="./productListPage.html?Category=pants&filter=all">View All</a>
+            </div></li>
+        </ul>
+        
+    </nav>
+  <nav>
+    <ul class="cta">
+      <li class="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
+      <li class="menuList"><a href="" id="searchIconEnter"><button><img class="searchIcon"
+              src="./src/resources/homepage/Vector-Search.png"></button></a></li>
+      <li class="menuList"><a href="./cartPage.html"><button><img class="cartIMG"
+              src="./src/resources/homepage/cart.png"><span class="ATCcounter" id="ATCcounter">0</span></button></a>
+      </li>
+      <li class="menuList"><a href="./LoginPage.html"><img class="pfpIMG"
+            src="./src/resources/homepage/profile.png"></a>
+        <div class="dropdown-content">
+          <a>Login To View Exclusive Content</a>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
+
+</header>
+
+<body>
+  <div class="LoginCard">
+    <div>
+      <ul class="LoginCredentials">
+        <li class="memberText">
+          <h2>Sign up to access exclusive deals and products!</h2>
+        </li>
+        <li class="textAboveInput">Name</li>
+        <li class="inputs"><input id = "name" type="name" class="Inputs" placeholder="Email"></li>
+        <li class="textAboveInput">Email</li>
+        <li class="inputs"><input id = "email" type="email" class="Inputs" placeholder="Email"></li>
+        <li class="textAboveInput">Username</li>
+        <li class="inputs"><input id = "username" class="Inputs" placeholder="Username"></li>
+        <li class="textAboveInput">Password</li>
+        <li class="inputs"><input id = "password" type="password" class="Inputs" placeholder="Password"></li>
+        <li class="buttonItem"><a id="check" href="./LoginPage.html"><button id="submitButton"
+              class="submitButton">Create Account!</button></a></li>
+
+      </ul>
+    </div>
+
+  </div>
+
+
+  <script src="./src/javascript/SignUpPage/main.js"></script>
+</body>
+
+</html>

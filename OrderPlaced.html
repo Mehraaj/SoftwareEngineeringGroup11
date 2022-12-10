@@ -1,64 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trinity Fashion | Order Placed</title>
-    <link rel="stylesheet" href="./src/css/mainMenu.css">
-    <link rel="stylesheet" href="./src/css/OrderPlaced.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-  </head>
-  <header id="mainmenu">
-    <a href="homepage.html" class="homeLink"><img class = "logo"    src="./src/resources/homepage/logo.png" alt="Logo" href="./homepage.html"></a>
-      <nav>
-          <ul class = "nav_links">
-            <li class = "menuList"><a href = "./productListPage.html">Shoes</a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div>
-            </li>
-            <li class = "menuList"><a href = "./productListPage.html">Shirts </a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div></li>
-            <li class = "menuList"><a href = "./productListPage.html">Pants </a>
-              <div class="dropdown-content">
-                <a href="./productListPage.html">Mens</a>
-                <a href="./productListPage.html">Womens</a>
-                <a href="./productListPage.html">View All</a>
-              </div></li>
-          </ul>
-          
-      </nav>
-      <nav>
-        <ul class ="cta">
-          <li class ="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
-          <li class = "menuList"><a href="./productListPage.html" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
-          <li class = "menuList"><a href="./cartPage.html"><button><img class = "cartIMG" src="./src/resources/homepage/cart.png"><span class = "ATCcounter" id="ATCcounter">0</span></button></a></li>
-          <li class = "menuList"><a href="./LoginPage.html"><img  class = "pfpIMG"src="./src/resources/homepage/profile.png"></a>
-            <div class="dropdown-content">
-              <a>Login To View Exclusive Content</a>
-            </div></li>
-        </ul>
-        
-      </nav>
-    
-  </header>
-  <body>
-    <main>
-        <div class="CheckoutSuccess">
-            <div><img src = "./src/resources/homepage/checkmark.png"></div>
-            <h1>Checkout Successful</h1>
-            <h2>Your Order Number is</h2>
-            <h3>#92785</h3>
-            <div><button>Cancel Order</button>  </div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trinity Fashion | Order Placed</title>
+  <link rel="stylesheet" href="./src/css/mainMenu.css">
+  <link rel="stylesheet" href="./src/css/OrderPlaced.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+<header id="mainmenu">
+  <a href="homepage.html" class="homeLink"><img class="logo" src="./src/resources/homepage/logo.png" alt="Logo"
+      href="./homepage.html"></a>
+  <nav>
+    <ul class="nav_links">
+      <li class="menuList"><a href="./productListPage.html?Category=socks">Socks</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=socks&filter=all">View All</a>
         </div>
-    </main>
-	<script src="./src/javascript/productPage/main.js"></script>
-  </body>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=hats">Hats</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=hats&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=shoes">Shoes</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=shirts">Shirts </a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=pants">Pants </a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=pants&filter=all">View All</a>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
+  <nav>
+    <ul class="cta">
+      <li class="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
+      <li class="menuList"><a href="" id="searchIconEnter"><button><img class="searchIcon"
+              src="./src/resources/homepage/Vector-Search.png"></button></a></li>
+      <li class="menuList"><a href="./cartPage.html"><button><img class="cartIMG"
+              src="./src/resources/homepage/cart.png"><span class="ATCcounter" id="ATCcounter">0</span></button></a>
+      </li>
+      <li class="menuList"><a href="./LoginPage.html"><img class="pfpIMG"
+            src="./src/resources/homepage/profile.png"></a>
+        <div class="dropdown-content">
+          <a>Login To View Exclusive Content</a>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
+
+</header>
+
+<body>
+  <main>
+    <div class="CheckoutSuccess">
+      <div><img src="./src/resources/homepage/checkmark.png"></div>
+      <h1>Checkout Successful</h1>
+      <h2>Your Order Number is</h2>
+      <h3 id="order-number">#92785</h3>
+      <div><button id="download-receipt">Download Receipt</button></div>
+    </div>
+  </main>
+  <script src="./src/javascript/OrderPlaced.html/main.js"></script>
+</body>
+
 </html>
