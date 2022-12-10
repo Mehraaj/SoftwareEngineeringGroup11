@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 *{
   background-color: rgba(245, 245, 220, 1);
+  font-family: "Montserrat", sans-serif;
 }
 .page{
   margin: auto;
@@ -89,3 +90,56 @@
     font-size: 20px;
     padding-bottom: 75px;
   }
+  .productImage{
+    padding: 25px;
+  }
+  .productDetails{
+    padding:20px;
+    text-align: center;
+  }
+  .removeButton{
+    padding: 10px;
+    font-weight: 200;
+    font-size: xx-large;
+    border-radius: 20000000000px;
+
+  }
+  .removeButton:hover{
+    transition: all 0.3s ease 0s;
+    background-color:rgba(128,128,128, 1);
+  }
+  .price{
+    padding:25px;
+  }
+  .spacing{
+    padding:20px;
+  }
+  .productData{
+    list-style: none;
+    
+  }
+  .cart-total{
+    padding:40px;
+    font-size: xx-large;
+    text-align: right;
+  }
+.h2{
+  padding:25px;
+}
+.ProductName{
+  padding:20px
+}
+.checkoutClass{
+  font-size: 50px;
+
+}
+.checkoutClass:hover{
+  transition: all 0.3s ease 0s;
+  background-color:rgba(128,128,128, 1);
+}
+.butCenter{
+  padding:60px;
+}
+.ProductColor{
+  padding-top: -100px;
+}
