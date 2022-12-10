@@ -125,10 +125,20 @@ function changeSubCat(responseObj){
 }
 function configSizes(responseObj){
   let AvailableSizes = responseObj.sizes
-  for(let i =0; i<AvailableSizes.length;i++){
+  let currCat = responseObj.data[0].Category
+  if(currCat === "shoes" || currCat === "socks"){
+    document.getElementById("dropdown1").style = "display:show;"
+    for(let i =0; i<AvailableSizes.length;i++){
+      let curr = String(AvailableSizes[i])
+      document.getElementById(curr).style = "display:show;"
+    }
+  }else{
+    for(let i =0; i<AvailableSizes.length;i++){
     let curr = String(AvailableSizes[i])
     document.getElementById(curr).style = "display:show;"
   }
+  }
+
 }
 function configColors(responseObj){
   console.log(responseObj)
@@ -173,7 +183,15 @@ pid:
   
 function AddToCart(){
   let selectedColor = dropdown.options[dropdown.selectedIndex].value
-  let size = window.sessionStorage.getItem("CurrSize");
+  let size;
+  let responseOBJ = JSON.parse(window.sessionStorage.getItem("responseOBJ"))
+  
+  if(responseOBJ.data[0].Category === "shoes" || responseOBJ.data[0].Category === "socks"){
+    size = window.sessionStorage.getItem("NumberSize");
+  }else{
+    size = window.sessionStorage.getItem("CurrSize");
+  }
+  
   let pid = (JSON.parse(window.sessionStorage.getItem("productOBJ"))).ProductID
   let productName = (JSON.parse(window.sessionStorage.getItem("productOBJ"))).name
   let image = window.sessionStorage.getItem("currIMG")
@@ -192,10 +210,13 @@ function AddToCart(){
   if(currCart != null){
     let flag = true
     currCart = JSON.parse(currCart)
+
     for(let i =0;i<currCart.length; i++){
-      if (currCart[i] == JSON.stringify(CARTOBJ)){
+
+      if (JSON.stringify(currCart[i]) == JSON.stringify(CARTOBJ)){
         flag=false
         alert("You Have Already Added a Product With The Same Size And Color Go To Cart Page To Edit Quantity")
+        
       }
     }
     if(flag){
@@ -220,6 +241,7 @@ function AddToCart(){
   
 }
 var ele = document.getElementsByName('size');
+
 document.getElementById("S").onclick = function() {
   window.sessionStorage.setItem("CurrSize", "S")
   console.log(window.sessionStorage.getItem("CurrSize"))
@@ -236,7 +258,11 @@ document.getElementById("XL").onclick = function() {
   window.sessionStorage.setItem("CurrSize", "XL")
   console.log(window.sessionStorage.getItem("CurrSize"))
 }
+let size = document.getElementById("dropdown1");
 
-
+size.onchange = function(){
+  let selectedsize = size.options[size.selectedIndex].value
+  window.sessionStorage.setItem("NumberSize" , selectedsize)
+}
 
 

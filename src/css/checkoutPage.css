@@ -80,3 +80,13 @@ h1{
     display: inline;
     padding-left: 5px;
 }
+
+.CheckoutLIST{
+    display:inline-flex;
+    list-style: none;
+    padding:5px;
+}
+
+.sizes{
+    padding:25px;
+}

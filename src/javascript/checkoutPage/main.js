@@ -69,7 +69,7 @@ function getDataFromCartSessionStorage(){
         let quantity = temp.quantity
         subtotal += price *quantity
     }
-    document.getElementById("subtotal").innerHTML = subtotal
+    document.getElementById("subtotal").innerHTML = Math.ceil((subtotal * 100) / 100)
     console.log(document.cookie)
     if(document.cookie != null && document.cookie != "None"){
         document.getElementById("Shipping").innerHTML = "FREE"
@@ -83,7 +83,7 @@ document.getElementById("check").onclick = function(){
     SubmitButton()
 }
 function SubmitButton(){
-    console.log("THUEHAIGUUEHGUIHUIO HJ")
+    
     let cartArr = window.sessionStorage.getItem("cart")
     let x = document.getElementById("dropdown");
     let state = x.options[x.selectedIndex].value
@@ -119,4 +119,28 @@ array of objects*/
 
 
 */
+OnStart()
+function OnStart(){
+    let cartArrWObjects = JSON.parse(window.sessionStorage.getItem("cart"))
+    for(let i =0; i<cartArrWObjects.length; i++){
+        let ProductName = cartArrWObjects[i].ProductName
+        let ProductQuantity = cartArrWObjects[i].quantity
+        let Price = Math.round(100*(ProductQuantity * cartArrWObjects[i].price))/100
 
+
+
+
+        const para = document.createElement("li");
+        let liContents = `
+        <ul class = "CheckoutLIST"><li>${ProductName}</li><li>${ProductQuantity}</li><li>$ ${Price}</li></ul>
+        ` 
+        para.innerHTML = liContents
+
+        
+        let CartHTML = document.getElementsByClassName("cart")[0]
+        CartHTML.appendChild(para)
+    }
+    
+    //console.log((document.getElementsByClassName("cart")[0]).appendChild(para))
+
+}
