@@ -195,8 +195,8 @@
               <ul>
                 <li>Subtotal:<div id="subtotal">$1000</div></li>
                 <li>Shipping:<div id="Shipping">$100</div></li>
-                <li>Tax:<div id = "Tax">$90</div></li>
-                <li>Total:<div id="Total">$200</div></li>
+                <li>Tax:<div id = "Tax">Enter A state</div></li>
+                <li>Total:<div id="Total">Enter A state to view total</div></li>
               </ul>
                 
             </div>
@@ -204,12 +204,6 @@
           <ul class = "checkoutInfo">
             <li class = "textAboveInput">Name</li>
                   <li class = "inputs"><input class = "Inputs" placeholder="Name"></li>
-                  <li class = "textAboveInput">Credit Card Number</li>
-                  <li class = "inputs"><input class = "Inputs" placeholder="Credit Card Number"></li>
-                  <li class ="textAboveInput">Expiry Date</li>
-                  <li class = "inputs"><input  class = "Inputs" placeholder="Expiry Date"></li>
-                  <li class = "textAboveInput">CVV</li>
-                  <li class = "inputs"><input class = "Inputs" placeholder="CVV"></li>
                   <li class ="textAboveInput">State</li>
                   <li class = "inputs"><select id = "dropdown">
                     <option value="">State</option>
@@ -267,15 +261,17 @@
                   </select></li>
                   <li class ="textAboveInput">Address</li>
                   <li class = "inputs"><input class = "Inputs" placeholder="Address"></li>
+                  <li class ="textAboveInput">Credit Card Info</li>
+                  <li>  <form id="payment-form">
+                    <div id="card-container"></div>
+                    <button id="card-button" type="button"></button>
+                  </form>
+                  <div id="payment-status-container"></div></li>
                   <li class = "buttonItem"><a id="check" href="./OrderPlaced.html"><button  id = "submitButton" class="submitButton">Submit</button></a></li>
           </ul>
         </div>
     </main>
 	<script src="./src/javascript/checkoutPage/main.js"></script>
-  <form id="payment-form">
-    <div id="card-container"></div>
-    <button id="card-button" type="button">Pay $5.00</button>
-  </form>
-  <div id="payment-status-container"></div>
+
   </body>
 </html>
