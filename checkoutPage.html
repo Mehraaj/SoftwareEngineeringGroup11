@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trinity Fashion | Checkout</title>
-    <link rel="stylesheet" href="./src/css/mainMenu.css">
-    <link rel="stylesheet" href="./src/css/checkoutPage.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <link href="/app.css" rel="stylesheet" />
 
-  </head>
-  <header id="mainmenu">
-    <a href="homepage.html" class="homeLink"><img class = "logo"    src="./src/resources/homepage/logo.png" alt="Logo" href="./homepage.html"></a>
-    <nav>
-      <ul class = "nav_links">
-        <li class = "menuList"><a href = "./productListPage.html?Category=socks">Socks</a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=socks&filter=all">View All</a>
-          </div>
-        </li>
-        <li class = "menuList"><a href = "./productListPage.html?Category=hats">Hats</a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=hats&filter=all">View All</a>
-          </div>
-        </li>
-        <li class = "menuList"><a href = "./productListPage.html?Category=shoes">Shoes</a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
-          </div>
-        </li>
-        <li class = "menuList"><a href = "./productListPage.html?Category=shirts">Shirts </a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
-          </div></li>
-        <li class = "menuList"><a href = "./productListPage.html?Category=pants">Pants </a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=pants&filter=all">View All</a>
-          </div></li>
-      </ul>
-      
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trinity Fashion | Checkout</title>
+  <link rel="stylesheet" href="./src/css/mainMenu.css">
+  <link rel="stylesheet" href="./src/css/checkoutPage.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <link href="/app.css" rel="stylesheet" />
+
+</head>
+<header id="mainmenu">
+  <a href="homepage.html" class="homeLink"><img class="logo" src="./src/resources/homepage/logo.png" alt="Logo"
+      href="./homepage.html"></a>
+  <nav>
+    <ul class="nav_links">
+      <li class="menuList"><a href="./productListPage.html?Category=socks">Socks</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=socks&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=hats">Hats</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=hats&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=shoes">Shoes</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=shirts">Shirts </a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=pants">Pants </a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=pants&filter=all">View All</a>
+        </div>
+      </li>
+    </ul>
+
   </nav>
         <ul class ="cta">
           <li class ="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
@@ -172,53 +176,54 @@
           sourceId: token,
         });
 
-        async function getPay(){
-        let cartArr = window.sessionStorage.getItem("cart")
-      let x = document.getElementById("dropdown");
-    let state = x.options[x.selectedIndex].value
-    console.log(String(state))
-  
-   
-    const HTTP = new XMLHttpRequest();
-    var paymentResponse;
-    const URL = 'http://localhost:8000/orders?state=' + state;
-    let orderNumber;
-    HTTP.open("POST", URL, false);
-    HTTP.withCredentials = true;
-    HTTP.setRequestHeader("Content-Type", "application/json");
-    HTTP.onreadystatechange = () =>{
-        if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200){
-            console.log("SUCCESS")
-            const check = JSON.parse(HTTP.response)
-            console.log(check.orderNum)
-            orderNumber = check.orderNum
-            paymentResponse = getPaymentResp(orderNumber)
+        async function getPay() {
+          let cartArr = window.sessionStorage.getItem("cart")
+          let x = document.getElementById("dropdown");
+          let state = x.options[x.selectedIndex].value
+          console.log(String(state))
 
+
+          const HTTP = new XMLHttpRequest();
+          var paymentResponse;
+          const URL = 'http://localhost:8000/orders?state=' + state;
+          let orderNumber;
+          HTTP.open("POST", URL, false);
+          HTTP.withCredentials = true;
+          HTTP.setRequestHeader("Content-Type", "application/json");
+          HTTP.onreadystatechange = () => {
+            if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200) {
+              console.log("SUCCESS")
+              const check = JSON.parse(HTTP.response)
+              console.log(check.orderNum)
+              orderNumber = check.orderNum
+              paymentResponse = getPaymentResp(orderNumber)
+
+            }
+          }
+          HTTP.send(cartArr);
+          console.log(paymentResponse)
+          return paymentResponse;
         }
-    }
-    HTTP.send(cartArr);
-    console.log(paymentResponse)
-    return paymentResponse;
-  }
-  const paymentResponse = await getPay();
-    async function getPaymentResp(orderNumber){
-      console.log(orderNumber)
-      const paymentResp = await fetch('http://localhost:8000/orders/payment/' + orderNumber, {
+        const paymentResponse = await getPay();
+        async function getPaymentResp(orderNumber) {
+          console.log(orderNumber)
+          const paymentResp = await fetch('http://localhost:8000/orders/payment/' + orderNumber, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body,
           });
+          window.location.replace("/OrderPlaced.html?ordernumber=" + orderNumber);
           return paymentResp
-    }
+        }
         console.log(orderNumber)
-        console.log(HTTP.response.orderNum)
         //JSON.parse(orderNumber)
 
-       
+
 
         if (paymentResponse.ok) {
+          console.log("returning");
           return paymentResponse.json();
         }
 
@@ -306,9 +311,9 @@
         cardButton.addEventListener('click', async function (event) {
           await handlePaymentMethodSubmission(event, card);
         });
-      
+
       });
-      
+
     </script>
   </head>
   <body>

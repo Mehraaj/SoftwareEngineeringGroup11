@@ -273,10 +273,10 @@ const calculateOrderDetails = async (vid, orderNumber) => {
 };
 
 const generateOrderReceipt = async (req, res) => {
-  const { vid } = req.user;
+  // const { vid } = req.user;
   const orderNumber = req.params.orderNumber;
 
-  const details = await calculateOrderDetails(vid, orderNumber);
+  const details = await calculateOrderDetails(null, orderNumber);
 
   const body = details.items.map((item, idx) => {
     return [
