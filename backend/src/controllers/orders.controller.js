@@ -69,7 +69,9 @@ const fetchOrderByID = async (req, res) => {
 const handleOrder = async (req, res) => {
   // #swagger.tags = ['Orders']
   // #swagger.summary = 'Handles order placement and payment'
-  const { state } = req.query;
+  const {state}  = req.query;
+  console.log("State from request:")
+  console.log(state)
   const cart = req.body;
 
   let vid;
@@ -87,7 +89,7 @@ const handleOrder = async (req, res) => {
         const { PID, color, Size, quantity } = order;
         await query(
           "INSERT INTO trinityfashion.orders VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
-          [vid, PID, color, Size, quantity, orderNum, state, date, null]
+          [vid, PID, quantity, color,Size , orderNum, state, date, null]
         );
       })
     );

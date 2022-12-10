@@ -16,7 +16,7 @@ app.use(morgan("tiny"));
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+//http://localhost:3000'
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials : true
