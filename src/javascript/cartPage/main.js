@@ -143,24 +143,20 @@ function addItemsToPage(name, color, size, image, price, quantity){
         var cartRowContents =  `
         <div class="cart">
         <ul class="productImage">
-          <li class="productList"><img class="productCardImage" src=${image}></li>
+          <li class="productList"><img class="productCardImage" src="${image}"></li>
         </ul>
-
+        
         <ul class="productData">
           <li class="productDetails">
-            <h2>Product Name:</h2>
-            <div class="ProductName">${name}</div> 
-            <h2> Size:</h2>
-            <div class="ProductSize">${size}</div>
-            <h2>Color:</h2>
-            <div class="ProductColor">${color}</div>
+            Product Name: <div class="ProductName">${name}</div>
+            Size: <div class="ProductSize">${size}</div>
+            Color: <div class="ProductColor">${color}</div>
           </li>
-
+          
         </ul>
         <ul>
           <li>
-            <h2>Price:</h2>
-              ${price}
+            ${price}
           </li>
 
 
@@ -168,8 +164,7 @@ function addItemsToPage(name, color, size, image, price, quantity){
         <button class="removeButton" type="button">REMOVE</button>
         <ul>
           <li>
-            <h2>Quantity:</h2>
-            <input type="number" class = "quantity" id="points" name="points" step="1" value = ${quantity}>
+            <input type="number" class = "quantity" id="points" name="points" step="1" value = "${quantity}">
           </li>
         </ul>
 
