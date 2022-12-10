@@ -1,163 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trinity Fashion | Checkout</title>
-    <link rel="stylesheet" href="./src/css/mainMenu.css">
-    <link rel="stylesheet" href="./src/css/checkoutPage.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <link href="/app.css" rel="stylesheet" />
 
-  </head>
-  <header id="mainmenu">
-    <a href="homepage.html" class="homeLink"><img class = "logo"    src="./src/resources/homepage/logo.png" alt="Logo" href="./homepage.html"></a>
-    <nav>
-      <ul class = "nav_links">
-        <li class = "menuList"><a href = "./productListPage.html?Category=socks">Socks</a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=socks&filter=all">View All</a>
-          </div>
-        </li>
-        <li class = "menuList"><a href = "./productListPage.html?Category=hats">Hats</a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=hats&filter=all">View All</a>
-          </div>
-        </li>
-        <li class = "menuList"><a href = "./productListPage.html?Category=shoes">Shoes</a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
-          </div>
-        </li>
-        <li class = "menuList"><a href = "./productListPage.html?Category=shirts">Shirts </a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
-          </div></li>
-        <li class = "menuList"><a href = "./productListPage.html?Category=pants">Pants </a>
-          <div class="dropdown-content">
-            <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
-            <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
-            <a href="./productListPage.html?Category=pants&filter=all">View All</a>
-          </div></li>
-      </ul>
-      
-  </nav>
-        <ul class ="cta">
-          <li class ="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
-          <li class = "menuList"><a href="" id = "searchIconEnter"><button><img class="searchIcon"src="./src/resources/homepage/Vector-Search.png"></button></a></li>
-          <li class = "menuList"><a href="./cartPage.html"><button><img class = "cartIMG" src="./src/resources/homepage/cart.png"><span class = "ATCcounter" id="ATCcounter">0</span></button></a></li>
-          <li class = "menuList"><a href="./LoginPage.html"><img  class = "pfpIMG"src="./src/resources/homepage/profile.png"></a>
-            <div class="dropdown-content">
-              <a>Login To View Exclusive Content</a>
-            </div></li>
-        </ul>
-        
-      </nav>
-    
-  </header>
-  <body>
-    <main>
-      <h1>Checkout</h1>
-        <div class="split">
-          <div class = "leftSide">
-            <ul class = "cart">
-              <li><ul>cart </ul></li>
-              <li><ul>cart Item 1</ul></li>
-              <li><ul class = "CheckoutLIST"><li>ProdName</li><li>prodquant</li><li>cost</li>cart </ul></li>
-              <li><ul>cart </ul></li>
-            </ul>
-            <div class = "pricing">
-              <ul>
-                <li>Subtotal:<div id="subtotal">$1000</div></li>
-                <li>Shipping:<div id="Shipping">$100</div></li>
-                <li>Tax:<div id = "Tax">$90</div></li>
-                <li>Total:<div id="Total">$200</div></li>
-              </ul>
-                
-            </div>
-          </div>
-          <ul class = "checkoutInfo">
-            <li class = "textAboveInput">Name</li>
-                  <li class = "inputs"><input class = "Inputs" placeholder="Name"></li>
-                  <li class = "textAboveInput">Credit Card Number</li>
-                  <li class = "inputs"><input class = "Inputs" placeholder="Credit Card Number"></li>
-                  <li class ="textAboveInput">Expiry Date</li>
-                  <li class = "inputs"><input  class = "Inputs" placeholder="Expiry Date"></li>
-                  <li class = "textAboveInput">CVV</li>
-                  <li class = "inputs"><input class = "Inputs" placeholder="CVV"></li>
-                  <li class ="textAboveInput">State</li>
-                  <li class = "inputs"><select id = "dropdown">
-                    <option value="">State</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
-                    <option value="CT">Connecticut</option>
-                    <option value="DE">Delaware</option>
-                    <option value="DC">District Of Columbia</option>
-                    <option value="FL">Florida</option>
-                    <option value="GA">Georgia</option>
-                    <option value="HI">Hawaii</option>
-                    <option value="ID">Idaho</option>
-                    <option value="IL">Illinois</option>
-                    <option value="IN">Indiana</option>
-                    <option value="IA">Iowa</option>
-                    <option value="KS">Kansas</option>
-                    <option value="KY">Kentucky</option>
-                    <option value="LA">Louisiana</option>
-                    <option value="ME">Maine</option>
-                    <option value="MD">Maryland</option>
-                    <option value="MA">Massachusetts</option>
-                    <option value="MI">Michigan</option>
-                    <option value="MN">Minnesota</option>
-                    <option value="MS">Mississippi</option>
-                    <option value="MO">Missouri</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NV">Nevada</option>
-                    <option value="NH">New Hampshire</option>
-                    <option value="NJ">New Jersey</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="NY">New York</option>
-                    <option value="NC">North Carolina</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="OH">Ohio</option>
-                    <option value="OK">Oklahoma</option>
-                    <option value="OR">Oregon</option>
-                    <option value="PA">Pennsylvania</option>
-                    <option value="RI">Rhode Island</option>
-                    <option value="SC">South Carolina</option>
-                    <option value="SD">South Dakota</option>
-                    <option value="TN">Tennessee</option>
-                    <option value="TX">Texas</option>
-                    <option value="UT">Utah</option>
-                    <option value="VT">Vermont</option>
-                    <option value="VA">Virginia</option>
-                    <option value="WA">Washington</option>
-                    <option value="WV">West Virginia</option>
-                    <option value="WI">Wisconsin</option>
-                    <option value="WY">Wyoming</option>
-                  </select></li>
-                  <li class ="textAboveInput">Address</li>
-                  <li class = "inputs"><input class = "Inputs" placeholder="Address"></li>
-                  <li class = "buttonItem"><a id="check" href="./OrderPlaced.html"><button  id = "submitButton" class="submitButton">Submit</button></a></li>
-          </ul>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trinity Fashion | Checkout</title>
+  <link rel="stylesheet" href="./src/css/mainMenu.css">
+  <link rel="stylesheet" href="./src/css/checkoutPage.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <link href="/app.css" rel="stylesheet" />
+
+</head>
+<header id="mainmenu">
+  <a href="homepage.html" class="homeLink"><img class="logo" src="./src/resources/homepage/logo.png" alt="Logo"
+      href="./homepage.html"></a>
+  <nav>
+    <ul class="nav_links">
+      <li class="menuList"><a href="./productListPage.html?Category=socks">Socks</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=socks&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=socks&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=socks&filter=all">View All</a>
         </div>
-        <script
-      type="text/javascript"
-      src="https://sandbox.web.squarecdn.com/v1/square.js"
-    ></script>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=hats">Hats</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=hats&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=hats&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=hats&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=shoes">Shoes</a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=shoes&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=shoes&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=shoes&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=shirts">Shirts </a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=shirts&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=shirts&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=shirts&filter=all">View All</a>
+        </div>
+      </li>
+      <li class="menuList"><a href="./productListPage.html?Category=pants">Pants </a>
+        <div class="dropdown-content">
+          <a href="./productListPage.html?Category=pants&filter=male">Mens</a>
+          <a href="./productListPage.html?Category=pants&filter=female">Womens</a>
+          <a href="./productListPage.html?Category=pants&filter=all">View All</a>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
+  <ul class="cta">
+    <li class="searchBarMovement"><input class="search" placeholder="Search For Items" id="search"></button></li>
+    <li class="menuList"><a href="" id="searchIconEnter"><button><img class="searchIcon"
+            src="./src/resources/homepage/Vector-Search.png"></button></a></li>
+    <li class="menuList"><a href="./cartPage.html"><button><img class="cartIMG"
+            src="./src/resources/homepage/cart.png"><span class="ATCcounter" id="ATCcounter">0</span></button></a></li>
+    <li class="menuList"><a href="./LoginPage.html"><img class="pfpIMG" src="./src/resources/homepage/profile.png"></a>
+      <div class="dropdown-content">
+        <a>Login To View Exclusive Content</a>
+      </div>
+    </li>
+  </ul>
+
+  </nav>
+
+</header>
+
+<body>
+  <main>
+    <h1>Checkout</h1>
+    <div class="split">
+      <div class="leftSide">
+        <ul class="cart">
+          <li>
+            <ul>cart </ul>
+          </li>
+          <li>
+            <ul>cart Item 1</ul>
+          </li>
+          <li>
+            <ul class="CheckoutLIST">
+              <li>ProdName</li>
+              <li>prodquant</li>
+              <li>cost</li>cart
+            </ul>
+          </li>
+          <li>
+            <ul>cart </ul>
+          </li>
+        </ul>
+        <div class="pricing">
+          <ul>
+            <li>Subtotal:<div id="subtotal">$1000</div>
+            </li>
+            <li>Shipping:<div id="Shipping">$100</div>
+            </li>
+            <li>Tax:<div id="Tax">$90</div>
+            </li>
+            <li>Total:<div id="Total">$200</div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <ul class="checkoutInfo">
+        <li class="textAboveInput">Name</li>
+        <li class="inputs"><input class="Inputs" placeholder="Name"></li>
+        <li class="textAboveInput">Credit Card Number</li>
+        <li class="inputs"><input class="Inputs" placeholder="Credit Card Number"></li>
+        <li class="textAboveInput">Expiry Date</li>
+        <li class="inputs"><input class="Inputs" placeholder="Expiry Date"></li>
+        <li class="textAboveInput">CVV</li>
+        <li class="inputs"><input class="Inputs" placeholder="CVV"></li>
+        <li class="textAboveInput">State</li>
+        <li class="inputs"><select id="dropdown">
+            <option value="">State</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+          </select></li>
+        <li class="textAboveInput">Address</li>
+        <li class="inputs"><input class="Inputs" placeholder="Address"></li>
+        <li class="buttonItem"><a id="check" href="./OrderPlaced.html"><button id="submitButton"
+              class="submitButton">Submit</button></a></li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
     <script>
       const appId = 'sandbox-sq0idb-iycAVETrDwv8RmQASgRRfQ';
       const locationId = 'LK38JFXQTCF5Z';
@@ -174,53 +196,54 @@
           sourceId: token,
         });
 
-        async function getPay(){
-        let cartArr = window.sessionStorage.getItem("cart")
-      let x = document.getElementById("dropdown");
-    let state = x.options[x.selectedIndex].value
-    console.log(String(state))
-  
-   
-    const HTTP = new XMLHttpRequest();
-    var paymentResponse;
-    const URL = 'http://localhost:8000/orders?state=' + state;
-    let orderNumber;
-    HTTP.open("POST", URL, false);
-    HTTP.withCredentials = true;
-    HTTP.setRequestHeader("Content-Type", "application/json");
-    HTTP.onreadystatechange = () =>{
-        if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200){
-            console.log("SUCCESS")
-            const check = JSON.parse(HTTP.response)
-            console.log(check.orderNum)
-            orderNumber = check.orderNum
-            paymentResponse = getPaymentResp(orderNumber)
+        async function getPay() {
+          let cartArr = window.sessionStorage.getItem("cart")
+          let x = document.getElementById("dropdown");
+          let state = x.options[x.selectedIndex].value
+          console.log(String(state))
 
+
+          const HTTP = new XMLHttpRequest();
+          var paymentResponse;
+          const URL = 'http://localhost:8000/orders?state=' + state;
+          let orderNumber;
+          HTTP.open("POST", URL, false);
+          HTTP.withCredentials = true;
+          HTTP.setRequestHeader("Content-Type", "application/json");
+          HTTP.onreadystatechange = () => {
+            if (HTTP.readyState === XMLHttpRequest.DONE && HTTP.status === 200) {
+              console.log("SUCCESS")
+              const check = JSON.parse(HTTP.response)
+              console.log(check.orderNum)
+              orderNumber = check.orderNum
+              paymentResponse = getPaymentResp(orderNumber)
+
+            }
+          }
+          HTTP.send(cartArr);
+          console.log(paymentResponse)
+          return paymentResponse;
         }
-    }
-    HTTP.send(cartArr);
-    console.log(paymentResponse)
-    return paymentResponse;
-  }
-  const paymentResponse = await getPay();
-    async function getPaymentResp(orderNumber){
-      console.log(orderNumber)
-      const paymentResp = await fetch('http://localhost:8000/orders/payment/' + orderNumber, {
+        const paymentResponse = await getPay();
+        async function getPaymentResp(orderNumber) {
+          console.log(orderNumber)
+          const paymentResp = await fetch('http://localhost:8000/orders/payment/' + orderNumber, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body,
           });
+          window.location.replace("/OrderPlaced.html?ordernumber=" + orderNumber);
           return paymentResp
-    }
+        }
         console.log(orderNumber)
-        console.log(HTTP.response.orderNum)
         //JSON.parse(orderNumber)
 
-       
+
 
         if (paymentResponse.ok) {
+          console.log("returning");
           return paymentResponse.json();
         }
 
@@ -308,23 +331,21 @@
         cardButton.addEventListener('click', async function (event) {
           await handlePaymentMethodSubmission(event, card);
         });
-      
+
       });
-      
+
     </script>
-  </head>
-  <body>
-    <form id="payment-form">
-      <div id="card-container"></div>
-      <button id="card-button" type="button">Pay $5.00</button>
-    </form>
-    <div id="payment-status-container"></div>
-    </main>
-	<script src="./src/javascript/checkoutPage/main.js"></script>
-  <form id="payment-form">
-    <div id="card-container"></div>
-    <button id="card-button" type="button">Pay $5.00</button>
-  </form>
+    </head>
+
+    <body>
+      <form id="payment-form">
+        <div id="card-container"></div>
+        <button id="card-button" type="button">Pay $5.00</button>
+      </form>
+      <div id="payment-status-container"></div>
+  </main>
+  <script src="./src/javascript/checkoutPage/main.js"></script>
   <div id="payment-status-container"></div>
-  </body>
+</body>
+
 </html>

@@ -96,6 +96,8 @@ paths:
                     example: "Likely typo, suggested email: johndoe@gmail.com"
   /products/productCatalog:
     get:
+      tags:
+        - products
       summary: Fetch items that the current visitor has access to
       parameters:
         - in: query
@@ -118,6 +120,47 @@ paths:
       responses:
         200:
           description: Successfully retrieved items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        PID:
+                          type: number
+                        Category:
+                          type: string
+                        Name:
+                          type: string
+                        Price:
+                          type: string
+                        SubCategory:
+                          type: string
+                        gender:
+                          type: string
+                          example: Male
+                        image:
+                          type: string
+              example:
+                data: 
+                - PID: 101
+                  Category: shirts
+                  Name: Plain Tee
+                  Price: "13.99"
+                  SubCategory: T-Shirts
+                  gender: male
+                  image: "./productImages/blackPlainTeeM.jpg"
+                - PID: 102
+                  Category: "pants"
+                  Name: "Ruler Straight Jeans"
+                  Price: "44.99"
+                  SubCategory: "Jeans"
+                  gender: "male"
+                  image: "./productImages/blueRulerStraightJeanM.jpg"
 
 components:
   schemas:

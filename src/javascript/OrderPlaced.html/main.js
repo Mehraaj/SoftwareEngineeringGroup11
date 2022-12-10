@@ -1,13 +1,7 @@
-var searchBtn = document.getElementById("searchIconEnter");
+const params = (new URL(document.location)).searchParams;
+document.getElementById("order-number").innerHTML = "#" + params.get("ordernumber");
 
-searchBtn.addEventListener("click",searchName);
 
-function searchName(){
-    let enteredSearch = document.getElementById("search").value;
-    console.log(enteredSearch);
-    let url = `./searchListPage.html?productName=${enteredSearch}`
-    console.log(url);
-    document.getElementById("searchIconEnter").href=url;
-    //location.assign(url);
-    
-    }
+document.getElementById("download-receipt").onclick = function() {
+    window.location.href = "http://localhost:8000/orders/receipts/" + params.get("ordernumber");
+}

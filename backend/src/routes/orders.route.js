@@ -33,7 +33,7 @@ router.route("/payment/:orderNumber").post(verifyUser(false), createPayment);
 
 router
   .route("/receipts/:orderNumber")
-  .get(verifyUser(true), generateOrderReceipt);
+  .get(verifyUser(false), generateOrderReceipt);
 
 router.route("/tax/:state").get(fetchTax);
 
